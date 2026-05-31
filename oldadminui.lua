@@ -88,7 +88,7 @@ local HintFollow = {
 --// This keeps the command panel visually locked to the same place on every monitor/window size.
 local MainLayout = {
 	RightOffset = 24,
-	BottomOffset = -15,
+	BottomOffset = -17,
 	ClosedPeek = 34,
 	Width = 285,
 	Height = 315,
