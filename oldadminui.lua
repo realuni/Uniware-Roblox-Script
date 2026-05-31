@@ -79,7 +79,7 @@ local Runtime = {
 --// Hint size is inside buildHint: Size = UDim2.fromOffset(185, 92).
 local HintFollow = {
 	AnchorPoint = Vector2.new(1, 0.78),
-	Offset = Vector2.new(0, 0),
+	Offset = Vector2.new(0, 40),
 }
 
 
@@ -88,7 +88,7 @@ local HintFollow = {
 --// This keeps the command panel visually locked to the same place on every monitor/window size.
 local MainLayout = {
 	RightOffset = 24,
-	BottomOffset = -17,
+	BottomOffset = -14,
 	ClosedPeek = 34,
 	Width = 285,
 	Height = 315,
@@ -1919,7 +1919,7 @@ local function buildInformationBuilder(parent)
 		BorderSizePixel = 0,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Size = UDim2.fromScale(0.0645, 0.0589),
-		Position = UDim2.fromScale(0.9552, 0.0601),
+		Position = UDim2.fromScale(0.975, 0.0601),
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	}, mainContainer)
