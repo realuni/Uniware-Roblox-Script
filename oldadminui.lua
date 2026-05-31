@@ -7,6 +7,9 @@ local Services = {
 	UserInputService = game:GetService("UserInputService"),
 	RunService = game:GetService("RunService"),
 	Lighting = game:GetService("Lighting"),
+	Workspace = game:GetService("Workspace"),
+	StarterPlayer = game:GetService("StarterPlayer"),
+	SoundService = game:GetService("SoundService"),
 	GuiService = game:GetService("GuiService"),
 	HttpService = game:GetService("HttpService"),
 }
@@ -19,6 +22,9 @@ local TweenService = Services.TweenService
 local UserInputService = Services.UserInputService
 local RunService = Services.RunService
 local Lighting = Services.Lighting
+local Workspace = Services.Workspace
+local StarterPlayer = Services.StarterPlayer
+local SoundService = Services.SoundService
 local GuiService = Services.GuiService
 local HttpService = Services.HttpService
 
@@ -53,6 +59,8 @@ local Runtime = {
 	CloseStamp = 0,
 	Settings = nil,
 	SettingsOpen = false,
+	InformationOpen = false,
+	DefaultRows = nil,
 	CapturingBind = false,
 	DraggingSlider = false,
 	FullbrightInputUpdating = false,
@@ -74,6 +82,62 @@ local HintFollow = {
 	Offset = Vector2.new(0, 0),
 }
 
+
+--// Main panel responsive layout:
+--// Uses bottom-right pixel offsets instead of raw screen-scale positions.
+--// This keeps the command panel visually locked to the same place on every monitor/window size.
+local MainLayout = {
+	RightOffset = 24,
+	BottomOffset = -10,
+	ClosedPeek = 34,
+	Width = 285,
+	Height = 315,
+	MinWidth = 255,
+	MinHeight = 285,
+	MaxWidth = 300,
+	MaxHeight = 335,
+}
+
+local function getMainResponsiveSize()
+	local viewport = Vector2.new(1280, 720)
+	local camera = workspace.CurrentCamera
+
+	if camera then
+		local cameraViewport = camera.ViewportSize
+		if cameraViewport.X > 0 and cameraViewport.Y > 0 then
+			viewport = cameraViewport
+		end
+	end
+
+	local width = math.clamp(math.floor(viewport.X * 0.235), MainLayout.MinWidth, MainLayout.MaxWidth)
+	local height = math.clamp(math.floor(width / 0.97), MainLayout.MinHeight, MainLayout.MaxHeight)
+
+	return UDim2.fromOffset(width, height)
+end
+
+local function getMainOpenPosition()
+	return UDim2.new(1, -MainLayout.RightOffset, 1, -MainLayout.BottomOffset)
+end
+
+local function getMainClosedPosition(main)
+	local height = MainLayout.Height
+
+	if main and main.AbsoluteSize.Y > 0 then
+		height = main.AbsoluteSize.Y
+	end
+
+	return UDim2.new(1, -MainLayout.RightOffset, 1, math.max(height - MainLayout.ClosedPeek, 0))
+end
+
+local function applyMainResponsiveLayout(main)
+	if not main then
+		return
+	end
+
+	main.AnchorPoint = Vector2.new(1, 1)
+	main.Size = getMainResponsiveSize()
+end
+
 Runtime.DefaultClockTime = Lighting.ClockTime
 Runtime.DefaultShadowSoftness = Lighting.ShadowSoftness
 
@@ -86,6 +150,12 @@ local CommandData = {
 		Undo = "unfullbright / unfb",
 		Editable = true,
 		SettingsPage = "fullbright",
+	},
+	{
+		Category = "WORLD",
+		Display = "defaults",
+		Aliases = { "defaults" },
+		Description = "Shows the default world and character settings captured from the experience when CFrame Zero loaded.",
 	},
 	{
 		Category = "WORLD",
@@ -832,7 +902,7 @@ local function buildBoardText(container)
 		TextSize = 14,
 		TextWrapped = true,
 		TextScaled = true,
-		Size = UDim2.fromScale(0.61, 0.042),
+		Size = UDim2.fromScale(0.99, 0.042),
 		Position = UDim2.fromScale(0.0768, 0.892),
 		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -1764,6 +1834,130 @@ local function buildSettingsBuilder(parent)
 	return builder
 end
 
+
+local function buildInformationBuilder(parent)
+	local builder = new("ImageLabel", {
+		Name = "InformationBuilder",
+		Image = "rbxassetid://95827797495948",
+		ZIndex = 5000,
+		BackgroundTransparency = 1,
+		ImageTransparency = 0.8899,
+		Visible = false,
+		AnchorPoint = Vector2.one * 0.5,
+		Position = UDim2.fromScale(0.4999, 0.56),
+		Size = UDim2.fromScale(0.259, 0.2292),
+		SliceCenter = Rect.new(85, 85, 427, 427),
+		ScaleType = Enum.ScaleType.Slice,
+		BorderColor3 = Color3.fromRGB(27, 42, 53),
+	}, parent)
+
+	local informationContainer = new("Frame", {
+		Name = "InformationContainer",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		Size = UDim2.fromScale(0.9694, 0.9513),
+		Position = UDim2.fromScale(0.0153, 0.0226),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ClipsDescendants = true,
+	}, builder)
+
+	local mainContainer = new("Frame", {
+		Name = "MainContainer",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.9993, 0.9974),
+		Position = UDim2.fromScale(0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, informationContainer)
+
+	corner(mainContainer, UDim.new(0, 5))
+	mainGradient(mainContainer)
+
+	local scroll = new("ScrollingFrame", {
+		Name = "ContainerScrollingFrame",
+		BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		ScrollBarThickness = 4,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ScrollBarImageTransparency = 0,
+		Active = true,
+		Size = UDim2.fromScale(0.9623, 0.838),
+		Position = UDim2.fromScale(0.0301, 0.1368),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ScrollBarImageColor3 = Color3.fromRGB(193, 54, 54),
+		AutomaticCanvasSize = Enum.AutomaticSize.None,
+		CanvasSize = UDim2.new(),
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		ZIndex = 5001,
+	}, mainContainer)
+
+	safeScrollImages(scroll)
+
+	new("UIListLayout", {
+		Padding = UDim.new(0, 7),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+	}, scroll)
+
+	new("UIPadding", {
+		PaddingTop = UDim.new(0, 10),
+		PaddingBottom = UDim.new(0, 10),
+		PaddingLeft = UDim.new(0, 2),
+		PaddingRight = UDim.new(0, 6),
+	}, scroll)
+
+	configureTightScrollingFrame(scroll)
+
+	local backButton = new("ImageButton", {
+		Image = "rbxassetid://91613428185416",
+		Name = "BackButton",
+		ZIndex = 5003,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.fromScale(0.0645, 0.0589),
+		Position = UDim2.fromScale(0.9552, 0.0601),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	}, mainContainer)
+	aspect(backButton)
+
+	local pageTitle = new("TextLabel", {
+		Text = "Title Goes Here",
+		Name = "PageTitle",
+		TextSize = 14,
+		BackgroundTransparency = 1,
+		ZIndex = 5002,
+		BorderSizePixel = 0,
+		TextScaled = false,
+		TextWrapped = false,
+		RichText = true,
+		Size = UDim2.fromScale(0.6504, 0.0781),
+		Position = UDim2.fromScale(0.0305, 0.032),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextYAlignment = Enum.TextYAlignment.Center,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+	}, informationContainer)
+
+	corner(informationContainer, UDim.new(0, 5))
+	stroke(informationContainer, 1.5, 0.9)
+	aspect(informationContainer, 1.8999)
+	aspect(builder, 1.85)
+
+	Runtime.Refs.InformationBuilder = builder
+	Runtime.Refs.InformationContainer = informationContainer
+	Runtime.Refs.InformationScroll = scroll
+	Runtime.Refs.InformationBackButton = backButton
+	Runtime.Refs.InformationPageTitle = pageTitle
+	return builder
+end
+
 local function buildMain(parent)
 	local main = new("ImageLabel", {
 		Name = "Main",
@@ -1771,9 +1965,9 @@ local function buildMain(parent)
 		ZIndex = 0,
 		BackgroundTransparency = 1,
 		ImageTransparency = 0.9,
-		AnchorPoint = Vector2.one * 0.5,
-		Position = UDim2.fromScale(0.912, 0.8759),
-		Size = UDim2.fromScale(0.1504, 0.2474),
+		AnchorPoint = Vector2.new(1, 1),
+		Position = getMainClosedPosition(nil),
+		Size = getMainResponsiveSize(),
 		SliceCenter = Rect.new(85, 85, 427, 427),
 		ScaleType = Enum.ScaleType.Slice,
 		BorderColor3 = Color3.fromRGB(27, 42, 53),
@@ -1790,7 +1984,7 @@ local function buildMain(parent)
 		BorderSizePixel = 0,
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(0.9274, 0.9684),
-		Position = UDim2.fromScale(0.0349, 0.0325),
+		Position = UDim2.fromScale(0.042, 0.0325),
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		ClipsDescendants = false,
@@ -1863,6 +2057,7 @@ end
 local backgroundDim = buildBackgroundDim(mainUi)
 buildOnBoarding(backgroundDim)
 buildMain(mainUi)
+buildInformationBuilder(mainUi)
 mainUi.Parent = getGuiParent()
 
 local function firstGradient(instance)
@@ -1948,6 +2143,12 @@ local function cacheRefs()
 	refs.HintBottom = path(refs.HintFrame, "Bottom")
 	refs.HintTitle2 = path(refs.HintFrame, "Title2")
 
+	refs.InformationBuilder = mainUi:FindFirstChild("InformationBuilder")
+	refs.InformationContainer = path(refs.InformationBuilder, "InformationContainer")
+	refs.InformationScroll = path(refs.InformationBuilder, "InformationContainer", "MainContainer", "ContainerScrollingFrame")
+	refs.InformationBackButton = path(refs.InformationBuilder, "InformationContainer", "MainContainer", "BackButton")
+	refs.InformationPageTitle = path(refs.InformationBuilder, "InformationContainer", "PageTitle")
+
 	refs.SettingsBuilder = path(refs.Main, "MainContainer", "SettingsBuilder")
 	refs.SettingsScroll = path(refs.SettingsBuilder, "ScrollingFrame")
 	refs.SettingsBackButton = path(refs.SettingsBuilder, "BackButton")
@@ -1985,7 +2186,8 @@ local function fixCriticalLayout()
 
 	if refs.Main then
 		refs.Main.Visible = false
-		refs.Main.Position = UDim2.new(0.912, 0, 1.055, 0)
+		applyMainResponsiveLayout(refs.Main)
+		refs.Main.Position = getMainClosedPosition(refs.Main)
 		refs.Main.ClipsDescendants = false
 	end
 
@@ -2025,6 +2227,17 @@ local function fixCriticalLayout()
 	if refs.SettingsBuilder then
 		refs.SettingsBuilder.Visible = false
 		refs.SettingsBuilder.Position = UDim2.fromScale(0, 1)
+	end
+
+	if refs.InformationBuilder then
+		refs.InformationBuilder.Visible = false
+		refs.InformationBuilder.Position = UDim2.fromScale(0.4999, 0.56)
+	end
+
+	if refs.InformationScroll then
+		refs.InformationScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+		configureTightScrollingFrame(refs.InformationScroll)
+		updateScrollableCanvas(refs.InformationScroll)
 	end
 end
 
@@ -2372,6 +2585,301 @@ local function sitOnce()
 	end)
 end
 
+
+local function valueToString(value)
+	local valueType = typeof(value)
+
+	if valueType == "Color3" then
+		return string.format("%d, %d, %d", math.floor(value.R * 255 + 0.5), math.floor(value.G * 255 + 0.5), math.floor(value.B * 255 + 0.5))
+	end
+
+	if valueType == "Vector3" then
+		return string.format("%.2f, %.2f, %.2f", value.X, value.Y, value.Z)
+	end
+
+	if valueType == "EnumItem" then
+		return tostring(value):gsub("^Enum%.[%w_]+%.", "")
+	end
+
+	if type(value) == "number" then
+		if math.abs(value - math.floor(value + 0.5)) < 0.0001 then
+			return tostring(math.floor(value + 0.5))
+		end
+		return string.format("%.3f", value):gsub("0+$", ""):gsub("%.$", "")
+	end
+
+	return tostring(value)
+end
+
+local function tryRead(instance, propertyName)
+	if not instance then
+		return nil, false
+	end
+
+	local ok, value = pcall(function()
+		return instance[propertyName]
+	end)
+
+	return value, ok
+end
+
+local function addDefaultRow(rows, label, instance, propertyName)
+	local value, ok = tryRead(instance, propertyName)
+	if ok then
+		rows[#rows + 1] = string.format("Default %s: \"%s\"", label, valueToString(value))
+	end
+end
+
+local function addDefaultValueRow(rows, label, value)
+	rows[#rows + 1] = string.format("Default %s: \"%s\"", label, valueToString(value))
+end
+
+local function addSectionRow(rows, text)
+	rows[#rows + 1] = string.format('<font color="rgb(203, 57, 57)">%s</font>', text)
+end
+
+local function findFirstLightingChild(className)
+	for _, child in ipairs(Lighting:GetChildren()) do
+		if child.ClassName == className then
+			return child
+		end
+	end
+	return nil
+end
+
+local function getDefaultHumanoid()
+	local character = LocalPlayer.Character
+	if character then
+		local humanoid = character:FindFirstChildOfClass("Humanoid")
+		if humanoid then
+			return humanoid
+		end
+	end
+	return nil
+end
+
+local function collectDefaultRows()
+	local rows = {}
+	local camera = Workspace.CurrentCamera
+	local terrain = Workspace:FindFirstChildOfClass("Terrain")
+	local humanoid = getDefaultHumanoid()
+	local atmosphere = findFirstLightingChild("Atmosphere")
+
+	addSectionRow(rows, "WORLD")
+	addDefaultRow(rows, "Workspace Gravity", Workspace, "Gravity")
+	addDefaultRow(rows, "Workspace Fallen Parts Destroy Height", Workspace, "FallenPartsDestroyHeight")
+	addDefaultRow(rows, "Workspace Streaming Enabled", Workspace, "StreamingEnabled")
+	addDefaultRow(rows, "Workspace Signal Behavior", Workspace, "SignalBehavior")
+	addDefaultRow(rows, "Workspace Physics Stepping Method", Workspace, "PhysicsSteppingMethod")
+
+	addSectionRow(rows, "LIGHTING")
+	for _, propertyName in ipairs({
+		"ClockTime",
+		"TimeOfDay",
+		"Brightness",
+		"ExposureCompensation",
+		"Ambient",
+		"OutdoorAmbient",
+		"GlobalShadows",
+		"ShadowSoftness",
+		"FogStart",
+		"FogEnd",
+		"FogColor",
+		"ColorShift_Top",
+		"ColorShift_Bottom",
+		"EnvironmentDiffuseScale",
+		"EnvironmentSpecularScale",
+		"GeographicLatitude",
+	}) do
+		addDefaultRow(rows, "Lighting " .. propertyName, Lighting, propertyName)
+	end
+
+	if atmosphere then
+		addSectionRow(rows, "ATMOSPHERE")
+		for _, propertyName in ipairs({ "Density", "Offset", "Color", "Decay", "Glare", "Haze" }) do
+			addDefaultRow(rows, "Atmosphere " .. propertyName, atmosphere, propertyName)
+		end
+	end
+
+	addSectionRow(rows, "TERRAIN")
+	for _, propertyName in ipairs({
+		"WaterColor",
+		"WaterReflectance",
+		"WaterTransparency",
+		"WaterWaveSize",
+		"WaterWaveSpeed",
+	}) do
+		addDefaultRow(rows, "Terrain " .. propertyName, terrain, propertyName)
+	end
+
+	addSectionRow(rows, "CAMERA")
+	addDefaultRow(rows, "Camera Field Of View", camera, "FieldOfView")
+	addDefaultRow(rows, "Camera Max Zoom Distance", LocalPlayer, "CameraMaxZoomDistance")
+	addDefaultRow(rows, "Camera Min Zoom Distance", LocalPlayer, "CameraMinZoomDistance")
+	addDefaultRow(rows, "Camera Mode", LocalPlayer, "CameraMode")
+
+	addSectionRow(rows, "CHARACTER")
+	addDefaultRow(rows, "Character Walkspeed", humanoid, "WalkSpeed")
+	addDefaultRow(rows, "Character Jump Power", humanoid, "JumpPower")
+	addDefaultRow(rows, "Character Jump Height", humanoid, "JumpHeight")
+	addDefaultRow(rows, "Character Uses Jump Power", humanoid, "UseJumpPower")
+	addDefaultRow(rows, "Character Hip Height", humanoid, "HipHeight")
+	addDefaultRow(rows, "Character Auto Rotate", humanoid, "AutoRotate")
+	addDefaultRow(rows, "Character Max Health", humanoid, "MaxHealth")
+
+	if not humanoid then
+		local fallbackWalkSpeed = select(1, tryRead(StarterPlayer, "CharacterWalkSpeed"))
+		local fallbackJumpPower = select(1, tryRead(StarterPlayer, "CharacterJumpPower"))
+		local fallbackJumpHeight = select(1, tryRead(StarterPlayer, "CharacterJumpHeight"))
+		local fallbackUseJumpPower = select(1, tryRead(StarterPlayer, "CharacterUseJumpPower"))
+		addDefaultValueRow(rows, "Character Walkspeed", fallbackWalkSpeed or 16)
+		addDefaultValueRow(rows, "Character Jump Power", fallbackJumpPower or 50)
+		addDefaultValueRow(rows, "Character Jump Height", fallbackJumpHeight or 7.2)
+		addDefaultValueRow(rows, "Character Uses Jump Power", fallbackUseJumpPower ~= false)
+	end
+
+	addDefaultRow(rows, "StarterPlayer Walkspeed", StarterPlayer, "CharacterWalkSpeed")
+	addDefaultRow(rows, "StarterPlayer Jump Power", StarterPlayer, "CharacterJumpPower")
+	addDefaultRow(rows, "StarterPlayer Jump Height", StarterPlayer, "CharacterJumpHeight")
+	addDefaultRow(rows, "StarterPlayer Use Jump Power", StarterPlayer, "CharacterUseJumpPower")
+	addDefaultRow(rows, "StarterPlayer Camera Max Zoom", StarterPlayer, "CameraMaxZoomDistance")
+	addDefaultRow(rows, "StarterPlayer Camera Min Zoom", StarterPlayer, "CameraMinZoomDistance")
+	addDefaultRow(rows, "StarterPlayer Camera Mode", StarterPlayer, "CameraMode")
+	addDefaultRow(rows, "StarterPlayer Dev Computer Camera Mode", StarterPlayer, "DevComputerCameraMode")
+	addDefaultRow(rows, "StarterPlayer Dev Touch Camera Mode", StarterPlayer, "DevTouchCameraMode")
+	addDefaultRow(rows, "StarterPlayer Dev Computer Movement Mode", StarterPlayer, "DevComputerMovementMode")
+	addDefaultRow(rows, "StarterPlayer Dev Touch Movement Mode", StarterPlayer, "DevTouchMovementMode")
+
+	addSectionRow(rows, "SOUND")
+	addDefaultRow(rows, "SoundService Ambient Reverb", SoundService, "AmbientReverb")
+	addDefaultRow(rows, "SoundService Distance Factor", SoundService, "DistanceFactor")
+	addDefaultRow(rows, "SoundService Doppler Scale", SoundService, "DopplerScale")
+	addDefaultRow(rows, "SoundService Rolloff Scale", SoundService, "RolloffScale")
+
+	return rows
+end
+
+local function clearInformationRows()
+	local scroll = Runtime.Refs.InformationScroll
+	if not scroll then
+		return
+	end
+
+	for _, child in ipairs(scroll:GetChildren()) do
+		if child:IsA("TextLabel") then
+			child:Destroy()
+		end
+	end
+end
+
+local function addInformationTitleRow(text, order)
+	local scroll = Runtime.Refs.InformationScroll
+	if not scroll then
+		return
+	end
+
+	local isSection = tostring(text):find("<font", 1, true) ~= nil
+	local row = new("TextLabel", {
+		Text = tostring(text or ""),
+		Name = "Title",
+		LayoutOrder = order,
+		TextSize = isSection and 13 or 12,
+		BackgroundTransparency = 1,
+		ZIndex = 5002,
+		BorderSizePixel = 0,
+		TextScaled = false,
+		TextWrapped = true,
+		RichText = true,
+		Size = UDim2.new(1, -12, 0, isSection and 24 or 34),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextYAlignment = Enum.TextYAlignment.Center,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextColor3 = isSection and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(217, 217, 217),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, scroll)
+
+	return row
+end
+
+local function populateInformationPage(pageTitle, rows)
+	local refs = Runtime.Refs
+	if refs.InformationPageTitle then
+		refs.InformationPageTitle.Text = tostring(pageTitle or "Information")
+	end
+
+	clearInformationRows()
+
+	for index, rowText in ipairs(rows or {}) do
+		addInformationTitleRow(rowText, index)
+	end
+
+	updateScrollableCanvas(refs.InformationScroll)
+	task.defer(function()
+		updateScrollableCanvas(refs.InformationScroll)
+	end)
+end
+
+local function openInformationPage(pageTitle, rows)
+	local refs = Runtime.Refs
+	if not refs.InformationBuilder then
+		return
+	end
+
+	Runtime.HintVisible = false
+	Runtime.HintTarget = nil
+	if refs.HintFrame then
+		refs.HintFrame.Visible = false
+	end
+
+	Runtime.InformationOpen = true
+	populateInformationPage(pageTitle, rows)
+
+	if refs.InformationScroll then
+		refs.InformationScroll.CanvasPosition = Vector2.new(0, 0)
+	end
+
+	refs.InformationBuilder.Visible = true
+	refs.InformationBuilder.Position = UDim2.fromScale(0.4999, 0.545)
+	refs.InformationBuilder.Size = UDim2.fromScale(0.246, 0.218)
+
+	playTween(refs.InformationBuilder, TweenInfo.new(0.14, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+		Position = UDim2.fromScale(0.4999, 0.5),
+		Size = UDim2.fromScale(0.259, 0.2292),
+	})
+end
+
+local function closeInformationPage()
+	local refs = Runtime.Refs
+	if not refs.InformationBuilder then
+		return
+	end
+
+	Runtime.InformationOpen = false
+
+	local tween = playTween(refs.InformationBuilder, TweenInfo.new(0.11, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+		Position = UDim2.fromScale(0.4999, 0.545),
+		Size = UDim2.fromScale(0.246, 0.218),
+	})
+
+	task.spawn(function()
+		waitTween(tween)
+		if Runtime.Alive and refs.InformationBuilder and not Runtime.InformationOpen then
+			refs.InformationBuilder.Visible = false
+			refs.InformationBuilder.Position = UDim2.fromScale(0.4999, 0.56)
+			refs.InformationBuilder.Size = UDim2.fromScale(0.259, 0.2292)
+		end
+	end)
+end
+
+local function showWorldDefaults()
+	if type(Runtime.DefaultRows) ~= "table" then
+		Runtime.DefaultRows = collectDefaultRows()
+	end
+
+	openInformationPage("World Defaults", Runtime.DefaultRows)
+end
+
 local function registerCommands()
 	Runtime.Commands = {
 		fullbright = enableFullbright,
@@ -2382,6 +2890,7 @@ local function registerCommands()
 		enableshadows = enableShadows,
 		time = setClientTimeFromCommand,
 		resettime = resetClientTime,
+		defaults = showWorldDefaults,
 		sit = sitOnce,
 	}
 end
@@ -2893,6 +3402,18 @@ local function setupSettingsBuilder()
 	refreshFullbrightSettingsUi(true)
 end
 
+local function setupInformationBuilder()
+	local button = Runtime.Refs.InformationBackButton
+	if button then
+		setupScaleClickEffect(button)
+		connect(button.MouseButton1Click, closeInformationPage)
+	end
+
+	if Runtime.Refs.InformationScroll then
+		configureTightScrollingFrame(Runtime.Refs.InformationScroll)
+	end
+end
+
 local function resetSettingsPageInstant()
 	local refs = Runtime.Refs
 	Runtime.SettingsOpen = false
@@ -2920,7 +3441,9 @@ local function tweenMain(opened)
 		resetSettingsPageInstant()
 	end
 
-	local goal = opened and UDim2.new(0.912, 0, 0.889, 0) or UDim2.new(0.912, 0, 1.090, 0)
+	applyMainResponsiveLayout(refs.Main)
+
+	local goal = opened and getMainOpenPosition() or getMainClosedPosition(refs.Main)
 	local duration = opened and 0.16 or 0.28
 	local style = opened and Enum.EasingStyle.Quint or Enum.EasingStyle.Quad
 
@@ -3134,6 +3657,30 @@ local function setupHint()
 		if Runtime.HintVisible then
 			updateHintPosition()
 		end
+	end)
+end
+
+
+local function setupMainResponsiveWatcher()
+	local lastViewport = Vector2.new(-1, -1)
+
+	connect(RunService.RenderStepped, function()
+		local camera = workspace.CurrentCamera
+		local viewport = camera and camera.ViewportSize or lastViewport
+		if viewport == lastViewport then
+			return
+		end
+
+		lastViewport = viewport
+
+		local main = Runtime.Refs.Main
+		if not main then
+			return
+		end
+
+		local opened = Runtime.HoveringMain or Runtime.InputFocused or Runtime.SettingsOpen or Runtime.InformationOpen
+		applyMainResponsiveLayout(main)
+		main.Position = opened and getMainOpenPosition() or getMainClosedPosition(main)
 	end)
 end
 
@@ -3404,8 +3951,9 @@ local function showMainAfterOnBoarding()
 		return
 	end
 
+	applyMainResponsiveLayout(refs.Main)
 	refs.Main.Visible = true
-	refs.Main.Position = UDim2.new(0.912, 0, 0.892, 0)
+	refs.Main.Position = getMainOpenPosition()
 
 	task.delay(1, function()
 		if Runtime.Alive and not Runtime.HoveringMain and not Runtime.InputFocused then
@@ -3417,11 +3965,14 @@ end
 local function startRuntime()
 	cacheRefs()
 	fixCriticalLayout()
+	Runtime.DefaultRows = collectDefaultRows()
 	registerCommands()
 	setupHint()
+	setupMainResponsiveWatcher()
 	setupMainHover()
 	setupCommandInput()
 	setupSettingsBuilder()
+	setupInformationBuilder()
 	applyFullbrightState()
 
 	addThread(task.spawn(function()
