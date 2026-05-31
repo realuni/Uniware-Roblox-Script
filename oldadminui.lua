@@ -1,1 +1,3433 @@
-local Z={}local function W(G)return Z[G+9]end do local G={B=47,g=43;["8"]=1;b=56,["4"]=18;S=22,w=25,l=14;o=55;t=48,h=58,L=28;k=21;["6"]=6;M=8,J=37,j=52,O=27,["7"]=23;["5"]=19,r=3,a=54;I=57,d=12,D=7,e=51,E=30;i=41,x=50;G=40,["0"]=44,K=63;V=31,["9"]=45;q=53,v=5,U=10,P=16;u=59,f=32,F=0,W=15,Y=34,["1"]=33,Q=26;["3"]=42,z=38,["/"]=4,X=9,N=49;p=46,R=11,T=29,H=35,c=24;["2"]=39,A=61;Z=62;n=60,y=13;m=17,["+"]=36,s=2,C=20}local f=Z local u=table.concat local e=type local b=string.char local L={["5"]=0;d=50;["*"]=60,u=46;["+"]=70,["`"]=63;["%"]=59;j=32,i=36,D=64;p=10,["3"]=77,r=73;["2"]=72;t=16;B=26,["/"]=75;a=4;[","]=28;G=17;["!"]=83;O=45;["-"]=38,["\\"]=43;["."]=55;I=31,A=29;["8"]=7,[";"]=62;b=6,J=66,k=39,["&"]=40;["("]=13;L=33,E=68,V=3,["]"]=14;e=35;["7"]=12;["?"]=74;N=58,P=8,[":"]=27,g=22,["$"]=67;R=34;["<"]=61,["@"]=24,["="]=52,["4"]=44,T=69;m=48,["#"]=18;o=54;Y=15,_=80,[")"]=76;W=82;["1"]=81;F=56;q=78,S=57,["6"]=23;["\""]=20;l=1,M=51,C=71,["9"]=5;s=25;Z=11;U=49,["["]=9,["\'"]=47,H=84,Q=30;X=79;f=41;["0"]=19;K=53,n=2;["^"]=21,[">"]=42,h=65;c=37}local h=string.len local J=string.sub local m=table.insert local K=math.floor for C=1,#f,1 do local g=f[C]if e(g)=="string"then local e=J(g,1,1)if e=="W"then g=J(g,2)local e=h(g)local L={}local T=1 local k=0 local n=0 while T<=e do local f=J(g,T,T)local u=G[f]if u then k=k+u*(64^((3-n)))n=n+1 if n==4 then n=0 local G=K(k/65536)local f=K((k%65536)/256)local u=k%256 m(L,b(G,f,u))k=0 end elseif f=="="then m(L,b(K(k/65536)))if T>=e or J(g,T+1,T+1)~="="then m(L,b(K((k%65536)/256)))end break end T=T+1 end f[C]=u(L)elseif e=="f"then g=J(g,2)local G=h(g)local e={}local T=1 while T<=G do local f=(G-T)+1 local u=f>=5 and 5 or f local h=0 local C=u>1 for G=0,4,1 do local f if G<u then local u=J(g,T+G,T+G)f=L[u]if not f then C=false break end else f=84 end h=h*85+f end if C then local G=K(h/16777216)%256 local f=K(h/65536)%256 local L=K(h/256)%256 local J=h%256 if u==5 then m(e,b(G,f,L,J))elseif u==4 then m(e,b(G,f,L))elseif u==3 then m(e,b(G,f))elseif u==2 then m(e,b(G))end end T=T+u end f[C]=u(e)end end end end local G=game:GetService("Players")local f=game:GetService("UserInputService")local u=game:GetService("TweenService")local e=game:GetService("RunService")local b=G.LocalPlayer local L=b:WaitForChild("PlayerGui")local h={}local J={}local m={}local K={}local C="UniwareUI"local g=Enum.KeyCode.Semicolon local T="UserStatistics.json"m.Features=m.Features or{}m.Controller=m.Controller or{}m.Stats=m.Stats or{}m.Profile=m.Profile or{}m.Menu=m.Menu or{}m.Drag=m.Drag or{}m.Save=m.Save or{}m.Connections=m.Connections or{}m.State=m.State or{}m.Welcome=m.Welcome or{}m.Executor=m.Executor or{}do local function G(G,f)h[G]=f return f end local function f(G,f)local u=Instance.new(G)if f then for G,f in next,f do u[G]=f end end return u end local function u(G,u,e)e=e or{}e.Parent=G return f(u,e)end local function e(G,f)return Font.new("rbxasset://fonts/families/GothamSSm.json",G or Enum.FontWeight.Medium,f or Enum.FontStyle.Normal)end J.Save=G J.New=f J.Add=u J.Gotham=e end local k=m.Features local n=m.Controller local H=m.Stats local V=m.Profile local r=m.Menu local v=m.Drag local q=m.Save local w=m.Connections local M=m.Welcome local E=m.Executor local a=J.Save local I=J.New local O=J.Add local i=J.Gotham local p=L:FindFirstChild(C)if p then p:Destroy()end local function o()table.clear(h)local G=a("ScreenGui",I("ScreenGui",{Name="UniwareUI",ResetOnSpawn=false;ZIndexBehavior=Enum.ZIndexBehavior.Sibling}))do local f=Instance.new("Frame")f.Name="NotificationContainer"f.BorderSizePixel=0 f.BackgroundTransparency=1 f.Size=UDim2.fromScale(.1655,.0493)f.Position=UDim2.fromScale(.8375,.9506)f.BackgroundColor3=Color3.fromRGB(24,27,31)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="NotificationBG"G.BorderSizePixel=0 G.BackgroundTransparency=1 G.Visible=false G.Size=UDim2.fromScale(1,1.228)G.Position=UDim2.fromScale(0,-0.3511)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,27,31)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("Frame")f.Name="Notification"f.BorderSizePixel=0 f.Size=UDim2.fromScale(1,.9228)f.Position=UDim2.fromOffset(0,5)f.BackgroundColor3=Color3.fromRGB(24,27,31)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Example Title"G.Name="ExampleTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.9861,.3124)G.Position=UDim2.fromScale(.025,.1093)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(190,190,190)G.BorderColor=BrickColor.new("Really black")G.Parent=f local u=Instance.new("Frame")u.Name="TimeLeft"u.BorderSizePixel=0 u.Size=UDim2.fromScale(1,.07)u.Position=UDim2.fromScale(0,.9187)u.BackgroundColor3=Color3.fromRGB(59,78,102)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")u.Parent=f local e=Instance.new("TextLabel")e.Text="Example Description"e.Name="ExampleDescription"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.TextSize=13 e.TextWrapped=true e.TextScaled=true e.Position=UDim2.fromScale(.025,.4218)e.Size=UDim2.fromScale(.9861,.4843)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.TextYAlignment=Enum.TextYAlignment.Top e.TextXAlignment=Enum.TextXAlignment.Left e.TextColor3=Color3.fromRGB(190,190,190)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")e.Parent=f end f.Parent=G end G.Parent=f local u=Instance.new("UIListLayout")u.VerticalAlignment=Enum.VerticalAlignment.Bottom u.SortOrder=Enum.SortOrder.LayoutOrder u.Parent=f end f.Parent=G local u=Instance.new("Frame")u.Name="MainBG"u.ZIndex=-999999999 u.BackgroundTransparency=1 u.ClipsDescendants=true u.Size=UDim2.fromScale(.391,.424,0)u.Position=UDim2.fromScale(.289,.274,0)u.BorderColor3=Color3.fromRGB(27,42,53)do local G=Instance.new("ImageLabel")G.Image="rbxassetid://1316045217"G.Name="MainShadow"G.BackgroundTransparency=1 G.ImageTransparency=.92 G.AnchorPoint=Vector2.one*.5 G.Size=UDim2.fromScale(1.0292,1.0444)G.Position=UDim2.fromScale(.5019,.5008)G.SliceCenter=Rect.new(10,10,118,118)G.ScaleType=Enum.ScaleType.Slice G.BorderColor3=Color3.fromRGB(27,42,53)G.ImageColor3=Color3.fromRGB(0,0,0)G.Parent=u local f=Instance.new("UIAspectRatioConstraint")f.AspectRatio=1.6 f.Parent=u local e=Instance.new("Frame")e.Name="Main"e.BackgroundTransparency=.01 e.BorderSizePixel=0 e.ClipsDescendants=true e.Size=UDim2.fromScale(1.0011,1)e.BorderColor3=Color3.fromRGB(0,0,0)e.BackgroundColor3=Color3.fromRGB(26,30,40)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,5)G.Parent=e local f=Instance.new("Frame")f.Name="ProfileCategoryFrame"f.BorderSizePixel=0 f.BackgroundTransparency=1 f.Size=UDim2.fromScale(.817,.9334)f.Position=UDim2.fromScale(.1829,.0679)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Your Profile"G.Name="CategoryTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.9784,.0649)G.Position=UDim2.fromScale(.0241,.0174)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(200,200,200)G.BorderColor=BrickColor.new("Really black")G.Parent=f local u=Instance.new("TextLabel")u.Text="You can view all of your statistics here."u.Name="CategoryDescription"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9777,.038)u.Position=UDim2.fromScale(.0243,.089)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(180,180,180)u.BorderColor=BrickColor.new("Really black")u.Parent=f local e=Instance.new("Frame")e.Name="Divider"e.BorderSizePixel=0 e.Size=UDim2.fromScale(.9532,.004)e.Position=UDim2.fromScale(.0241,.1465)e.BackgroundColor3=Color3.fromRGB(44,50,57)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")e.Parent=f local b=Instance.new("ImageLabel")b.Image="rbxassetid://107434295940442"b.Name="PlayerProfilePicture"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.Size=UDim2.fromScale(.0752,.112)b.Position=UDim2.fromScale(.8917,.0172)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=b local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=b local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=b local e=Instance.new("TextLabel")e.Text=""e.BackgroundTransparency=1 e.BorderSizePixel=0 e.TextSize=14 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(3.109,.5483)e.Position=UDim2.fromScale(4.3557,.3922)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.TextXAlignment=Enum.TextXAlignment.Right e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(255,255,255)e.BorderColor=BrickColor.new("Really black")e.Parent=b local L=Instance.new("TextLabel")L.Text="realuni (21374206967)"L.Name="PlayerUsernameAndID"L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextSize=14 L.TextWrapped=true L.TextScaled=true L.Size=UDim2.fromScale(5.0899,.267)L.Position=UDim2.fromScale(-5.2538,.0706)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)L.TextXAlignment=Enum.TextXAlignment.Right L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(199,199,199)L.BorderColor=BrickColor.new("Really black")L.Parent=b local h=Instance.new("TextLabel")h.Text="uni"h.Name="PlayerDisplayName"h.BackgroundTransparency=1 h.BorderSizePixel=0 h.TextSize=14 h.TextWrapped=true h.TextScaled=true h.Size=UDim2.fromScale(3.109,.5483)h.Position=UDim2.fromScale(-3.2804,.3762)h.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)h.TextXAlignment=Enum.TextXAlignment.Right h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor3=Color3.fromRGB(0,0,0)h.TextColor3=Color3.fromRGB(255,255,255)h.BorderColor=BrickColor.new("Really black")h.Parent=b end b.Parent=f local L=Instance.new("Frame")L.Name="Function"L.BorderSizePixel=0 L.BackgroundTransparency=.1 L.Size=UDim2.fromScale(.4642,.1663)L.Position=UDim2.fromScale(.0241,.1744)L.BackgroundColor3=Color3.fromRGB(24,26,34)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=L local f=Instance.new("TextLabel")f.Text="Total Executions"f.Name="Title"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.4783,.2014)f.Position=UDim2.fromScale(.0363,.1262)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=L local u=Instance.new("Frame")u.Name="Divider"u.BorderSizePixel=0 u.Size=UDim2.fromScale(.9525,.0208)u.Position=UDim2.fromScale(.0233,.4844)u.BackgroundColor3=Color3.fromRGB(44,50,57)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")u.Parent=L local e=Instance.new("UICorner")e.CornerRadius=UDim.new(0,5)e.Parent=L local b=Instance.new("TextLabel")b.Text="1,392"b.Name="TotalExecutions"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.TextSize=14 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(.4403,.2662)b.Position=UDim2.fromScale(.5147,.0938)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)b.TextXAlignment=Enum.TextXAlignment.Right b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(200,200,200)b.BorderColor=BrickColor.new("Really black")b.Parent=L local h=Instance.new("TextLabel")h.Text="8h 21m 15s"h.Name="TotalUsageTime"h.BackgroundTransparency=1 h.BorderSizePixel=0 h.TextSize=14 h.TextWrapped=true h.TextScaled=true h.Size=UDim2.fromScale(.4403,.2662)h.Position=UDim2.fromScale(.5147,.6235)h.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)h.TextXAlignment=Enum.TextXAlignment.Right h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor3=Color3.fromRGB(0,0,0)h.TextColor3=Color3.fromRGB(200,200,200)h.BorderColor=BrickColor.new("Really black")h.Parent=L local J=Instance.new("TextLabel")J.Text="Total Usage Time"J.Name="Title"J.BackgroundTransparency=1 J.BorderSizePixel=0 J.TextSize=14 J.TextWrapped=true J.TextScaled=true J.Size=UDim2.fromScale(.4783,.2014)J.Position=UDim2.fromScale(.0363,.6559)J.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)J.TextXAlignment=Enum.TextXAlignment.Left J.BackgroundColor3=Color3.fromRGB(255,255,255)J.BorderColor3=Color3.fromRGB(0,0,0)J.TextColor3=Color3.fromRGB(200,200,200)J.BorderColor=BrickColor.new("Really black")J.Parent=L end L.Parent=f local h=Instance.new("Frame")h.Name="Function"h.BorderSizePixel=0 h.BackgroundTransparency=.1 h.Size=UDim2.fromScale(.4642,.1663)h.Position=UDim2.fromScale(.513,.1726)h.BackgroundColor3=Color3.fromRGB(24,26,34)h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=h local f=Instance.new("TextLabel")f.Text="Session Time"f.Name="Title"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.4783,.2014)f.Position=UDim2.fromScale(.0363,.1262)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=h local u=Instance.new("Frame")u.Name="Divider"u.BorderSizePixel=0 u.Size=UDim2.fromScale(.9525,.0208)u.Position=UDim2.fromScale(.0233,.4844)u.BackgroundColor3=Color3.fromRGB(44,50,57)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")u.Parent=h local e=Instance.new("UICorner")e.CornerRadius=UDim.new(0,5)e.Parent=h local b=Instance.new("TextLabel")b.Text="32m 58s"b.Name="SessionTime"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.TextSize=14 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(.4403,.2662)b.Position=UDim2.fromScale(.5147,.0938)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)b.TextXAlignment=Enum.TextXAlignment.Right b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(200,200,200)b.BorderColor=BrickColor.new("Really black")b.Parent=h local L=Instance.new("TextLabel")L.Text="20:35:17 UTC"L.Name="ExecutionTime"L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextSize=14 L.TextWrapped=true L.TextScaled=true L.Size=UDim2.fromScale(.4403,.2662)L.Position=UDim2.fromScale(.5147,.6235)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)L.TextXAlignment=Enum.TextXAlignment.Right L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(200,200,200)L.BorderColor=BrickColor.new("Really black")L.Parent=h local J=Instance.new("TextLabel")J.Text="Executed at"J.Name="Title"J.BackgroundTransparency=1 J.BorderSizePixel=0 J.TextSize=14 J.TextWrapped=true J.TextScaled=true J.Size=UDim2.fromScale(.4783,.2014)J.Position=UDim2.fromScale(.0363,.6559)J.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)J.TextXAlignment=Enum.TextXAlignment.Left J.BackgroundColor3=Color3.fromRGB(255,255,255)J.BorderColor3=Color3.fromRGB(0,0,0)J.TextColor3=Color3.fromRGB(200,200,200)J.BorderColor=BrickColor.new("Really black")J.Parent=h end h.Parent=f local J=Instance.new("Frame")J.Name="Function"J.BorderSizePixel=0 J.BackgroundTransparency=.1 J.Size=UDim2.fromScale(.4642,.1663)J.Position=UDim2.fromScale(.513,.374)J.BackgroundColor3=Color3.fromRGB(24,26,34)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=J local f=Instance.new("TextLabel")f.Text="Executor Used"f.Name="Title"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.4783,.2014)f.Position=UDim2.fromScale(.0363,.1262)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=J local u=Instance.new("Frame")u.Name="Divider"u.BorderSizePixel=0 u.Size=UDim2.fromScale(.9525,.0208)u.Position=UDim2.fromScale(.0233,.4844)u.BackgroundColor3=Color3.fromRGB(44,50,57)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")u.Parent=J local e=Instance.new("UICorner")e.CornerRadius=UDim.new(0,5)e.Parent=J local b=Instance.new("TextLabel")b.Text="ScriptWare"b.Name="ExecutorUsed"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.TextSize=14 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(.4403,.2662)b.Position=UDim2.fromScale(.5147,.0938)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)b.TextXAlignment=Enum.TextXAlignment.Right b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(200,200,200)b.BorderColor=BrickColor.new("Really black")b.Parent=J local L=Instance.new("TextLabel")L.Text="100%"L.Name="Uptime"L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextSize=14 L.TextWrapped=true L.TextScaled=true L.Size=UDim2.fromScale(.4403,.2662)L.Position=UDim2.fromScale(.5147,.6235)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)L.TextXAlignment=Enum.TextXAlignment.Right L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(200,200,200)L.BorderColor=BrickColor.new("Really black")L.Parent=J local h=Instance.new("TextLabel")h.Text="Executor Uptime:"h.Name="Title"h.BackgroundTransparency=1 h.BorderSizePixel=0 h.TextSize=14 h.TextWrapped=true h.TextScaled=true h.Size=UDim2.fromScale(.4783,.2014)h.Position=UDim2.fromScale(.0363,.6559)h.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)h.TextXAlignment=Enum.TextXAlignment.Left h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor3=Color3.fromRGB(0,0,0)h.TextColor3=Color3.fromRGB(200,200,200)h.BorderColor=BrickColor.new("Really black")h.Parent=J end J.Parent=f local m=Instance.new("Frame")m.Name="Divider"m.BorderSizePixel=0 m.Size=UDim2.fromScale(.9532,.004)m.Position=UDim2.fromScale(.0241,.7291)m.BackgroundColor3=Color3.fromRGB(44,50,57)m.BorderColor3=Color3.fromRGB(0,0,0)m.BorderColor=BrickColor.new("Really black")m.Parent=f local K=Instance.new("Frame")K.Name="Function"K.BorderSizePixel=0 K.BackgroundTransparency=.1 K.Size=UDim2.fromScale(.9531,.1663)K.Position=UDim2.fromScale(.0241,.7786)K.BackgroundColor3=Color3.fromRGB(24,26,34)K.BorderColor3=Color3.fromRGB(0,0,0)K.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=K local f=Instance.new("TextLabel")f.Text="Place ID"f.Name="Title"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.1009,.2014)f.Position=UDim2.fromScale(.0173,.1262)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=K local u=Instance.new("Frame")u.Name="Divider"u.BorderSizePixel=0 u.Size=UDim2.fromScale(.9768,.0208)u.Position=UDim2.fromScale(.0113,.4844)u.BackgroundColor3=Color3.fromRGB(44,50,57)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")u.Parent=K local e=Instance.new("UICorner")e.CornerRadius=UDim.new(0,5)e.Parent=K local b=Instance.new("TextLabel")b.Text="114234929420007"b.Name="PlaceID"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.TextSize=14 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(.861,.266)b.Position=UDim2.fromScale(.1154,.0938)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)b.TextXAlignment=Enum.TextXAlignment.Right b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(200,200,200)b.BorderColor=BrickColor.new("Really black")b.Parent=K local L=Instance.new("TextLabel")L.Text="aa879071-4d64-4533-975b-b97c6811136f"L.Name="JobID"L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextSize=14 L.TextWrapped=true L.TextScaled=true L.Size=UDim2.fromScale(.8612,.2662)L.Position=UDim2.fromScale(.1154,.6127)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)L.TextXAlignment=Enum.TextXAlignment.Right L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(200,200,200)L.BorderColor=BrickColor.new("Really black")L.Parent=K local h=Instance.new("TextLabel")h.Text="Job ID"h.Name="Title"h.BackgroundTransparency=1 h.BorderSizePixel=0 h.TextSize=14 h.TextWrapped=true h.TextScaled=true h.Size=UDim2.fromScale(.098,.2014)h.Position=UDim2.fromScale(.0198,.6451)h.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)h.TextXAlignment=Enum.TextXAlignment.Left h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor3=Color3.fromRGB(0,0,0)h.TextColor3=Color3.fromRGB(200,200,200)h.BorderColor=BrickColor.new("Really black")h.Parent=K end K.Parent=f end f.Parent=e local u=Instance.new("Frame")u.Name="Navigation"u.BorderSizePixel=0 u.BackgroundTransparency=.999 u.Size=UDim2.fromScale(.1801,.9303)u.Position=UDim2.fromScale(0,.068)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=u local f=Instance.new("TextButton")f.Name="DashboardButton"f.TextSize=14 f.LayoutOrder=1 f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextTransparency=1 f.Size=UDim2.fromScale(1,.0951)f.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")f.TextColor3=Color3.fromRGB(0,0,0)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Profile"G.Name="ButtonTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.6361,.3572)G.Position=UDim2.fromScale(.3643,.3068)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(190,190,190)G.BorderColor=BrickColor.new("Really black")G.Parent=f local u=Instance.new("ImageLabel")u.Image="rbxassetid://107434295940442"u.Name="PlayerProfilePicture"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.Size=UDim2.fromScale(.1717,.518)u.Position=UDim2.fromScale(.101,.2418)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.ImageColor3=Color3.fromRGB(190,190,190)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=u local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=u local e=Instance.new("UIStroke")e.Thickness=2 e.ApplyStrokeMode=Enum.ApplyStrokeMode.Border e.Color=Color3.fromRGB(44,50,57)e.Parent=u end u.Parent=f end f.Parent=u local e=Instance.new("UIListLayout")e.SortOrder=Enum.SortOrder.LayoutOrder e.Parent=u local b=Instance.new("Frame")b.Name="Space1"b.LayoutOrder=2 b.BackgroundTransparency=1 b.BorderSizePixel=0 b.Size=UDim2.fromScale(1,.0324)b.Position=UDim2.fromScale(0,.0951)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=u local L=Instance.new("TextButton")L.Name="Player"L.TextSize=14 L.LayoutOrder=3 L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextTransparency=1 L.Size=UDim2.fromScale(1,.0951)L.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")L.TextColor3=Color3.fromRGB(0,0,0)L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://109609375709846"G.Name="Icon"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.Size=UDim2.fromScale(.2099,.625)G.Position=UDim2.fromScale(.101,.2357)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=L local f=Instance.new("TextLabel")f.Text="Player"f.Name="ButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6361,.3572)f.Position=UDim2.fromScale(.3643,.3637)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=L end L.Parent=u local h=Instance.new("TextButton")h.Name="Visuals"h.TextSize=14 h.LayoutOrder=4 h.BackgroundTransparency=1 h.BorderSizePixel=0 h.TextTransparency=1 h.Size=UDim2.fromScale(1,.0951)h.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")h.TextColor3=Color3.fromRGB(0,0,0)h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://122657506922945"G.Name="Icon"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.Size=UDim2.fromScale(.2099,.625)G.Position=UDim2.fromScale(.1009,.1281)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=h local f=Instance.new("TextLabel")f.Text="Visuals"f.Name="ButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6298,.3572)f.Position=UDim2.fromScale(.3631,.2499)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=h end h.Parent=u local J=Instance.new("TextButton")J.Name="Utility"J.TextSize=14 J.LayoutOrder=7 J.BackgroundTransparency=1 J.BorderSizePixel=0 J.TextTransparency=1 J.Size=UDim2.fromScale(1,.0951)J.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")J.TextColor3=Color3.fromRGB(0,0,0)J.BackgroundColor3=Color3.fromRGB(255,255,255)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://85430835238445"G.Name="Icon"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.Size=UDim2.fromScale(.2099,.625)G.Position=UDim2.fromScale(.1011,.1742)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=J local f=Instance.new("TextLabel")f.Text="Utility"f.Name="ButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6552,.3572)f.Position=UDim2.fromScale(.3643,.2678)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=J end J.Parent=u local m=Instance.new("TextButton")m.Name="Settings"m.TextSize=14 m.LayoutOrder=9 m.BackgroundTransparency=1 m.BorderSizePixel=0 m.TextTransparency=1 m.Size=UDim2.fromScale(1,.0951)m.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")m.TextColor3=Color3.fromRGB(0,0,0)m.BackgroundColor3=Color3.fromRGB(255,255,255)m.BorderColor3=Color3.fromRGB(0,0,0)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://96406856350095"G.Name="Icon"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.Size=UDim2.fromScale(.204,.701)G.Position=UDim2.fromScale(.101,.15)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=m local f=Instance.new("TextLabel")f.Text="Settings"f.Name="ButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6552,.3572)f.Position=UDim2.fromScale(.3643,.2678)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=m end m.Parent=u local K=Instance.new("Frame")K.Name="Space2"K.LayoutOrder=7 K.BackgroundTransparency=1 K.BorderSizePixel=0 K.Size=UDim2.fromScale(1,.0324)K.Position=UDim2.fromScale(0,.0951)K.BackgroundColor3=Color3.fromRGB(255,255,255)K.BorderColor3=Color3.fromRGB(0,0,0)K.BorderColor=BrickColor.new("Really black")K.Parent=u local C=Instance.new("TextButton")C.Name="Console"C.TextSize=14 C.LayoutOrder=11 C.TextTransparency=1 C.BorderSizePixel=0 C.Position=UDim2.fromScale(0,.9048)C.Size=UDim2.fromScale(1,.0968)C.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")C.BorderColor3=Color3.fromRGB(0,0,0)C.TextColor3=Color3.fromRGB(0,0,0)C.BackgroundColor3=Color3.fromRGB(26,30,40)C.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://73553538159963"G.Name="Icon"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.Size=UDim2.fromScale(.2163,.5795)G.Position=UDim2.fromScale(.082,.2001)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=C local f=Instance.new("TextLabel")f.Text="Console"f.Name="ButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6552,.3512)f.Position=UDim2.fromScale(.3643,.3029)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=C local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=C end C.Parent=u local g=Instance.new("Frame")g.Name="Space3"g.LayoutOrder=10 g.BackgroundTransparency=1 g.BorderSizePixel=0 g.Size=UDim2.fromScale(1,.268)g.Position=UDim2.fromScale(0,.636)g.BackgroundColor3=Color3.fromRGB(255,255,255)g.BorderColor3=Color3.fromRGB(0,0,0)g.BorderColor=BrickColor.new("Really black")g.Parent=u local T=Instance.new("TextButton")T.Text="Movement"T.Name="Motion"T.TextSize=14 T.BackgroundTransparency=1 T.TextTransparency=1 T.LayoutOrder=6 T.BorderSizePixel=0 T.Size=UDim2.fromScale(1,.0951)T.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")T.BorderColor3=Color3.fromRGB(0,0,0)T.TextColor3=Color3.fromRGB(0,0,0)T.BackgroundColor3=Color3.fromRGB(255,255,255)T.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://97020644262827"G.Name="Icon"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.Size=UDim2.fromScale(.2099,.6252)G.Position=UDim2.fromScale(.0959,.1309)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=T local f=Instance.new("TextLabel")f.Text="World"f.Name="ButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6298,.3572)f.Position=UDim2.fromScale(.3631,.2499)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=T end T.Parent=u end u.Parent=e local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.18,.004)b.Position=UDim2.fromScale(0,.1518)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=e local L=Instance.new("Frame")L.Name="Top"L.BorderSizePixel=0 L.BackgroundTransparency=1 L.Size=UDim2.fromScale(.9991,.0637)L.BorderColor3=Color3.fromRGB(0,0,0)L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=L local f=Instance.new("Frame")f.Name="Container"f.BorderSizePixel=0 f.BackgroundTransparency=1 f.Size=UDim2.fromScale(1,1)f.Position=UDim2.fromScale(0,.0744)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Red"G.BorderSizePixel=0 G.Size=UDim2.fromScale(.0166,.2548)G.Position=UDim2.fromScale(.0147,.3045)G.BackgroundColor3=Color3.fromRGB(245,105,95)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=G local u=Instance.new("UIAspectRatioConstraint")u.Parent=G end G.Parent=f local u=Instance.new("ImageLabel")u.Image="rbxassetid://107434295940442"u.Name="PlayerProfilePicture"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.Size=UDim2.fromScale(.0344,.7195)u.Position=UDim2.fromScale(.9659,.0466)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=u local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=u local e=Instance.new("UIStroke")e.Thickness=2 e.ApplyStrokeMode=Enum.ApplyStrokeMode.Border e.Color=Color3.fromRGB(44,50,57)e.Parent=u local b=Instance.new("TextLabel")b.Text="uni"b.Name="PlayerDisplayName"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.TextSize=14 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(3.109,.5483)b.Position=UDim2.fromScale(-3.3449,.3658)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)b.TextXAlignment=Enum.TextXAlignment.Right b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(255,255,255)b.BorderColor=BrickColor.new("Really black")b.Parent=u local L=Instance.new("TextLabel")L.Text="realuni"L.Name="PlayerUsername"L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextSize=14 L.TextWrapped=true L.TextScaled=true L.Size=UDim2.fromScale(3.109,.4104)L.Position=UDim2.fromScale(-3.3449,-0.048)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)L.TextXAlignment=Enum.TextXAlignment.Right L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(199,199,199)L.BorderColor=BrickColor.new("Really black")L.Parent=u end u.Parent=f local e=Instance.new("Frame")e.Name="GithubVersionFrame"e.BorderSizePixel=0 e.Size=UDim2.fromScale(.0783,.5028)e.Position=UDim2.fromScale(.232,.196)e.BackgroundColor3=Color3.fromRGB(44,50,57)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(1,0)G.Parent=e local f=Instance.new("TextLabel")f.Name="Version"f.Text="v1.6.62"f.TextSize=14 f.BorderSizePixel=0 f.BackgroundTransparency=1 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.9711,.7799)f.Position=UDim2.fromScale(0,.0899)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.TextColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")f.Parent=e end e.Parent=f local b=Instance.new("Frame")b.Name="Green"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.0166,.2548)b.Position=UDim2.fromScale(.0538,.3045)b.BackgroundColor3=Color3.fromRGB(97,199,99)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(1,0)G.Parent=b local f=Instance.new("UIAspectRatioConstraint")f.Parent=b end b.Parent=f local L=Instance.new("Frame")L.Name="Yellow"L.BorderSizePixel=0 L.Size=UDim2.fromScale(.0166,.2548)L.Position=UDim2.fromScale(.0333,.3045)L.BackgroundColor3=Color3.fromRGB(242,202,72)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(1,0)G.Parent=L local f=Instance.new("UIAspectRatioConstraint")f.Parent=L end L.Parent=f local h=Instance.new("TextButton")h.Text=""h.Name="DashboardButton"h.TextSize=14 h.BorderSizePixel=0 h.BackgroundTransparency=1 h.Position=UDim2.fromScale(.05,.05)h.Size=UDim2.fromScale(.2165,.794)h.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")h.BorderColor3=Color3.fromRGB(0,0,0)h.TextColor3=Color3.fromRGB(0,0,0)h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="<font color=\"rgb(245, 105, 95)\">UNI</font>ware <font color=\"rgb(255, 147, 84)\">Engine</font>"G.Name="Title"G.TextSize=14 G.BorderSizePixel=0 G.BackgroundTransparency=1 G.TextWrapped=true G.TextScaled=true G.RichText=true G.Size=UDim2.fromScale(.7001,.6562)G.Position=UDim2.fromScale(.109,.141)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(255,255,255)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor=BrickColor.new("Really black")G.Parent=h end h.Parent=f local J=Instance.new("TextButton")J.Text=""J.Name="DashboardButton"J.TextSize=14 J.BorderSizePixel=0 J.BackgroundTransparency=1 J.Position=UDim2.fromScale(.9071,-0.0745)J.Size=UDim2.fromScale(.0929,1.0669)J.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")J.BorderColor3=Color3.fromRGB(0,0,0)J.TextColor3=Color3.fromRGB(0,0,0)J.BackgroundColor3=Color3.fromRGB(255,255,255)J.BorderColor=BrickColor.new("Really black")J.Parent=f end f.Parent=L end L.Parent=e local h=Instance.new("Frame")h.Name="CategoryExample"h.BorderSizePixel=0 h.BackgroundTransparency=1 h.Visible=false h.Size=UDim2.fromScale(.817,.8042)h.Position=UDim2.fromScale(.1829,.1971)h.BorderColor3=Color3.fromRGB(0,0,0)h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="CategoryInner"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.ClipsDescendants=true G.Position=UDim2.fromScale(.0097,.0131)G.Size=UDim2.fromScale(.9781,.9868)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIListLayout")f.FillDirection=Enum.FillDirection.Horizontal f.VerticalAlignment=Enum.VerticalAlignment.Bottom f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=G local u=Instance.new("ScrollingFrame")u.Name="ExampleScrollingFrame1"u.BackgroundTransparency=1 u.ScrollBarImageTransparency=1 u.ScrollBarThickness=0 u.BorderSizePixel=0 u.ClipsDescendants=false u.Active=true u.Size=UDim2.fromScale(.5,.9852)u.CanvasSize=UDim2.fromScale(0,4)u.Position=UDim2.fromScale(0,.1919)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.ScrollBarImageColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIListLayout")G.SortOrder=Enum.SortOrder.LayoutOrder G.HorizontalFlex=Enum.UIFlexAlignment.SpaceAround G.Parent=u local f=Instance.new("Frame")f.Name="ExampleDivider"f.LayoutOrder=4 f.BackgroundTransparency=1 f.BorderSizePixel=0 f.Size=UDim2.fromScale(.9499,.0099)f.Position=UDim2.fromScale(.0249,.06)f.BackgroundColor3=Color3.fromRGB(44,50,57)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Divider"G.BorderSizePixel=0 G.Size=UDim2.fromScale(1,.1)G.BackgroundColor3=Color3.fromRGB(44,50,57)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")G.Parent=f end f.Parent=u local e=Instance.new("Frame")e.Name="ExampleInnerCategoryTitle"e.LayoutOrder=1 e.BackgroundTransparency=1 e.BorderSizePixel=0 e.Size=UDim2.fromScale(.9499,.017)e.Position=UDim2.fromScale(.0249,.06)e.BackgroundColor3=Color3.fromRGB(44,50,57)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Category Name"G.Name="InnerCategoryTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(1,.6499)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(200,200,200)G.BorderColor=BrickColor.new("Really black")G.Parent=e end e.Parent=u local b=Instance.new("Frame")b.Name="ExampleFunction2"b.LayoutOrder=3 b.BackgroundTransparency=1 b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9499,.0309)b.Position=UDim2.fromScale(.0249,.0169)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(1,.5984)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=G local u=Instance.new("TextLabel")u.Text="Function Name"u.Name="FunctionTitle"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.5832,.4816)u.Position=UDim2.fromScale(.0207,.2266)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(200,200,200)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("Frame")e.Name="ToggleButtonFrame"e.BorderSizePixel=0 e.LayoutOrder=2 e.Active=true e.Size=UDim2.fromScale(.1299,.5949)e.Position=UDim2.fromScale(.8549,.1983)e.BackgroundColor3=Color3.fromRGB(179,56,56)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=e local u=Instance.new("TextLabel")u.Text="On"u.Name="State"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9,.874)u.Position=UDim2.fromScale(.0999,0)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=e local b=Instance.new("TextButton")b.Text=""b.Name="Moving"b.TextSize=14 b.BorderSizePixel=0 b.AutoButtonColor=false b.Position=UDim2.fromScale(.6271,.15)b.Size=UDim2.fromScale(.3156,1)b.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(0,0,0)b.BackgroundColor3=Color3.fromRGB(212,225,255)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=b local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=b end b.Parent=e local L=Instance.new("UIAspectRatioConstraint")L.AspectRatio=2.2899 L.Parent=e local h=Instance.new("TextButton")h.Text=""h.Name="ClickDetector"h.TextSize=14 h.BackgroundTransparency=1 h.BorderSizePixel=0 h.AutoButtonColor=false h.Size=UDim2.fromScale(1,1)h.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")h.BackgroundColor3=Color3.fromRGB(212,225,255)h.TextColor3=Color3.fromRGB(0,0,0)h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderColor=BrickColor.new("Really black")h.Parent=e end e.Parent=G local b=Instance.new("Frame")b.Name="BindFrame"b.BorderSizePixel=0 b.LayoutOrder=2 b.Position=UDim2.fromScale(.6886,.1699)b.Size=UDim2.fromScale(.1455,.6515)b.BackgroundColor3=Color3.fromRGB(15,16,21)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=b local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=b local u=Instance.new("TextButton")u.Text=""u.Name="BindButton"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=11 u.TextScaled=true u.TextWrapped=true u.AutoButtonColor=false u.Size=UDim2.fromScale(1,1)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BackgroundColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=b local e=Instance.new("TextLabel")e.Name="State"e.Text="NONE"e.TextSize=14 e.BorderSizePixel=0 e.BackgroundTransparency=1 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(1,.6)e.Position=UDim2.fromScale(0,.2077)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.TextYAlignment=Enum.TextYAlignment.Top e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor=BrickColor.new("Really black")e.Parent=b end b.Parent=G local L=Instance.new("UICorner")L.CornerRadius=UDim.new(0,5)L.Parent=G end G.Parent=b end b.Parent=u local L=Instance.new("Frame")L.Name="ExampleFunction1"L.BackgroundTransparency=1 L.LayoutOrder=2 L.BorderSizePixel=0 L.Size=UDim2.fromScale(.9499,.0599)L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(1,.826)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=G local u=Instance.new("TextLabel")u.Text="Function Name"u.Name="FunctionTitle"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.613,.1876)u.Position=UDim2.fromScale(.0233,.0938)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(200,200,200)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("TextLabel")e.Text="Function Description"e.Name="FunctionDescription"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.TextSize=14 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(.9758,.1459)e.Position=UDim2.fromScale(.0207,.3439)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)e.TextXAlignment=Enum.TextXAlignment.Left e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(180,180,180)e.BorderColor=BrickColor.new("Really black")e.Parent=G local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9525,.0208)b.Position=UDim2.fromScale(.0207,.6358)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=G local L=Instance.new("Frame")L.Name="SliderBackground"L.BorderSizePixel=0 L.Size=UDim2.fromScale(.7474,.0782)L.Position=UDim2.fromScale(.0233,.7841)L.BackgroundColor3=Color3.fromRGB(15,16,21)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(1,0)G.Parent=L local f=Instance.new("UIStroke")f.Color=Color3.fromRGB(44,50,57)f.Parent=L local u=Instance.new("Frame")u.Name="SliderBar"u.BorderSizePixel=0 u.Size=UDim2.fromScale(.3495,1)u.Position=UDim2.fromScale(0,0)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(1,0)G.Parent=u local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=u local e=Instance.new("UIGradient")e.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(165,36,36));ColorSequenceKeypoint.new(.4844,Color3.fromRGB(183,68,35));ColorSequenceKeypoint.new(1,Color3.fromRGB(232,156,35))})e.Parent=u end u.Parent=L local e=Instance.new("Frame")e.Name="Slider"e.BorderSizePixel=0 e.Size=UDim2.fromScale(.0647,2.2553)e.Position=UDim2.fromScale(.3391,-0.6045)e.BackgroundColor3=Color3.fromRGB(232,156,35)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(1,0)G.Parent=e local f=Instance.new("UIAspectRatioConstraint")f.Parent=e end e.Parent=L end L.Parent=G local h=Instance.new("TextBox")h.Text="9999 "h.Name="CustomInput"h.TextSize=14 h.BorderSizePixel=0 h.TextScaled=true h.TextWrapped=true h.Size=UDim2.fromScale(.1427,.1835)h.Position=UDim2.fromScale(.828,.73)h.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)h.TextXAlignment=Enum.TextXAlignment.Right h.PlaceholderColor3=Color3.fromRGB(200,200,200)h.TextColor3=Color3.fromRGB(200,200,200)h.BorderColor3=Color3.fromRGB(0,0,0)h.BackgroundColor3=Color3.fromRGB(15,16,21)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=h end h.Parent=G local J=Instance.new("Frame")J.Name="ToggleButtonFrame"J.BorderSizePixel=0 J.LayoutOrder=2 J.Active=true J.Size=UDim2.fromScale(.1322,.2242)J.Position=UDim2.fromScale(.8573,.0792)J.BackgroundColor3=Color3.fromRGB(179,56,56)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=J local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=J local u=Instance.new("TextLabel")u.Text="On"u.Name="State"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9,.874)u.Position=UDim2.fromScale(.0999,0)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=J local e=Instance.new("TextButton")e.Text=""e.Name="Moving"e.TextSize=14 e.BorderSizePixel=0 e.AutoButtonColor=false e.Position=UDim2.fromScale(.6271,.15)e.Size=UDim2.fromScale(.3156,1)e.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(0,0,0)e.BackgroundColor3=Color3.fromRGB(212,225,255)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=e end e.Parent=J local b=Instance.new("UIAspectRatioConstraint")b.AspectRatio=2.2899 b.Parent=J local L=Instance.new("TextButton")L.Text=""L.Name="ClickDetector"L.TextSize=14 L.BackgroundTransparency=1 L.BorderSizePixel=0 L.AutoButtonColor=false L.Size=UDim2.fromScale(1,1)L.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")L.BackgroundColor3=Color3.fromRGB(212,225,255)L.TextColor3=Color3.fromRGB(0,0,0)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")L.Parent=J end J.Parent=G local m=Instance.new("Frame")m.Name="BindFrame"m.BorderSizePixel=0 m.LayoutOrder=2 m.Position=UDim2.fromScale(.6899,.07)m.Size=UDim2.fromScale(.1468,.249)m.BackgroundColor3=Color3.fromRGB(15,16,21)m.BorderColor3=Color3.fromRGB(0,0,0)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=m local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=m local u=Instance.new("TextButton")u.Text=""u.Name="BindButton"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=11 u.TextScaled=true u.TextWrapped=true u.AutoButtonColor=false u.Size=UDim2.fromScale(1,1)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BackgroundColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=m local e=Instance.new("TextLabel")e.Name="State"e.Text="NONE"e.TextSize=14 e.BorderSizePixel=0 e.BackgroundTransparency=1 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(1,.6)e.Position=UDim2.fromScale(0,.2077)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.TextYAlignment=Enum.TextYAlignment.Top e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor=BrickColor.new("Really black")e.Parent=m end m.Parent=G local K=Instance.new("UICorner")K.CornerRadius=UDim.new(0,5)K.Parent=G end G.Parent=L end L.Parent=u local h=Instance.new("Frame")h.Name="ExampleFunction3"h.BackgroundTransparency=1 h.LayoutOrder=6 h.BorderSizePixel=0 h.Size=UDim2.fromScale(.9499,.07)h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(.9976,.8231)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=G local u=Instance.new("TextLabel")u.Text="Function Name"u.Name="FunctionTitle"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.6172,.1651)u.Position=UDim2.fromScale(.0208,.0825)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(200,200,200)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("TextLabel")e.Text="Function Description"e.Name="FunctionDescription"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.TextSize=14 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(.9739,.1284)e.Position=UDim2.fromScale(.0182,.3027)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)e.TextXAlignment=Enum.TextXAlignment.Left e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(180,180,180)e.BorderColor=BrickColor.new("Really black")e.Parent=G local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9505,.0183)b.Position=UDim2.fromScale(.0249,.5226)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=G local L=Instance.new("Frame")L.Name="BindFrame"L.BorderSizePixel=0 L.LayoutOrder=2 L.Position=UDim2.fromScale(.8359,.0458)L.Size=UDim2.fromScale(.1458,.2201)L.BackgroundColor3=Color3.fromRGB(15,16,21)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")local h=Instance.new("UICorner")h.CornerRadius=UDim.new(0,5)h.Parent=G local J=Instance.new("Frame")J.Name="InputFrame"J.BorderSizePixel=0 J.Size=UDim2.fromScale(.958,.3151)J.Position=UDim2.fromScale(.0229,.6162)J.BackgroundColor3=Color3.fromRGB(15,16,21)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextBox")G.PlaceholderText="Enter player username..."G.Text=""G.Name="Input"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Position=UDim2.fromScale(.0191,.1609)G.Size=UDim2.fromScale(.5811,.65)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")G.TextXAlignment=Enum.TextXAlignment.Left G.PlaceholderColor3=Color3.fromRGB(131,131,131)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.TextColor3=Color3.fromRGB(200,200,200)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")G.Parent=J local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=J local u=Instance.new("UICorner")u.CornerRadius=UDim.new(0,5)u.Parent=J local e=Instance.new("TextButton")e.Text="Teleport"e.Name="ActionButton"e.BorderSizePixel=0 e.TextSize=11 e.TextWrapped=true e.TextScaled=true e.Position=UDim2.fromScale(.725,.18)e.Size=UDim2.fromScale(.2578,.624)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(179,56,56)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=e local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(100,31,31)f.Parent=e local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(100,31,31)u.Parent=e end e.Parent=J end J.Parent=G end G.Parent=h end h.Parent=u local J=Instance.new("Frame")J.Name="ExampleFunction4"J.BackgroundTransparency=1 J.LayoutOrder=6 J.BorderSizePixel=0 J.Size=UDim2.fromScale(.9499,.07)J.BackgroundColor3=Color3.fromRGB(255,255,255)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(.9976,.8231)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=G local u=Instance.new("TextLabel")u.Text="Function Name"u.Name="FunctionTitle"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.6172,.1651)u.Position=UDim2.fromScale(.0208,.0825)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(200,200,200)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("TextLabel")e.Text="Function Description"e.Name="FunctionDescription"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.TextSize=14 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(.9739,.1284)e.Position=UDim2.fromScale(.0182,.3027)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)e.TextXAlignment=Enum.TextXAlignment.Left e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(180,180,180)e.BorderColor=BrickColor.new("Really black")e.Parent=G local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9505,.0183)b.Position=UDim2.fromScale(.0249,.5226)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=G local L=Instance.new("UICorner")L.CornerRadius=UDim.new(0,5)L.Parent=G local h=Instance.new("Frame")h.Name="ToggleButtonFrame"h.BorderSizePixel=0 h.LayoutOrder=2 h.Active=true h.Size=UDim2.fromScale(.1322,.2242)h.Position=UDim2.fromScale(.8443,.0792)h.BackgroundColor3=Color3.fromRGB(179,56,56)h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=h local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=h local u=Instance.new("TextLabel")u.Text="On"u.Name="State"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9,.874)u.Position=UDim2.fromScale(.0999,0)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=h local e=Instance.new("TextButton")e.Text=""e.Name="Moving"e.TextSize=14 e.BorderSizePixel=0 e.AutoButtonColor=false e.Position=UDim2.fromScale(.6271,.15)e.Size=UDim2.fromScale(.3156,1)e.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(0,0,0)e.BackgroundColor3=Color3.fromRGB(212,225,255)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=e end e.Parent=h local b=Instance.new("UIAspectRatioConstraint")b.AspectRatio=2.2899 b.Parent=h local L=Instance.new("TextButton")L.Text=""L.Name="ClickDetector"L.TextSize=14 L.BackgroundTransparency=1 L.BorderSizePixel=0 L.AutoButtonColor=false L.Size=UDim2.fromScale(1,1)L.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")L.BackgroundColor3=Color3.fromRGB(212,225,255)L.TextColor3=Color3.fromRGB(0,0,0)L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderColor=BrickColor.new("Really black")L.Parent=h end h.Parent=G local J=Instance.new("Frame")J.Name="BindFrame"J.BorderSizePixel=0 J.LayoutOrder=2 J.Position=UDim2.fromScale(.68,.0799)J.Size=UDim2.fromScale(.1445,.2138)J.BackgroundColor3=Color3.fromRGB(15,16,21)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=J local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=J local u=Instance.new("TextButton")u.Text=""u.Name="BindButton"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=11 u.TextScaled=true u.TextWrapped=true u.AutoButtonColor=false u.Size=UDim2.fromScale(1,1)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BackgroundColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=J local e=Instance.new("TextLabel")e.Name="State"e.Text="NONE"e.TextSize=14 e.BorderSizePixel=0 e.BackgroundTransparency=1 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(1,.6)e.Position=UDim2.fromScale(0,.2077)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.TextYAlignment=Enum.TextYAlignment.Top e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor=BrickColor.new("Really black")e.Parent=J end J.Parent=G local m=Instance.new("TextButton")m.Text=""m.Name="ActionButton"m.BorderSizePixel=0 m.TextSize=11 m.TextWrapped=true m.TextScaled=true m.Position=UDim2.fromScale(.023,.6159)m.Size=UDim2.fromScale(.958,.3149)m.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)m.BorderColor3=Color3.fromRGB(0,0,0)m.TextColor3=Color3.fromRGB(212,225,255)m.BackgroundColor3=Color3.fromRGB(15,16,21)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=m local f=Instance.new("UICorner")f.CornerRadius=UDim.new(0,5)f.Parent=m local u=Instance.new("TextLabel")u.Text="Optional team selection..."u.Name="Title"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.5891,.65)u.Position=UDim2.fromScale(.0189,.1609)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(131,131,131)u.BorderColor=BrickColor.new("Really black")u.Parent=m end m.Parent=G local K=Instance.new("Frame")K.Name="DropdownFrame"K.BorderSizePixel=0 K.Visible=false K.Size=UDim2.fromScale(.958,1.7344)K.Position=UDim2.fromScale(.0229,.9799)K.BorderColor3=Color3.fromRGB(0,0,0)K.BackgroundColor3=Color3.fromRGB(15,16,21)K.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=K local f=Instance.new("UIListLayout")f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=K local u=Instance.new("TextButton")u.Text=""u.Name="DropdownButton"u.BorderSizePixel=0 u.TextSize=11 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(1,.1626)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.BackgroundColor3=Color3.fromRGB(24,26,34)u.TextColor3=Color3.fromRGB(212,225,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Engineering Department"G.Name="DropdownButtonTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.9178,.65)G.Position=UDim2.fromScale(.0788,.161)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(172,172,172)G.BorderColor=BrickColor.new("Really black")G.Parent=u local f=Instance.new("ImageLabel")f.Image="rbxassetid://134264002619960"f.Name="Selected"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.Size=UDim2.fromScale(.2099,.6252)f.Position=UDim2.fromScale(.017,.1648)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.ImageColor3=Color3.fromRGB(131,131,131)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=f end f.Parent=u end u.Parent=K end K.Parent=G end G.Parent=J end J.Parent=u local m=Instance.new("Frame")m.Name="ExampleFunction5"m.LayoutOrder=7 m.BackgroundTransparency=1 m.BorderSizePixel=0 m.Size=UDim2.fromScale(.9499,.0309)m.BackgroundColor3=Color3.fromRGB(255,255,255)m.BorderColor3=Color3.fromRGB(0,0,0)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(1,.5984)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("TextLabel")f.Text="Function Name"f.Name="FunctionTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.5832,.4816)f.Position=UDim2.fromScale(.0207,.2266)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=G local u=Instance.new("UIStroke")u.Thickness=2 u.Color=Color3.fromRGB(44,50,57)u.Parent=G local e=Instance.new("Frame")e.Name="BindFrame"e.BorderSizePixel=0 e.LayoutOrder=2 e.Position=UDim2.fromScale(.5418,.2079)e.Size=UDim2.fromScale(.1455,.6515)e.BackgroundColor3=Color3.fromRGB(15,16,21)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextButton")G.Text=""G.Name="BindButton"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=11 G.TextScaled=true G.TextWrapped=true G.AutoButtonColor=false G.Size=UDim2.fromScale(1,1)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(212,225,255)G.BackgroundColor3=Color3.fromRGB(212,225,255)G.BorderColor=BrickColor.new("Really black")G.Parent=e local f=Instance.new("UIStroke")f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(44,50,57)f.Parent=e local u=Instance.new("UICorner")u.CornerRadius=UDim.new(1,0)u.Parent=e local b=Instance.new("TextLabel")b.Name="State"b.Text="NONE"b.TextSize=14 b.BorderSizePixel=0 b.BackgroundTransparency=1 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(1,.56)b.Position=UDim2.fromScale(0,.2077)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)b.TextYAlignment=Enum.TextYAlignment.Top b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(212,225,255)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor=BrickColor.new("Really black")b.Parent=e end e.Parent=G local b=Instance.new("UICorner")b.CornerRadius=UDim.new(0,5)b.Parent=G local L=Instance.new("TextButton")L.Text="Teleport"L.Name="ActionButton"L.BorderSizePixel=0 L.TextSize=11 L.TextWrapped=true L.TextScaled=true L.Position=UDim2.fromScale(.725,.18)L.Size=UDim2.fromScale(.2578,.624)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(212,225,255)L.BackgroundColor3=Color3.fromRGB(179,56,56)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=L local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(100,31,31)f.Parent=L local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(100,31,31)u.Parent=L end L.Parent=G end G.Parent=m end m.Parent=u end u.Parent=G end G.Parent=h local f=Instance.new("TextLabel")f.Text="Category Name"f.Name="CategoryTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.9784,.0649)f.Position=UDim2.fromScale(.0217,-0.1336)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=h local u=Instance.new("TextLabel")u.Text="Movement, teleportation & character utilities."u.Name="CategoryDescription"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9777,.038)u.Position=UDim2.fromScale(.0219,-0.0621)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(180,180,180)u.BorderColor=BrickColor.new("Really black")u.Parent=h local e=Instance.new("Frame")e.Name="Divider"e.BorderSizePixel=0 e.Size=UDim2.fromScale(.9532,.004)e.Position=UDim2.fromScale(.0217,-0.0045)e.BackgroundColor3=Color3.fromRGB(44,50,57)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")e.Parent=h end h.Parent=e local J=Instance.new("Frame")J.Name="Welcome"J.BorderSizePixel=0 J.Visible=false J.ClipsDescendants=true J.Size=UDim2.fromScale(1,1)J.BackgroundColor3=Color3.fromRGB(26,30,40)J.BorderColor3=Color3.fromRGB(0,0,0)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,5)G.Parent=J local f=Instance.new("ImageLabel")f.Image="rbxassetid://128103733288109"f.ImageTransparency=.25 f.BackgroundTransparency=1 f.BorderSizePixel=0 f.Size=UDim2.fromOffset(542,387)f.Position=UDim2.fromScale(.2333,.1963)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.AspectRatio=1.5 G.Parent=f end f.Parent=J end J.Parent=e local m=Instance.new("Frame")m.Name="SettingsCategoryFrame"m.BorderSizePixel=0 m.BackgroundTransparency=1 m.Visible=false m.Size=UDim2.fromScale(.817,.8042)m.Position=UDim2.fromScale(.1829,.1971)m.BorderColor3=Color3.fromRGB(0,0,0)m.BackgroundColor3=Color3.fromRGB(255,255,255)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="CategoryInner"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.ClipsDescendants=true G.Position=UDim2.fromScale(.0097,.0131)G.Size=UDim2.fromScale(.9781,.9868)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIListLayout")f.FillDirection=Enum.FillDirection.Horizontal f.VerticalAlignment=Enum.VerticalAlignment.Bottom f.HorizontalAlignment=Enum.HorizontalAlignment.Right f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=G local u=Instance.new("ScrollingFrame")u.Name="ExampleScrollingFrame1"u.BackgroundTransparency=1 u.ScrollBarImageTransparency=1 u.ScrollBarThickness=0 u.BorderSizePixel=0 u.ClipsDescendants=false u.Active=true u.Size=UDim2.fromScale(.5,.9852)u.CanvasSize=UDim2.fromScale(0,4)u.Position=UDim2.fromScale(0,.1919)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.ScrollBarImageColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIListLayout")G.SortOrder=Enum.SortOrder.LayoutOrder G.HorizontalFlex=Enum.UIFlexAlignment.SpaceAround G.Parent=u local f=Instance.new("Frame")f.Name="CategoryTitle"f.BorderSizePixel=0 f.BackgroundTransparency=1 f.Size=UDim2.fromScale(.9499,.017)f.Position=UDim2.fromScale(.0249,.06)f.BackgroundColor3=Color3.fromRGB(44,50,57)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Menu Configurations"G.Name="InnerCategoryTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(1,.6499)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(200,200,200)G.BorderColor=BrickColor.new("Really black")G.Parent=f end f.Parent=u local e=Instance.new("Frame")e.Name="Function1"e.LayoutOrder=1 e.BackgroundTransparency=1 e.BorderSizePixel=0 e.Size=UDim2.fromScale(.9499,.0309)e.Position=UDim2.fromScale(.0249,.0169)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(1,.5984)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=G local u=Instance.new("TextLabel")u.Text="Menu open keybind"u.Name="FunctionTitle"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.5832,.4816)u.Position=UDim2.fromScale(.0207,.2266)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(200,200,200)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("Frame")e.Name="BindFrame"e.BorderSizePixel=0 e.LayoutOrder=2 e.Position=UDim2.fromScale(.8366,.1699)e.Size=UDim2.fromScale(.1455,.6515)e.BackgroundColor3=Color3.fromRGB(15,16,21)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.ApplyStrokeMode=Enum.ApplyStrokeMode.Border G.Color=Color3.fromRGB(44,50,57)G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=e local u=Instance.new("TextButton")u.Text=""u.Name="BindButton"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=11 u.TextScaled=true u.TextWrapped=true u.AutoButtonColor=false u.Size=UDim2.fromScale(1,1)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(212,225,255)u.BackgroundColor3=Color3.fromRGB(212,225,255)u.BorderColor=BrickColor.new("Really black")u.Parent=e local b=Instance.new("TextLabel")b.Name="State"b.Text="NONE"b.TextSize=14 b.BorderSizePixel=0 b.BackgroundTransparency=1 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(1,.6)b.Position=UDim2.fromScale(0,.2077)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)b.TextYAlignment=Enum.TextYAlignment.Top b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(212,225,255)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor=BrickColor.new("Really black")b.Parent=e end e.Parent=G local b=Instance.new("UICorner")b.CornerRadius=UDim.new(0,5)b.Parent=G end G.Parent=e end e.Parent=u local b=Instance.new("Frame")b.Name="Function2"b.BackgroundTransparency=1 b.LayoutOrder=2 b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9499,.07)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(.9976,1.1479)G.Position=UDim2.fromScale(0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("TextLabel")f.Text="View all of your binds"f.Name="FunctionTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.617,.112)f.Position=UDim2.fromScale(.028,.052)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=G local u=Instance.new("TextLabel")u.Text="View and delete your key-binded functions."u.Name="FunctionDescription"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.971,.086)u.Position=UDim2.fromScale(.028,.196)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(180,180,180)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("TextButton")e.Text=""e.Name="ActionButton"e.BorderSizePixel=0 e.TextSize=11 e.TextWrapped=true e.TextScaled=true e.Position=UDim2.fromScale(.0208,.4341)e.Size=UDim2.fromScale(.9557,.2236)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(15,16,21)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Click to view your configs"G.Name="Title"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.5891,.65)G.Position=UDim2.fromScale(.0189,.1609)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(131,131,131)G.BorderColor=BrickColor.new("Really black")G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(0,5)f.Parent=e local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=e end e.Parent=G local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9479,0)b.Position=UDim2.fromScale(.0234,.3618)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=G local L=Instance.new("UICorner")L.CornerRadius=UDim.new(0,5)L.Parent=G local h=Instance.new("UIStroke")h.Thickness=2 h.Color=Color3.fromRGB(44,50,57)h.Parent=G local J=Instance.new("TextButton")J.Text="Delete"J.Name="DeleteConfig"J.BorderSizePixel=0 J.TextSize=11 J.TextWrapped=true J.TextScaled=true J.Position=UDim2.fromScale(.0234,.7828)J.Size=UDim2.fromScale(.9505,.1513)J.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)J.BorderColor3=Color3.fromRGB(0,0,0)J.TextColor3=Color3.fromRGB(212,225,255)J.BackgroundColor3=Color3.fromRGB(179,56,56)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=J local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(100,31,31)f.Parent=J local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(100,31,31)u.Parent=J end J.Parent=G local m=Instance.new("Frame")m.Name="DropdownFrame"m.BorderSizePixel=0 m.Visible=false m.Size=UDim2.fromScale(.9557,1.2433)m.Position=UDim2.fromScale(.0208,.6907)m.BorderColor3=Color3.fromRGB(0,0,0)m.BackgroundColor3=Color3.fromRGB(15,16,21)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextButton")G.Text=""G.Name="DropdownButton"G.BorderSizePixel=0 G.TextSize=11 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(1,.1626)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.TextColor3=Color3.fromRGB(212,225,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("TextLabel")f.Text="Engineering Department"f.Name="DropdownButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.9178,.65)f.Position=UDim2.fromScale(.0788,.161)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(172,172,172)f.BorderColor=BrickColor.new("Really black")f.Parent=G local u=Instance.new("ImageLabel")u.Image="rbxassetid://134264002619960"u.Name="Selected"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.Size=UDim2.fromScale(.2099,.6252)u.Position=UDim2.fromScale(.017,.1648)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.ImageColor3=Color3.fromRGB(131,131,131)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=u end u.Parent=G end G.Parent=m local f=Instance.new("UIListLayout")f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=m local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=m end m.Parent=G end G.Parent=b end b.Parent=u end u.Parent=G local e=Instance.new("ScrollingFrame")e.Name="ExampleScrollingFrame2"e.BackgroundTransparency=1 e.ScrollBarImageTransparency=1 e.ScrollBarThickness=0 e.BorderSizePixel=0 e.ClipsDescendants=false e.Active=true e.Size=UDim2.fromScale(.5,.9852)e.CanvasSize=UDim2.fromScale(0,4)e.Position=UDim2.fromScale(0,.1919)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.ScrollBarImageColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIListLayout")G.SortOrder=Enum.SortOrder.LayoutOrder G.HorizontalFlex=Enum.UIFlexAlignment.SpaceAround G.Parent=e local f=Instance.new("Frame")f.Name="Function2"f.BackgroundTransparency=1 f.LayoutOrder=2 f.BorderSizePixel=0 f.Size=UDim2.fromScale(.9499,.07)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(.9976,1.6387)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("TextLabel")f.Text="View your configurations"f.Name="FunctionTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.6171,.0783)f.Position=UDim2.fromScale(.0182,.0414)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=G local u=Instance.new("TextLabel")u.Text="Load, save, or delete your configurations."u.Name="FunctionDescription"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9713,.0599)u.Position=UDim2.fromScale(.0156,.1474)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(180,180,180)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("TextButton")e.Text=""e.Name="ActionButton"e.BorderSizePixel=0 e.TextSize=11 e.TextWrapped=true e.TextScaled=true e.Position=UDim2.fromScale(.0208,.3087)e.Size=UDim2.fromScale(.9557,.1566)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(15,16,21)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Click to view your configs"G.Name="Title"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.5891,.65)G.Position=UDim2.fromScale(.0189,.1609)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(131,131,131)G.BorderColor=BrickColor.new("Really black")G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(0,5)f.Parent=e local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=e end e.Parent=G local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9479,.0046)b.Position=UDim2.fromScale(.0234,.258)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=G local L=Instance.new("UICorner")L.CornerRadius=UDim.new(0,5)L.Parent=G local h=Instance.new("UIStroke")h.Thickness=2 h.Color=Color3.fromRGB(44,50,57)h.Parent=G local J=Instance.new("TextButton")J.Text="Delete"J.Name="DeleteConfig"J.BorderSizePixel=0 J.TextSize=11 J.TextWrapped=true J.TextScaled=true J.Position=UDim2.fromScale(.0244,.5486)J.Size=UDim2.fromScale(.3386,.1079)J.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)J.BorderColor3=Color3.fromRGB(0,0,0)J.TextColor3=Color3.fromRGB(212,225,255)J.BackgroundColor3=Color3.fromRGB(179,56,56)J.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=J local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(100,31,31)f.Parent=J local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(100,31,31)u.Parent=J end J.Parent=G local m=Instance.new("TextButton")m.Text="Load Config"m.Name="LoadConfig"m.BorderSizePixel=0 m.TextSize=11 m.TextWrapped=true m.TextScaled=true m.Position=UDim2.fromScale(.3942,.5486)m.Size=UDim2.fromScale(.5756,.1079)m.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)m.BorderColor3=Color3.fromRGB(0,0,0)m.TextColor3=Color3.fromRGB(212,225,255)m.BackgroundColor3=Color3.fromRGB(62,179,62)m.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=m local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(36,104,36)f.Parent=m local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(36,104,36)u.Parent=m end m.Parent=G local K=Instance.new("TextButton")K.Text="Overwrite"K.Name="DeleteConfig"K.BorderSizePixel=0 K.TextSize=11 K.TextWrapped=true K.TextScaled=true K.Position=UDim2.fromScale(.0244,.8297)K.Size=UDim2.fromScale(.4584,.1079)K.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)K.BorderColor3=Color3.fromRGB(0,0,0)K.TextColor3=Color3.fromRGB(212,225,255)K.BackgroundColor3=Color3.fromRGB(179,56,56)K.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=K local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(100,31,31)f.Parent=K local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(100,31,31)u.Parent=K end K.Parent=G local C=Instance.new("TextButton")C.Text="Auto Load: OFF"C.Name="AutoLoad"C.BorderSizePixel=0 C.TextSize=11 C.TextWrapped=true C.TextScaled=true C.Position=UDim2.fromScale(.514,.8297)C.Size=UDim2.fromScale(.4588,.108)C.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)C.BorderColor3=Color3.fromRGB(0,0,0)C.TextColor3=Color3.fromRGB(212,225,255)C.BackgroundColor3=Color3.fromRGB(189,123,42)C.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=C local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(127,83,28)f.Parent=C local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(127,83,28)u.Parent=C end C.Parent=G local g=Instance.new("Frame")g.Name="DropdownFrame"g.BorderSizePixel=0 g.Visible=false g.Size=UDim2.fromScale(.9557,.8709)g.Position=UDim2.fromScale(.0208,.4884)g.BorderColor3=Color3.fromRGB(0,0,0)g.BackgroundColor3=Color3.fromRGB(15,16,21)g.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextButton")G.Text=""G.Name="DropdownButton"G.BorderSizePixel=0 G.TextSize=11 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(1,.1626)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.TextColor3=Color3.fromRGB(212,225,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("TextLabel")f.Text="Engineering Department"f.Name="DropdownButtonTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.9178,.65)f.Position=UDim2.fromScale(.0788,.161)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(172,172,172)f.BorderColor=BrickColor.new("Really black")f.Parent=G local u=Instance.new("ImageLabel")u.Image="rbxassetid://134264002619960"u.Name="Selected"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.Size=UDim2.fromScale(.2099,.6252)u.Position=UDim2.fromScale(.017,.1648)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.ImageColor3=Color3.fromRGB(131,131,131)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=u end u.Parent=G end G.Parent=g local f=Instance.new("UIListLayout")f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=g local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=g end g.Parent=G end G.Parent=f end f.Parent=e local u=Instance.new("Frame")u.Name="Function1"u.BackgroundTransparency=1 u.LayoutOrder=1 u.BorderSizePixel=0 u.Size=UDim2.fromScale(.9499,.07)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("Frame")G.Name="Function"G.BorderSizePixel=0 G.BackgroundTransparency=.1 G.Size=UDim2.fromScale(.9976,.8231)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(24,26,34)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=G local u=Instance.new("TextLabel")u.Text="Create a new configuration"u.Name="FunctionTitle"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.6172,.1651)u.Position=UDim2.fromScale(.0208,.0825)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(200,200,200)u.BorderColor=BrickColor.new("Really black")u.Parent=G local e=Instance.new("TextLabel")e.Text="Save your current script setup to a file."e.Name="FunctionDescription"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.TextSize=14 e.TextWrapped=true e.TextScaled=true e.Size=UDim2.fromScale(.9739,.1284)e.Position=UDim2.fromScale(.0182,.3027)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)e.TextXAlignment=Enum.TextXAlignment.Left e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(180,180,180)e.BorderColor=BrickColor.new("Really black")e.Parent=G local b=Instance.new("Frame")b.Name="Divider"b.BorderSizePixel=0 b.Size=UDim2.fromScale(.9505,.0183)b.Position=UDim2.fromScale(.0249,.5226)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")b.Parent=G local L=Instance.new("UICorner")L.CornerRadius=UDim.new(0,5)L.Parent=G local h=Instance.new("Frame")h.Name="InputFrame"h.BorderSizePixel=0 h.Size=UDim2.fromScale(.958,.3151)h.Position=UDim2.fromScale(.0229,.6162)h.BackgroundColor3=Color3.fromRGB(15,16,21)h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextBox")G.PlaceholderText="Enter a new config name..."G.Name="Input"G.Text=""G.CursorPosition=-1 G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.6229,.65)G.Position=UDim2.fromScale(.0191,.1609)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.TextColor3=Color3.fromRGB(200,200,200)G.PlaceholderColor3=Color3.fromRGB(131,131,131)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")G.Parent=h local f=Instance.new("UIStroke")f.Thickness=2 f.Color=Color3.fromRGB(44,50,57)f.Parent=h local u=Instance.new("UICorner")u.CornerRadius=UDim.new(0,5)u.Parent=h local e=Instance.new("TextButton")e.Text="Create"e.Name="ActionButton"e.BorderSizePixel=0 e.TextSize=11 e.TextWrapped=true e.TextScaled=true e.Position=UDim2.fromScale(.725,.18)e.Size=UDim2.fromScale(.2578,.624)e.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)e.BorderColor3=Color3.fromRGB(0,0,0)e.TextColor3=Color3.fromRGB(212,225,255)e.BackgroundColor3=Color3.fromRGB(179,56,56)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,2)G.Parent=e local f=Instance.new("UIStroke")f.Thickness=2 f.ApplyStrokeMode=Enum.ApplyStrokeMode.Border f.Color=Color3.fromRGB(100,31,31)f.Parent=e local u=Instance.new("UIStroke")u.Color=Color3.fromRGB(100,31,31)u.Parent=e end e.Parent=h end h.Parent=G end G.Parent=u end u.Parent=e local b=Instance.new("Frame")b.Name="CategoryTitle"b.BorderSizePixel=0 b.BackgroundTransparency=1 b.Size=UDim2.fromScale(.9499,.017)b.Position=UDim2.fromScale(.0249,.06)b.BackgroundColor3=Color3.fromRGB(44,50,57)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Script Configurations"G.Name="InnerCategoryTitle"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(1,.6499)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.TextColor3=Color3.fromRGB(200,200,200)G.BorderColor=BrickColor.new("Really black")G.Parent=b end b.Parent=e end e.Parent=G end G.Parent=m local f=Instance.new("TextLabel")f.Text="Settings"f.Name="CategoryTitle"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.9784,.0649)f.Position=UDim2.fromScale(.0217,-0.1336)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(200,200,200)f.BorderColor=BrickColor.new("Really black")f.Parent=m local u=Instance.new("TextLabel")u.Text="Engine settings, binds & utilities"u.Name="CategoryDescription"u.BackgroundTransparency=1 u.BorderSizePixel=0 u.TextSize=14 u.TextWrapped=true u.TextScaled=true u.Size=UDim2.fromScale(.9777,.038)u.Position=UDim2.fromScale(.0219,-0.0621)u.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)u.TextXAlignment=Enum.TextXAlignment.Left u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(180,180,180)u.BorderColor=BrickColor.new("Really black")u.Parent=m local e=Instance.new("Frame")e.Name="Divider"e.BorderSizePixel=0 e.Size=UDim2.fromScale(.9532,.004)e.Position=UDim2.fromScale(.0217,-0.0045)e.BackgroundColor3=Color3.fromRGB(44,50,57)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")e.Parent=m end m.Parent=e end e.Parent=u local b=Instance.new("Frame")b.Name="Console"b.BorderSizePixel=0 b.Visible=false b.ClipsDescendants=true b.Size=UDim2.fromScale(1,1)b.BackgroundColor3=Color3.fromRGB(22,25,29)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UICorner")G.CornerRadius=UDim.new(0,5)G.Parent=b local f=Instance.new("Frame")f.Name="Top"f.BorderSizePixel=0 f.BackgroundTransparency=1 f.Size=UDim2.fromScale(1,.064)f.BorderColor3=Color3.fromRGB(0,0,0)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=f local u=Instance.new("TextButton")u.Name="Console"u.LayoutOrder=10 u.TextSize=14 u.BackgroundTransparency=1 u.TextTransparency=1 u.BorderSizePixel=0 u.Position=UDim2.fromScale(0,-0.0504)u.Size=UDim2.fromScale(.1571,1.0636)u.FontFace=Font.new("rbxasset://fonts/families/SourceSansPro.json")u.BorderColor3=Color3.fromRGB(0,0,0)u.TextColor3=Color3.fromRGB(0,0,0)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("ImageLabel")G.Image="rbxassetid://124089409650167"G.Name="Logo"G.BorderSizePixel=0 G.Rotation=-180 G.BackgroundTransparency=1 G.Position=UDim2.fromScale(.0675,.165)G.Size=UDim2.fromScale(.2017,.6972)G.BorderColor3=Color3.fromRGB(0,0,0)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.ImageColor3=Color3.fromRGB(190,190,190)G.BorderColor=BrickColor.new("Really black")do local f=Instance.new("UIAspectRatioConstraint")f.Parent=G end G.Parent=u local f=Instance.new("TextLabel")f.Text="Exit"f.Name="DisplayName"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=14 f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(.7422,.4648)f.Position=UDim2.fromScale(.2918,.2415)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(190,190,190)f.BorderColor=BrickColor.new("Really black")f.Parent=u end u.Parent=f local e=Instance.new("ImageLabel")e.Image="rbxassetid://107434295940442"e.Name="ProfilePicture"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.Size=UDim2.fromScale(.0339,.7168)e.Position=UDim2.fromScale(.958,.124)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIAspectRatioConstraint")G.Parent=e local f=Instance.new("UICorner")f.CornerRadius=UDim.new(1,0)f.Parent=e local u=Instance.new("UIStroke")u.Thickness=2 u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border u.Color=Color3.fromRGB(44,50,57)u.Parent=e local b=Instance.new("TextLabel")b.Text="uni"b.Name="DisplayName"b.BackgroundTransparency=1 b.BorderSizePixel=0 b.TextSize=14 b.TextWrapped=true b.TextScaled=true b.Size=UDim2.fromScale(3.109,.5483)b.Position=UDim2.fromScale(-3.3449,.3658)b.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)b.TextXAlignment=Enum.TextXAlignment.Right b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.TextColor3=Color3.fromRGB(255,255,255)b.BorderColor=BrickColor.new("Really black")b.Parent=e local L=Instance.new("TextLabel")L.Text="realuni"L.Name="Username"L.BackgroundTransparency=1 L.BorderSizePixel=0 L.TextSize=14 L.TextWrapped=true L.TextScaled=true L.Size=UDim2.fromScale(3.109,.4104)L.Position=UDim2.fromScale(-3.3449,-0.048)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium)L.TextXAlignment=Enum.TextXAlignment.Right L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(199,199,199)L.BorderColor=BrickColor.new("Really black")L.Parent=e end e.Parent=f local b=Instance.new("Frame")b.Name="Top"b.BorderSizePixel=0 b.BackgroundTransparency=1 b.Size=UDim2.fromScale(.4449,.999)b.Position=UDim2.fromScale(.275,0)b.BackgroundColor3=Color3.fromRGB(255,255,255)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=b end b.Parent=f local L=Instance.new("TextLabel")L.Text="<font color=\"rgb(245, 105, 95)\">UNI</font>ware <font color=\"rgb(255, 147, 84)\">System Console</font>"L.Name="DisplayName"L.TextSize=14 L.BorderSizePixel=0 L.BackgroundTransparency=1 L.TextWrapped=true L.TextScaled=true L.RichText=true L.Size=UDim2.fromScale(.4519,.4943)L.Position=UDim2.fromScale(.272,.2481)L.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)L.BorderColor3=Color3.fromRGB(0,0,0)L.TextColor3=Color3.fromRGB(255,255,255)L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor=BrickColor.new("Really black")L.Parent=f end f.Parent=b local u=Instance.new("Frame")u.Name="CommandInputFrame"u.BorderSizePixel=0 u.BackgroundTransparency=1 u.Size=UDim2.fromScale(1,.064)u.Position=UDim2.fromScale(0,.9334)u.BackgroundColor3=Color3.fromRGB(255,255,255)u.BorderColor3=Color3.fromRGB(0,0,0)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIStroke")G.Thickness=2 G.Color=Color3.fromRGB(44,50,57)G.Parent=u local f=Instance.new("TextBox")f.Name="CommandInput"f.Text=""f.PlaceholderText="Type \"help\" for all of the commands."f.BackgroundTransparency=1 f.CursorPosition=-1 f.TextSize=14 f.BorderSizePixel=0 f.Position=UDim2.fromScale(.0147,0)f.Size=UDim2.fromScale(.9852,1.0382)f.FontFace=Font.new("rbxasset://fonts/families/Inconsolata.json",Enum.FontWeight.SemiBold)f.TextXAlignment=Enum.TextXAlignment.Left f.PlaceholderColor3=Color3.fromRGB(199,199,199)f.BorderColor3=Color3.fromRGB(0,0,0)f.TextColor3=Color3.fromRGB(255,255,255)f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor=BrickColor.new("Really black")f.Parent=u end u.Parent=b local e=Instance.new("Frame")e.Name="CommandSuggester"e.BorderSizePixel=0 e.BackgroundTransparency=.3 e.Visible=false e.Size=UDim2.fromScale(.3487,.1522)e.Position=UDim2.fromScale(.0101,.7621)e.BorderColor3=Color3.fromRGB(17,17,17)e.BackgroundColor3=Color3.fromRGB(13,15,17)e.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Command Name"G.Name="CommandName"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=14 G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(.9821,.1785)G.Position=UDim2.fromScale(.0387,.0766)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.SemiBold)G.TextXAlignment=Enum.TextXAlignment.Left G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(17,17,17)G.TextColor3=Color3.fromRGB(255,255,255)G.BorderColor=BrickColor.new("Really black")G.Parent=e local f=Instance.new("TextLabel")f.Text="Command Description, Command Description, Command Description, Command Description"f.Name="CommandDescription"f.BackgroundTransparency=1 f.BorderSizePixel=0 f.TextSize=16 f.TextWrapped=true f.Size=UDim2.fromScale(.9269,.6815)f.Position=UDim2.fromScale(.0387,.3184)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")f.TextXAlignment=Enum.TextXAlignment.Left f.TextYAlignment=Enum.TextYAlignment.Top f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(17,17,17)f.TextColor3=Color3.fromRGB(255,255,255)f.BorderColor=BrickColor.new("Really black")f.Parent=e local u=Instance.new("Frame")u.Name="Container"u.BorderSizePixel=0 u.BackgroundTransparency=1 u.Size=UDim2.fromScale(1,.325)u.Position=UDim2.fromScale(0,-0.3251)u.BackgroundColor3=Color3.fromRGB(13,15,17)u.BorderColor3=Color3.fromRGB(17,17,17)u.BorderColor=BrickColor.new("Really black")do local G=Instance.new("UIListLayout")G.VerticalAlignment=Enum.VerticalAlignment.Bottom G.SortOrder=Enum.SortOrder.LayoutOrder G.Parent=u local f=Instance.new("Frame")f.Name="ExampleSuggestion"f.BorderSizePixel=0 f.BackgroundTransparency=.6999 f.Size=UDim2.fromScale(1,.7883)f.Position=UDim2.fromScale(0,.2116)f.BackgroundColor3=Color3.fromRGB(13,15,17)f.BorderColor3=Color3.fromRGB(17,17,17)f.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Command Name"G.Name="CommandName"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=13 G.TextWrapped=true G.Size=UDim2.fromScale(.9611,1)G.Position=UDim2.fromScale(.0387,0)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")G.TextXAlignment=Enum.TextXAlignment.Left G.TextColor3=Color3.fromRGB(159,182,202)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(17,17,17)G.BorderColor=BrickColor.new("Really black")G.Parent=f end f.Parent=u end u.Parent=e end e.Parent=b local L=Instance.new("ScrollingFrame")L.BackgroundTransparency=1 L.BorderSizePixel=0 L.ScrollBarImageTransparency=1 L.Active=true L.CanvasPosition=Vector2.new(0,477.7789)L.Position=UDim2.fromScale(.0106,.0788)L.Size=UDim2.fromScale(.9825,.8302)L.CanvasSize=UDim2.fromScale(0,3)L.BorderColor3=Color3.fromRGB(0,0,0)L.ScrollBarImageColor3=Color3.fromRGB(0,0,0)L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Text="Command Description, Command Description, Command Description, Command Description"G.Name="CommandDescription"G.BackgroundTransparency=1 G.BorderSizePixel=0 G.TextSize=16 G.TextWrapped=true G.TextScaled=true G.Position=UDim2.fromScale(0,.273)G.Size=UDim2.fromScale(1,.0099)G.FontFace=Font.new("rbxasset://fonts/families/Inconsolata.json")G.TextYAlignment=Enum.TextYAlignment.Bottom G.TextXAlignment=Enum.TextXAlignment.Left G.TextColor3=Color3.fromRGB(73,166,55)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(17,17,17)G.BorderColor=BrickColor.new("Really black")G.Parent=L local f=Instance.new("UIListLayout")f.VerticalAlignment=Enum.VerticalAlignment.Bottom f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=L end L.Parent=b end b.Parent=u local L=Instance.new("Frame")L.Name="Welcome"L.BorderSizePixel=0 L.BackgroundTransparency=0 L.Visible=true L.ClipsDescendants=true L.Size=UDim2.fromScale(1.0011,1)L.BorderColor3=Color3.fromRGB(0,0,0)L.BackgroundColor3=Color3.fromRGB(24,27,31)L.BorderColor=BrickColor.new("Really black")do local G=Instance.new("TextLabel")G.Name="Title1"G.Text="Welcome back, USERNAME."G.BackgroundTransparency=1 G.TextTransparency=1 G.TextSize=14 G.BorderSizePixel=0 G.Visible=false G.TextWrapped=true G.TextScaled=true G.Size=UDim2.fromScale(1,.1027)G.Position=UDim2.fromScale(0,.3709)G.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold)G.BackgroundColor3=Color3.fromRGB(255,255,255)G.TextColor3=Color3.fromRGB(255,255,255)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderColor=BrickColor.new("Really black")G.Parent=L local f=Instance.new("TextLabel")f.Name="Title2"f.Text="Press \"keybind\" to open/close the menu."f.BackgroundTransparency=1 f.TextTransparency=1 f.TextSize=14 f.BorderSizePixel=0 f.Visible=false f.TextWrapped=true f.TextScaled=true f.Size=UDim2.fromScale(1,.0721)f.Position=UDim2.fromScale(0,.4825)f.FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json")f.BackgroundColor3=Color3.fromRGB(255,255,255)f.TextColor3=Color3.fromRGB(255,255,255)f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderColor=BrickColor.new("Really black")f.Parent=L local u=Instance.new("UICorner")u.CornerRadius=UDim.new(0,5)u.Parent=L local e=Instance.new("ImageLabel")e.Image="rbxassetid://77465308201054"e.BackgroundTransparency=1 e.BorderSizePixel=0 e.Size=UDim2.fromScale(.8027,1)e.Position=UDim2.fromScale(.0996,0)e.BackgroundColor3=Color3.fromRGB(255,255,255)e.BorderColor3=Color3.fromRGB(0,0,0)e.BorderColor=BrickColor.new("Really black")e.Parent=L end L.Parent=u end u.Parent=G end end do local function G(G,f)return G and G:FindFirstChild(f)end function m.CacheUI()h.NotificationContainer=G(h.ScreenGui,"NotificationContainer")h.MainBG=G(h.ScreenGui,"MainBG")h.Main=G(h.MainBG,"Main")h.ConsoleFrame=G(h.MainBG,"Console")h.WelcomeOverlay=G(h.MainBG,"Welcome")h.ProfileCategoryFrame=G(h.Main,"ProfileCategoryFrame")h.Navigation=G(h.Main,"Navigation")h.Top=G(h.Main,"Top")h.CategoryExample=G(h.Main,"CategoryExample")h.MainWelcome=G(h.Main,"Welcome")h.SettingsCategoryFrame=G(h.Main,"SettingsCategoryFrame")h.CommandInputFrame=G(h.ConsoleFrame,"CommandInputFrame")h.CommandInput=G(h.CommandInputFrame,"CommandInput")h.CommandSuggester=G(h.ConsoleFrame,"CommandSuggester")h.CommandSuggesterName=G(h.CommandSuggester,"CommandName")h.CommandSuggesterDescription=G(h.CommandSuggester,"CommandDescription")h.CommandSuggesterContainer=G(h.CommandSuggester,"Container")h.ConsoleScrollingFrame=nil if h.ConsoleFrame then for G,f in h.ConsoleFrame:GetChildren()do if f:IsA("ScrollingFrame")then h.ConsoleScrollingFrame=f break end end end h.NavigationProfileButton=G(h.Navigation,"DashboardButton")h.NavigationPlayerButton=G(h.Navigation,"Player")h.NavigationVisualsButton=G(h.Navigation,"Visuals")h.NavigationMotionButton=G(h.Navigation,"Motion")h.NavigationUtilityButton=G(h.Navigation,"Utility")h.NavigationSettingsButton=G(h.Navigation,"Settings")h.NavigationConsoleButton=G(h.Navigation,"Console")h.CategoryInner=G(h.CategoryExample,"CategoryInner")h.ExampleScrollingFrame1=nil h.ExampleScrollingFrame2=nil if h.CategoryInner then h.ExampleScrollingFrame1=G(h.CategoryInner,"ExampleScrollingFrame1")h.ExampleScrollingFrame2=G(h.CategoryInner,"ExampleScrollingFrame2")end h.ExampleFunction1=h.ExampleScrollingFrame1 and G(h.ExampleScrollingFrame1,"ExampleFunction1")or nil h.ExampleFunction2=h.ExampleScrollingFrame1 and G(h.ExampleScrollingFrame1,"ExampleFunction2")or nil h.ExampleFunction3=h.ExampleScrollingFrame1 and G(h.ExampleScrollingFrame1,"ExampleFunction3")or nil h.ExampleFunction4=h.ExampleScrollingFrame1 and G(h.ExampleScrollingFrame1,"ExampleFunction4")or nil h.ExampleFunction5=h.ExampleScrollingFrame1 and G(h.ExampleScrollingFrame1,"ExampleFunction5")or nil h.NotificationContainer=G(h.ScreenGui,"NotificationContainer")h.NotificationBG=h.NotificationContainer and G(h.NotificationContainer,"NotificationBG")end end do function m.SetGuiTreeZIndex(G,f)if not G then return end if G:IsA("GuiObject")then G.ZIndex=f end for G,u in ipairs(G:GetDescendants())do if u:IsA("GuiObject")then u.ZIndex=f+1 end end end local function G(G)if typeof(G)~="EnumItem"then return"Unknown"end local f={[Enum.KeyCode.Semicolon]=";",[Enum.KeyCode.Quote]="\'";[Enum.KeyCode.Comma]=",";[Enum.KeyCode.Period]=".",[Enum.KeyCode.Slash]="/";[Enum.KeyCode.BackSlash]="\\",[Enum.KeyCode.LeftBracket]="[",[Enum.KeyCode.RightBracket]="]",[Enum.KeyCode.Minus]="-",[Enum.KeyCode.Equals]="=";[Enum.KeyCode.Backquote]="`",[Enum.KeyCode.Space]="Space"}return f[G]or G.Name end function m.PlayStartupWelcome()local f=h.WelcomeOverlay if not f then return end local e=f:FindFirstChildWhichIsA("ImageLabel")local L=f:FindFirstChild("Title1")local J=f:FindFirstChild("Title2")if not e or not L or not J then return end local function K()local G=game:GetService("SoundService")local f=game:GetService("ContentProvider")local u=Instance.new("Sound")u.Name="WelcomeSoundRuntime"u.SoundId="rbxassetid://84128517840022"u.Volume=1 u.RollOffMaxDistance=100 u.Parent=G pcall(function()f:PreloadAsync({u})end)local e=false if u.IsLoaded then local G=pcall(function()u:Play()end)e=G and u.IsPlaying end if not e then task.spawn(function()local G=pcall(function()u.Loaded:Wait()end)if G and u.Parent then pcall(function()u:Play()end)end end)end u.Ended:Connect(function()if u then u:Destroy()end end)task.delay(10,function()if u and u.Parent then u:Destroy()end end)end m.SetGuiTreeZIndex(f,500)f.Visible=true f.BackgroundTransparency=0 e.Visible=true e.ImageTransparency=0 L.Visible=true J.Visible=true L.TextTransparency=1 J.TextTransparency=1 L.Text=string.format("Welcome back, %s.",b.Name)J.Text=string.format("Press \"%s\" to open/close the menu.",G(g))local C=u:Create(e,TweenInfo.new(.75,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{ImageTransparency=1})C:Play()C.Completed:Wait()K()local T=u:Create(L,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency=0})T:Play()T.Completed:Wait()task.wait(1.5)local k=u:Create(J,TweenInfo.new(.5,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency=0})k:Play()k.Completed:Wait()task.wait(1)local n=u:Create(f,TweenInfo.new(.75,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{BackgroundTransparency=1})local H=u:Create(L,TweenInfo.new(.75,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency=1})local V=u:Create(J,TweenInfo.new(.75,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{TextTransparency=1})n:Play()H:Play()V:Play()n.Completed:Wait()f.Visible=false f.BackgroundTransparency=1 e.Visible=false e.ImageTransparency=1 L.Visible=false J.Visible=false L.TextTransparency=1 J.TextTransparency=1 end end local j={SessionSeconds=0;LoadedStats={TotalExecutions=0;TotalUsageTime=0},ExecutionClockUTC="",ExecutorName="Unknown";IsMenuOpen=true;IsDragging=false,DragInput=nil,DragStart=nil;DragFrameStart=nil,OriginalMainBGPosition=nil,SaveAccumulator=0}local c={}local t={}do local G=3 t.Active={}function t.getTemplate()local G=h.NotificationContainer local f=G and G:FindFirstChild("NotificationBG")if not f then warn("[Uniware] Notification template missing")return nil end return f end function t.create(f,u,e)local b=t.getTemplate()if not b then return nil end local L=b:Clone()L.Name="NotificationBG_"..os.clock()L.Visible=true local J=L:FindFirstChild("Notification")local m=J and J:FindFirstChild("ExampleTitle")local K=J and J:FindFirstChild("ExampleDescription")local C=J and J:FindFirstChild("TimeLeft")if m then m.Text=f or""end if K then K.Text=u or""end if C then C.Size=UDim2.new(1,0,C.Size.Y.Scale,C.Size.Y.Offset)C.AnchorPoint=Vector2.new(0,0)C.Position=UDim2.new(0,0,C.Position.Y.Scale,C.Position.Y.Offset)end L.Parent=h.NotificationContainer return{Instance=L,TitleLabel=m,DescLabel=K;TimeLeft=C;Duration=e or G;StartTime=os.clock(),Tweens={}}end function t.animateEntry(G)if not G or not G.Instance then return end local f=G.Instance local e=f.Position local b=f.AbsoluteSize.X local L=UDim2.new(e.X.Scale,(e.X.Offset+b)+100,e.Y.Scale,e.Y.Offset)f.Position=L local h=u:Create(f,TweenInfo.new(.25,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=e})h:Play()h.Completed:Wait()end function t.animateProgress(G,f)if not G or not G.TimeLeft then return end local e=G.TimeLeft e.AnchorPoint=Vector2.new(0,0)e.Position=UDim2.new(0,0,e.Position.Y.Scale,e.Position.Y.Offset)local b=u:Create(e,TweenInfo.new(f,Enum.EasingStyle.Linear,Enum.EasingDirection.Out),{Size=UDim2.new(0,0,e.Size.Y.Scale,e.Size.Y.Offset)})G.Tweens.Progress=b b:Play()b.Completed:Connect(function()t.animateExit(G)end)end function t.animateExit(G)if not G or not G.Instance then return end local f=G.Instance local e=UDim2.new(f.Position.X.Scale,f.Position.X.Offset+500,f.Position.Y.Scale,f.Position.Y.Offset)local b=u:Create(f,TweenInfo.new(.25,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=e})b:Play()b.Completed:Connect(function()G.Instance:Destroy()for f,u in ipairs(t.Active)do if u==G then table.remove(t.Active,f)break end end end)end function t.Show(G,f,u)local e=t.create(G,f,u)if not e then return end table.insert(t.Active,e)t.animateEntry(e)t.animateProgress(e,e.Duration)end end local function y(G)if G then G:Disconnect()end end local function U(G)G=math.max(0,math.floor(tonumber(G)or 0))local f=math.floor(G/3600)local u=math.floor(((G%3600))/60)local e=G%60 if f>0 then return string.format("%dh %dm %ds",f,u,e)end if u>0 then return string.format("%dm %ds",u,e)end return string.format("%ds",e)end local function P(G)G=math.floor(tonumber(G)or 0)local f=tostring(G)while true do local G,u=f:gsub("^(-?%d+)(%d%d%d)","%1,%2")f=G if u==0 then break end end return f end local function D()local G=os.date("!*t")return string.format("%02d:%02d:%02d UTC",G.hour,G.min,G.sec)end local function x(G)if not G or G==""then return nil end local f,u=pcall(function()return(game:GetService("HttpService")):JSONDecode(G)end)if f and type(u)=="table"then return u end return nil end local function S(G)local f,u=pcall(function()return(game:GetService("HttpService")):JSONEncode(G)end)if f then return u end return"{}"end function q.canUseFiles()return type(isfile)=="function"and type(writefile)=="function"end function q.load()local G={TotalExecutions=0;TotalUsageTime=0}if not q.canUseFiles()then return G end if not isfile(T)then pcall(writefile,T,S(G))return G end local f,u=pcall(readfile,T)if not f then return G end local e=x(u)if not e then return G end return{TotalExecutions=tonumber(e.TotalExecutions)or 0;TotalUsageTime=tonumber(e.TotalUsageTime)or 0}end function q.save()if not q.canUseFiles()then return end local G={TotalExecutions=j.LoadedStats.TotalExecutions,TotalUsageTime=j.LoadedStats.TotalUsageTime}pcall(writefile,T,S(G))end function E.getName()if type(identifyexecutor)=="function"then local G,f,u=pcall(identifyexecutor)if G then if type(f)=="string"and f~=""then if type(u)=="string"and u~=""then return f..(" "..u)end return f end end end if type(getexecutorname)=="function"then local G,f=pcall(getexecutorname)if G and(type(f)=="string"and f~="")then return f end end if type(syn)=="table"then return"Synapse X"end if type(fluxus)=="table"then return"Fluxus"end if type(krnl)=="table"then return"KRNL"end return"Unknown"end j.NavigationSelectedButton=nil j.NavigationButtonHover={}j.NavigationButtonConnectionsBound=false j.NavigationButtonTweenInfo=TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)j.NavigationColorTweens={}local A=Color3.fromRGB(190,190,190)local s=Color3.fromRGB(122,122,122)local N=Color3.fromRGB(255,255,255)local B=TweenInfo.new(.3,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)function n.getNavigationButtons()return{h.NavigationProfileButton;h.NavigationPlayerButton,h.NavigationVisualsButton;h.NavigationMotionButton;h.NavigationUtilityButton;h.NavigationSettingsButton;h.NavigationConsoleButton}end function n.getNavigationButtonParts(G)if not G then return nil,nil end return G:FindFirstChild("ButtonTitle"),G:FindFirstChild("Icon")end function n.getNavigationButtonTargetColor(G)if not G then return A end if G:GetAttribute("Selected")then return N end if G:GetAttribute("Hovering")then return s end return A end function n.cancelNavigationColorTween(G,f)if not G then return end local u=j.NavigationColorTweens[G]if not u then return end local e=u[f]if e then e:Cancel()u[f]=nil end if next(u)==nil then j.NavigationColorTweens[G]=nil end end function n.playNavigationColorTween(G,f,e)if not G then return end if G[f]==e then return end local b=j.NavigationColorTweens[G]if not b then b={}j.NavigationColorTweens[G]=b end n.cancelNavigationColorTween(G,f)local L=u:Create(G,j.NavigationButtonTweenInfo,{[f]=e})b[f]=L L.Completed:Connect(function()local u=j.NavigationColorTweens[G]if not u then return end if u[f]==L then u[f]=nil if next(u)==nil then j.NavigationColorTweens[G]=nil end end end)L:Play()end function n.applyNavigationButtonVisual(G)local f,e=n.getNavigationButtonParts(G)local b=n.getNavigationButtonTargetColor(G)if f then(u:Create(f,B,{TextColor3=b})):Play()end if e and G.Name~="DashboardButton"then(u:Create(e,B,{ImageColor3=b})):Play()end end function n.selectNavigationButton(G)if not G then return end local f=n.getNavigationButtons()for u=1,#f,1 do f[u]:SetAttribute("Selected",f[u]==G)n.applyNavigationButtonVisual(f[u])end end function n.bindNavigationButton(G)if not G then return end G:SetAttribute("Hovering",false)G:SetAttribute("Selected",false)local f,u=n.getNavigationButtonParts(G)if f then f.TextColor3=A end if u and G.Name~="DashboardButton"then u.ImageColor3=A end G.MouseEnter:Connect(function()G:SetAttribute("Hovering",true)n.applyNavigationButtonVisual(G)end)G.MouseLeave:Connect(function()G:SetAttribute("Hovering",false)n.applyNavigationButtonVisual(G)end)G.MouseButton1Click:Connect(function()n.selectNavigationButton(G)end)end function n.setupNavigationButtons()local G=n.getNavigationButtons()for f=1,#G,1 do n.bindNavigationButton(G[f])end if#G>0 then n.selectNavigationButton(G[1])end end function n.captureReferences()local G=L:WaitForChild(C)local f=G:WaitForChild("MainBG")local u=f:WaitForChild("Main")local e=u:WaitForChild("Welcome")local b=u:WaitForChild("ProfileCategoryFrame")local h=u:WaitForChild("SettingsCategoryFrame")local J=u:WaitForChild("CategoryExample")local m=(u:WaitForChild("Navigation")):WaitForChild("DashboardButton")local K=(u:WaitForChild("Top")):WaitForChild("Container")c.ScreenGui=G c.MainBG=f c.Main=u c.Welcome=e c.ProfileCategoryFrame=b c.SettingsCategoryFrame=h c.CategoryExample=J c.NavProfilePicture=m:WaitForChild("PlayerProfilePicture")c.ProfilePicture=b:WaitForChild("PlayerProfilePicture")c.ProfileDisplayName=c.ProfilePicture:WaitForChild("PlayerDisplayName")c.ProfileUsernameAndID=c.ProfilePicture:WaitForChild("PlayerUsernameAndID")c.TopProfilePicture=K:WaitForChild("PlayerProfilePicture")c.TopDisplayName=c.TopProfilePicture:WaitForChild("PlayerDisplayName")c.TopUsername=c.TopProfilePicture:WaitForChild("PlayerUsername")local g={}for G,f in ipairs(b:GetChildren())do if f:IsA("Frame")and f.Name=="Function"then g[#g+1]=f end end c.ProfileFunctionFrames=g for G,f in ipairs(g)do for G,f in ipairs(f:GetChildren())do if f:IsA("TextLabel")then if f.Name=="TotalExecutions"then c.TotalExecutions=f elseif f.Name=="TotalUsageTime"then c.TotalUsageTime=f elseif f.Name=="SessionTime"then c.SessionTime=f elseif f.Name=="ExecutionTime"then c.ExecutionTime=f elseif f.Name=="ExecutorUsed"then c.ExecutorUsed=f elseif f.Name=="Uptime"then c.Uptime=f elseif f.Name=="PlaceID"then c.PlaceID=f elseif f.Name=="JobID"then c.JobID=f end end end end j.OriginalMainBGPosition=f.Position end function n.applyDefaultPageState()c.ProfileCategoryFrame.Visible=true c.SettingsCategoryFrame.Visible=false c.CategoryExample.Visible=false end function V.applyIdentity()local f=b.DisplayName local u=b.Name local e=b.UserId local L=G:GetUserThumbnailAsync(e,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)c.NavProfilePicture.Image=L c.ProfilePicture.Image=L c.TopProfilePicture.Image=L c.ProfileDisplayName.Text=f c.TopDisplayName.Text=f c.ProfileUsernameAndID.Text=string.format("%s (%d)",u,e)c.TopUsername.Text=u end function H.load()j.LoadedStats=q.load()j.LoadedStats.TotalExecutions+=1 j.ExecutionClockUTC=D()j.ExecutorName=E.getName()q.save()end function H.applyStaticValues()c.TotalExecutions.Text=P(j.LoadedStats.TotalExecutions)c.ExecutionTime.Text=j.ExecutionClockUTC c.ExecutorUsed.Text=j.ExecutorName c.Uptime.Text="100%"c.PlaceID.Text=tostring(game.PlaceId)c.JobID.Text=tostring(game.JobId)end function H.applyTimeValues()c.TotalUsageTime.Text=U(j.LoadedStats.TotalUsageTime)c.SessionTime.Text=U(j.SessionSeconds)end function H.stepSecond()j.SessionSeconds+=1 j.LoadedStats.TotalUsageTime+=1 H.applyTimeValues()q.save()end function H.startLoop()H.applyStaticValues()H.applyTimeValues()local G=0 w.StatsHeartbeat=e.Heartbeat:Connect(function(f)G+=f while G>=1 do G-=1 H.stepSecond()end end)end function M.collectFadeObjects(G,f)for G,u in ipairs(G:GetDescendants())do if u:IsA("TextLabel")or u:IsA("TextButton")or u:IsA("TextBox")then f[#f+1]={Object=u;Props={TextTransparency=1,TextStrokeTransparency=1;BackgroundTransparency=1}}elseif u:IsA("ImageLabel")or u:IsA("ImageButton")then f[#f+1]={Object=u;Props={ImageTransparency=1,BackgroundTransparency=1}}elseif u:IsA("Frame")then f[#f+1]={Object=u;Props={BackgroundTransparency=1}}elseif u:IsA("UIStroke")then f[#f+1]={Object=u,Props={Transparency=1}}end end end function M.play()c.Welcome.Visible=true n.applyDefaultPageState()task.wait(1.2)local G={}M.collectFadeObjects(c.Welcome,G)local f=TweenInfo.new(.6,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)local e={}for b=1,#G,1 do local L=G[b]local h=u:Create(L.Object,f,L.Props)e[#e+1]=h h:Play()end task.wait(.65)c.Welcome.Visible=false end function r.setOpen(G)j.IsMenuOpen=G if G then c.MainBG.Position=j.OriginalMainBGPosition c.MainBG.Visible=true else c.MainBG.Visible=false c.MainBG.Position=j.OriginalMainBGPosition end end function r.toggle()r.setOpen(not j.IsMenuOpen)end function r.bindToggle()y(w.InputBegan)w.InputBegan=f.InputBegan:Connect(function(G)if j.ActiveBindControl and j.ActiveBindControl.IsAwaiting then return end if f:GetFocusedTextBox()then return end if G.UserInputType~=Enum.UserInputType.Keyboard then return end if G.KeyCode==r.getToggleKey()then r.toggle()end end)end function v.begin(G)j.IsDragging=true j.DragStart=G.Position j.DragFrameStart=c.MainBG.Position y(w.DragChanged)w.DragChanged=G.Changed:Connect(function()if G.UserInputState==Enum.UserInputState.End then j.IsDragging=false y(w.DragChanged)w.DragChanged=nil end end)end function v.update(G)if not j.IsDragging then return end local f=G.Position-j.DragStart c.MainBG.Position=UDim2.new(j.DragFrameStart.X.Scale,j.DragFrameStart.X.Offset+f.X,j.DragFrameStart.Y.Scale,j.DragFrameStart.Y.Offset+f.Y)end function v.bind()local G=h.Top or c.Main or c.MainBG w.MainInputBegan=G.InputBegan:Connect(function(G)if G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch then v.begin(G)end end)w.MainInputChanged=G.InputChanged:Connect(function(G)if G.UserInputType==Enum.UserInputType.MouseMovement or G.UserInputType==Enum.UserInputType.Touch then j.DragInput=G end end)w.GlobalInputChanged=f.InputChanged:Connect(function(G)if G==j.DragInput then v.update(G)end end)end function n.start()n.captureReferences()V.applyIdentity()if m.Library and m.Library.setupPages then m.Library.setupPages()r.setupToggleBindControl()n.setupFeatureRuntime()else warn("[Uniware] Runtime.Library.setupPages is missing")end H.load()H.startLoop()v.bind()r.bindToggle()r.setOpen(true)n.setupNavigationButtons()n.applyDefaultPageState()end m.Library=m.Library or{}local d=m.Library do j.MenuToggleKey=j.MenuToggleKey or g j.MenuToggleBindControl=j.MenuToggleBindControl or nil j.IsSyncingMenuToggleBind=j.IsSyncingMenuToggleBind or false function r.isValidToggleKey(G)return typeof(G)=="EnumItem"and(G.EnumType==Enum.KeyCode and G~=Enum.KeyCode.Unknown)end function r.getToggleKey()if r.isValidToggleKey(j.MenuToggleKey)then return j.MenuToggleKey end return g end function r.getToggleKeyDisplay()return getKeybindDisplayText(r.getToggleKey())end function r.setToggleKey(G)if not r.isValidToggleKey(G)then return false end j.MenuToggleKey=G g=G if h and(h.WelcomeOverlay and h.WelcomeOverlay.Visible)then local G=h.WelcomeOverlay:FindFirstChild("Title2")if G and G:IsA("TextLabel")then G.Text=string.format("Press \"%s\" to open/close the menu.",r.getToggleKeyDisplay())end end return true end function r.getSettingsBindFrame()local G=h and h.SettingsCategoryFrame if not G then return nil end local f=G:FindFirstChild("CategoryInner")local u=f and f:FindFirstChild("ExampleScrollingFrame1")local e=u and u:FindFirstChild("Function1")local b=e and e:FindFirstChild("Function")local L=b and b:FindFirstChild("BindFrame")if L and L:IsA("Frame")then return L end return nil end function r.syncToggleBindControlVisual()local G=j.MenuToggleBindControl local f=r.getToggleKey()if not G or not f then return end j.IsSyncingMenuToggleBind=true d.completeBindControl(G,f)j.IsSyncingMenuToggleBind=false end function r.setupToggleBindControl()if not m.Library or not d.setupBindFrame then return end local G=r.getSettingsBindFrame()if not G then return end if not j.MenuToggleBindControl then j.MenuToggleBindControl=d.setupBindFrame(G)end local f=j.MenuToggleBindControl if not f or f.__MenuToggleConnected then r.syncToggleBindControlVisual()return end f.__MenuToggleConnected=true r.syncToggleBindControlVisual()f:OnChanged(function(G)if not G or j.IsSyncingMenuToggleBind then return end if G.Type=="BindSet"then r.setToggleKey(G.KeyCode)r.syncToggleBindControlVisual()return end if G.Type=="BindCleared"then r.syncToggleBindControlVisual()end end)end end do local function G(G)G=tostring(G or"")return((G:gsub("^%s+","")):gsub("%s+$",""))end local function e(G,f,u)if not G then return nil end for G,e in ipairs(G:GetDescendants())do if e.Name==f then if not u or e:IsA(u)then return e end end end return nil end local function b(G,f)if not G then return end if G:IsA("GuiObject")then G.ZIndex=f end for G,u in ipairs(G:GetDescendants())do if u:IsA("GuiObject")then u.ZIndex=f end end end local function L(G,f,e)if not G then return nil end local b=u:Create(G,TweenInfo.new(e or.12,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Size=f})b:Play()return b end local function J(G,f)local u=Instance.new("BindableEvent")local e={Kind=G,Frame=f,Event=u}function e.OnChanged(f,G)return f.Event.Event:Connect(G)end function e.Fire(f,G)f.Event:Fire(G)end return e end local function m(G,f,u)if not G or not u then return end u:OnChanged(function(u)G:Fire({Type="ChildChanged",Child=f;Payload=u;Control=G})end)end function lockRightSide(G)if not G or G:GetAttribute("RightLocked")then return end local f=G.Position local u=G.Size G.AnchorPoint=Vector2.new(1,.5)G.Position=UDim2.new(f.X.Scale+u.X.Scale,f.X.Offset+u.X.Offset,f.Y.Scale+(u.Y.Scale*.5),f.Y.Offset+math.floor(u.Y.Offset*.5+.5))G:SetAttribute("RightLocked",true)end local function K(G)if not G then return end local f=G:FindFirstChildOfClass("UIListLayout")if not f then return end local function u()G.CanvasSize=UDim2.new(0,0,0,f.AbsoluteContentSize.Y+8)end u();(f:GetPropertyChangedSignal("AbsoluteContentSize")):Connect(u)end j.PageRegistry=j.PageRegistry or{}j.PageOrder=j.PageOrder or{}j.ActivePage=j.ActivePage or nil j.ActiveBindControl=j.ActiveBindControl or nil j.LibraryTemplatesReady=j.LibraryTemplatesReady or false function d.find(G,f,u)return e(G,f,u)end function d.clearLayoutChildren(G)if not G then return end for G,f in ipairs(G:GetChildren())do if not f:IsA("UIListLayout")then f:Destroy()end end end function d.getTemplateCanvasScaleY()if d.Templates and(d.Templates.CanvasScaleY and d.Templates.CanvasScaleY>0)then return d.Templates.CanvasScaleY end return 4 end function d.applyTemplateItemHeight(G,f)if not G or not f then return end if not G:IsA("Frame")then return end local u=G:GetAttribute("TemplateScaleY")if u==nil then u=G.Size.Y.Scale G:SetAttribute("TemplateScaleY",u)end local e=G:GetAttribute("TemplateOffsetY")if e==nil then e=G.Size.Y.Offset G:SetAttribute("TemplateOffsetY",e)end local b=f.AbsoluteSize.Y if b<=0 then task.defer(function()if G.Parent and f.Parent then d.applyTemplateItemHeight(G,f)end end)return end local L=math.floor((((u*d.getTemplateCanvasScaleY())*b)+e)+.5)G.Size=UDim2.new(G.Size.X.Scale,G.Size.X.Offset,0,L)end function d.refreshScrollingFrameItemHeights(G)if not G then return end for f,u in ipairs(G:GetChildren())do if u:IsA("Frame")then d.applyTemplateItemHeight(u,G)end end end function d.captureTemplates()if j.LibraryTemplatesReady then return true end local G=h.CategoryExample if not G then return false end local f=G:FindFirstChild("CategoryInner")if not f then return false end local u=f:FindFirstChild("ExampleScrollingFrame1")local e=f:FindFirstChild("ExampleScrollingFrame2")if not u then return false end local b=f:FindFirstChildOfClass("UIListLayout")d.Templates={Category=G,CategoryInnerLayout=b and b:Clone()or nil;ScrollingFrame1=u;ScrollingFrame2=e and e:Clone()or u:Clone();CanvasScaleY=u.CanvasSize.Y.Scale>0 and u.CanvasSize.Y.Scale or 4;ExampleDivider=u:FindFirstChild("ExampleDivider");ExampleInnerCategoryTitle=u:FindFirstChild("ExampleInnerCategoryTitle"),ExampleFunction1=u:FindFirstChild("ExampleFunction1"),ExampleFunction2=u:FindFirstChild("ExampleFunction2");ExampleFunction3=u:FindFirstChild("ExampleFunction3");ExampleFunction4=u:FindFirstChild("ExampleFunction4");ExampleFunction5=u:FindFirstChild("ExampleFunction5")}G.Visible=false j.LibraryTemplatesReady=true return true end function d.cloneTemplate(G)if not d.Templates or not d.Templates[G]then return nil end local f=d.Templates[G]:Clone()f.Visible=true return f end function d.prepareScrollingFrame(G,f,u)if not G then return nil end local e=G.Size G.Name=u or G.Name G.LayoutOrder=f or 1 G.Size=e G.CanvasPosition=Vector2.zero G.ScrollBarThickness=0 G.ScrollBarImageTransparency=1 G.AutomaticCanvasSize=Enum.AutomaticSize.None d.clearLayoutChildren(G)local b=G:FindFirstChildOfClass("UIListLayout")if not b then b=Instance.new("UIListLayout")b.Parent=G end b.SortOrder=Enum.SortOrder.LayoutOrder b.HorizontalFlex=Enum.UIFlexAlignment.SpaceAround K(G);(G:GetPropertyChangedSignal("AbsoluteSize")):Connect(function()d.refreshScrollingFrameItemHeights(G)K(G)end)return G end function d.registerPage(G)if not G or not G.Name then return nil end if j.PageRegistry[G.Name]then return j.PageRegistry[G.Name]end j.PageRegistry[G.Name]=G j.PageOrder[#j.PageOrder+1]=G if G.Button and not G.Button:GetAttribute("LibraryPageBound")then G.Button:SetAttribute("LibraryPageBound",true)G.Button.MouseButton1Click:Connect(function()d.showPage(G.Name)end)end return G end function d.hideDropdownControl(G,f)if not G or not G.DropdownFrame then return end G.IsOpen=false if f then G.DropdownFrame.Visible=false G.DropdownFrame.Size=UDim2.new(G.WidthSize.X.Scale,G.WidthSize.X.Offset,0,0)return end local e=u:Create(G.DropdownFrame,TweenInfo.new(.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Size=UDim2.new(G.WidthSize.X.Scale,G.WidthSize.X.Offset,0,0)})e.Completed:Connect(function()if not G.IsOpen and G.DropdownFrame then G.DropdownFrame.Visible=false end end)e:Play()end function d.hideAllPages()for G=1,#j.PageOrder,1 do local f=j.PageOrder[G]if f.Frame then f.Frame.Visible=false end if f.Controls then for G=1,#f.Controls,1 do local u=f.Controls[G]if u and u.Kind=="Dropdown"then d.hideDropdownControl(u,true)elseif u and u.Dropdown then d.hideDropdownControl(u.Dropdown,true)end end end end end function d.showPage(G)local f=j.PageRegistry[G]if not f then return end d.hideAllPages()if f.Frame then f.Frame.Visible=true end j.ActivePage=G if f.Button then n.selectNavigationButton(f.Button)end end function d.registerStaticPage(G,f,u)local e={Name=G,Frame=f;Button=u;Columns={};Controls={},IsStatic=true}function e.RegisterControl(f,G)f.Controls[#f.Controls+1]=G return G end return d.registerPage(e)end function d.createGeneratedPage(G)local f=d.cloneTemplate("Category")if not f then return nil end f.Name=G.Name or"GeneratedCategoryFrame"f.Visible=false f.Parent=h.Main local u=f:FindFirstChild("CategoryTitle")local e=f:FindFirstChild("CategoryDescription")local b=f:FindFirstChild("CategoryInner")if u then u.Text=G.Title or u.Text end if e then e.Text=G.Description or e.Text end if b then d.clearLayoutChildren(b)local G=b:FindFirstChildOfClass("UIListLayout")if G then G:Destroy()end if d.Templates.CategoryInnerLayout then local G=d.Templates.CategoryInnerLayout:Clone()G.Parent=b else local G=Instance.new("UIListLayout")G.FillDirection=Enum.FillDirection.Horizontal G.VerticalAlignment=Enum.VerticalAlignment.Bottom G.SortOrder=Enum.SortOrder.LayoutOrder G.Parent=b end end local L={Name=f.Name,Frame=f;Button=G.Button,TitleLabel=u;DescriptionLabel=e,Inner=b;Columns={};Controls={},IsStatic=false}function L.RegisterControl(f,G)f.Controls[#f.Controls+1]=G return G end function L.CreateColumn(e,G,f,u)local b=G==2 and"ScrollingFrame2"or"ScrollingFrame1"local L=d.Templates[b]and d.Templates[b]:Clone()if not L then return nil end d.prepareScrollingFrame(L,f or(#e.Columns+1),u or("ScrollingFrame"..tostring(#e.Columns+1)))L.Parent=e.Inner local h={Page=e;Frame=L,ItemCount=0}function h.AddItem(f,G)f.ItemCount+=1 G.LayoutOrder=f.ItemCount G.Parent=f.Frame d.applyTemplateItemHeight(G,f.Frame)K(f.Frame)return G end e.Columns[#e.Columns+1]=h return h end h[f.Name]=f return d.registerPage(L)end function n.applyDefaultPageState()d.showPage("Profile")end function d.getBindDisplayText(G)if typeof(G)~="EnumItem"then return"NONE"end local f={[Enum.KeyCode.Semicolon]=";",[Enum.KeyCode.Quote]="\'",[Enum.KeyCode.Comma]=",";[Enum.KeyCode.Period]=".";[Enum.KeyCode.Slash]="/";[Enum.KeyCode.BackSlash]="\\";[Enum.KeyCode.LeftBracket]="[";[Enum.KeyCode.RightBracket]="]",[Enum.KeyCode.Minus]="-";[Enum.KeyCode.Equals]="=";[Enum.KeyCode.Backquote]="`";[Enum.KeyCode.LeftShift]="LShift",[Enum.KeyCode.RightShift]="RShift";[Enum.KeyCode.LeftControl]="LCtrl",[Enum.KeyCode.RightControl]="RCtrl",[Enum.KeyCode.CapsLock]="CapsL";[Enum.KeyCode.Tab]="Tab",[Enum.KeyCode.Space]="Space"}return f[G]or G.Name end function d.useShortBindSize(G)G=tostring(G or"")if#G==1 then return true end if G:match("^F%d%d?$")then return true end return false end function d.applyBindStateVisual(G)if not G then return end if G.IsAwaiting then G.StateLabel.Text="Awaiting Input [3]"L(G.Frame,G.AwaitingSize,.12)return end if not G.BoundKeyCode then G.StateLabel.Text=G.DefaultText L(G.Frame,G.OriginalSize,.12)return end G.StateLabel.Text=G.BoundText if d.useShortBindSize(G.BoundText)then L(G.Frame,G.ShortBoundSize,.12)else L(G.Frame,G.LongBoundSize,.12)end end function d.clearBindControl(G,f)if not G then return end G.IsAwaiting=false G.BoundKeyCode=nil G.BoundText=G.DefaultText G.CountdownToken+=1 if j.ActiveBindControl==G then j.ActiveBindControl=nil end d.applyBindStateVisual(G)if not f then G:Fire({Type="BindCleared";KeyCode=nil;KeyName=nil,IsAwaiting=false,HasBind=false})end end function d.completeBindControl(G,f)if not G then return end G.IsAwaiting=false G.CountdownToken+=1 G.BoundKeyCode=f G.BoundText=d.getBindDisplayText(f)if j.ActiveBindControl==G then j.ActiveBindControl=nil end d.applyBindStateVisual(G)G:Fire({Type="BindSet",KeyCode=f,KeyName=G.BoundText;IsAwaiting=false;HasBind=true})end function d.beginBindAwait(G)if not G then return end if j.ActiveBindControl and j.ActiveBindControl~=G then d.clearBindControl(j.ActiveBindControl,true)end G.IsAwaiting=true G.CountdownToken+=1 j.ActiveBindControl=G local f=G.CountdownToken d.applyBindStateVisual(G)G:Fire({Type="BindAwaiting",KeyCode=nil,KeyName=nil;IsAwaiting=true,HasBind=G.BoundKeyCode~=nil})task.spawn(function()for u=2,0,-1 do if G.CountdownToken~=f or not G.IsAwaiting then return end G.StateLabel.Text=string.format("Awaiting Input [%d]",u)task.wait(1)end if G.CountdownToken~=f or not G.IsAwaiting then return end d.clearBindControl(G)end)end function d.setupBindFrame(G)if not G then return nil end lockRightSide(G)local f=J("Bind",G)f.Button=G:FindFirstChild("BindButton")f.StateLabel=G:FindFirstChild("State")f.DefaultText="NONE"f.OriginalSize=G.Size f.AwaitingSize=UDim2.new(.316,0,G.Size.Y.Scale,G.Size.Y.Offset)f.ShortBoundSize=UDim2.new(.066,0,G.Size.Y.Scale,G.Size.Y.Offset)f.LongBoundSize=UDim2.new(.147,0,G.Size.Y.Scale,G.Size.Y.Offset)f.BoundKeyCode=nil f.BoundText=f.DefaultText f.IsAwaiting=false f.CountdownToken=0 if f.StateLabel then f.StateLabel.Text=f.DefaultText f.StateLabel.TextXAlignment=Enum.TextXAlignment.Center f.StateLabel.TextYAlignment=Enum.TextYAlignment.Center end if f.Button then f.Button.MouseButton1Click:Connect(function()d.beginBindAwait(f)end)end d.applyBindStateVisual(f)return f end function d.bindGlobalLibraryInput()y(w.LibraryInputBegan)w.LibraryInputBegan=f.InputBegan:Connect(function(G,f)if f then return end local u=j.ActiveBindControl if not u or not u.IsAwaiting then return end if G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.MouseButton2 then d.clearBindControl(u)return end if G.UserInputType~=Enum.UserInputType.Keyboard then return end if G.KeyCode==Enum.KeyCode.Unknown then return end d.completeBindControl(u,G.KeyCode)end)end function d.applyToggleVisual(G)if not G then return end if G.StateLabel then G.StateLabel.Visible=false end if G.IsOn then G.ToggleFrame.BackgroundColor3=Color3.fromRGB(179,56,56)G.Moving.BackgroundColor3=Color3.fromRGB(212,225,255);(u:Create(G.Moving,TweenInfo.new(.1,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=UDim2.new(.627,0,.15,0)})):Play()else G.ToggleFrame.BackgroundColor3=Color3.fromRGB(19,22,25)G.Moving.BackgroundColor3=Color3.fromRGB(141,143,151);(u:Create(G.Moving,TweenInfo.new(.1,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Position=UDim2.new(0,3,.15,0)})):Play()end end function d.setToggleState(G,f,u)if not G then return end G.IsOn=f and true or false d.applyToggleVisual(G)if not u then G:Fire({Type="ToggleChanged",IsOn=G.IsOn})end end function d.setupToggle(G)if not G then return nil end local f=J("Toggle",G)f.ToggleFrame=G f.ClickDetector=G:FindFirstChild("ClickDetector")f.Moving=G:FindFirstChild("Moving")f.StateLabel=G:FindFirstChild("State")f.IsOn=false if f.ClickDetector then f.ClickDetector.MouseButton1Click:Connect(function()d.setToggleState(f,not f.IsOn)end)end d.setToggleState(f,false,true)return f end function d.formatSliderNumber(G)if G==math.huge then return"INF"end local f=math.max(0,tonumber(G)or 0)local u=math.floor((f*100)+.5)/100 if math.abs(u-math.round(u))<.001 then return tostring(math.round(u))end local e=string.format("%.2f",u)e=e:gsub("(%..-)0+$","%1")e=e:gsub("%.$","")return e end function d.applySliderVisual(G)if not G or not G.Background or not G.Knob or not G.Bar or not G.Input then return end local f=G.Background.AbsoluteSize.X local u=G.Knob.AbsoluteSize.X if f<=0 or u<=0 then task.defer(function()if G and(G.Background and G.Background.Parent)then d.applySliderVisual(G)end end)return end local e=tonumber(G.Value)or 0 local b=0 if G.IsInfinite then b=1 elseif G.MaxValue>0 then b=math.clamp(e/G.MaxValue,0,1)end local L=math.max(0,f-u)local h=math.floor((L*b)+.5)local J=math.floor((h+(u*.5))+.5)G.Knob.Position=UDim2.new(0,h,G.KnobY.Scale,G.KnobY.Offset)G.Bar.Size=UDim2.new(0,J,G.BarY.Scale,G.BarY.Offset)if G.IsInfinite then G.Input.Text="INF"else G.Input.Text=d.formatSliderNumber(e)end end function d.fireSliderChanged(G,f)G:Fire({Type="SliderChanged";Value=G.IsInfinite and math.huge or G.Value,DisplayText=G.Input.Text,IsInfinite=G.IsInfinite,Source=f})end function d.setSliderValue(G,f,u,e)if not G then return end local b=tonumber(f)if b==math.huge then G.IsInfinite=true G.Value=math.huge else G.IsInfinite=false G.Value=math.max(0,b or 0)end d.applySliderVisual(G)if not e then d.fireSliderChanged(G,u or"code")end end function d.setSliderAlpha(G,f,u,e)f=math.clamp(f or 0,0,1)local b=0 if G.MaxValue>0 then b=(G.MaxValue*f)b=math.floor((b*100)+.5)/100 end G.IsInfinite=false G.Value=math.max(0,b)d.applySliderVisual(G)if not e then d.fireSliderChanged(G,u or"drag")end end function d.getSliderAlphaFromMouse(G,f)local u=G.Background.AbsolutePosition.X local e=G.Background.AbsoluteSize.X local b=G.Knob.AbsoluteSize.X if e<=0 then return 0 end local L=math.max(1,e-b)local h=(((f-u)-(b*.5)))/L return math.clamp(h,0,1)end function d.commitSliderInput(f,u)if not f then return end local e=G(f.Input.Text)if not u then d.applySliderVisual(f)return end if e==""then d.applySliderVisual(f)return end local b=string.upper(e)if b=="INF"then d.setSliderValue(f,math.huge,"input")return end local L=tonumber(e)if not L then d.applySliderVisual(f)return end d.setSliderValue(f,L,"input")end function d.setupSlider(G,u,e)if not G or not u then return nil end local b=J("Slider",G)b.Background=G b.Bar=G:FindFirstChild("SliderBar")b.Knob=G:FindFirstChild("Slider")b.Input=u b.MaxValue=math.max(0,tonumber(e and e.MaxValue)or 100)b.Value=math.max(0,tonumber(e and e.Value)or 0)b.IsInfinite=false b.IsDragging=false b.ActiveDragInput=nil b.KnobY=b.Knob and b.Knob.Position.Y or UDim.new(0,0)b.BarY=b.Bar and b.Bar.Size.Y or UDim.new(1,0)G.Active=true if b.Knob then b.Knob.Active=true end local function L(G)if not G then return end d.setSliderAlpha(b,d.getSliderAlphaFromMouse(b,G.Position.X),"drag")end local function h(G)b.IsDragging=true b.ActiveDragInput=G L(G)end local function m(G)if G==b.ActiveDragInput or G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch then b.IsDragging=false b.ActiveDragInput=nil end end if b.Background then b.Background.InputBegan:Connect(function(G)if G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch then h(G)end end)end if b.Knob then b.Knob.InputBegan:Connect(function(G)if G.UserInputType==Enum.UserInputType.MouseButton1 or G.UserInputType==Enum.UserInputType.Touch then h(G)end end)end f.InputChanged:Connect(function(G)if not b.IsDragging then return end if G.UserInputType==Enum.UserInputType.MouseMovement then L(G)return end if G==b.ActiveDragInput and G.UserInputType==Enum.UserInputType.Touch then L(G)end end)f.InputEnded:Connect(function(G)m(G)end)u.FocusLost:Connect(function(G)d.commitSliderInput(b,G)end);(G:GetPropertyChangedSignal("AbsoluteSize")):Connect(function()d.applySliderVisual(b)end)d.setSliderValue(b,b.Value,"init",true)return b end function d.setupInputFrame(G,f)if not G then return nil end local u=J("InputFrame",G)u.InputFrame=G u.Input=G:FindFirstChild("Input")u.ActionButton=G:FindFirstChild("ActionButton")if u.Input and(f and f.PlaceholderText)then u.Input.PlaceholderText=f.PlaceholderText end if u.ActionButton and(f and f.ActionText)then u.ActionButton.Text=f.ActionText end if u.ActionButton then u.ActionButton.MouseButton1Click:Connect(function()u:Fire({Type="ActionTriggered";Text=u.Input and u.Input.Text or""})end)end return u end function d.setupActionButton(G,f)if not G then return nil end local u=J("ActionButton",G)u.ActionButton=G if f and f.Text then G.Text=f.Text end G.MouseButton1Click:Connect(function()u:Fire({Type="ActionTriggered"})end)return u end function d.normalizeDropdownOptions(G)local f={}for u=1,#((G or{})),1 do local e=G[u]if type(e)=="table"then f[#f+1]={Id=tostring(e.Id or e.Value or e.Text or u),Text=tostring(e.Text or e.Title or e.Value or e.Id or u)}else f[#f+1]={Id=tostring(e),Text=tostring(e)}end end return f end function d.applyDropdownButtonVisual(G,f)if not G then return end local u=G:FindFirstChild("DropdownButtonTitle")local e=G:FindFirstChild("Selected")if e then e.Visible=false end if u then u.Position=UDim2.new(.017,0,.161,0)u.Size=UDim2.new(.98,0,.65,0)end if f then G.BackgroundColor3=Color3.fromRGB(24,26,34)if u then u.TextColor3=Color3.fromRGB(172,172,172)end else G.BackgroundColor3=Color3.fromRGB(15,16,21)if u then u.TextColor3=Color3.fromRGB(131,131,131)end end end function d.refreshDropdownSize(G,f)if not G or not G.DropdownFrame or not G.Layout then return end local e=0 if G.IsOpen then e=math.max(0,G.Layout.AbsoluteContentSize.Y)end local b=UDim2.new(G.WidthSize.X.Scale,G.WidthSize.X.Offset,0,e)local L=G.CollapsedItemHeight or 0 if G.IsOpen then L+=e+((G.DropdownPadding or 8))end local h=nil if G.OwnerItem then h=UDim2.new(G.OwnerItem.Size.X.Scale,G.OwnerItem.Size.X.Offset,0,L)end if f then G.DropdownFrame.Size=b G.DropdownFrame.Visible=G.IsOpen if h then G.OwnerItem.Size=h end d.refreshDropdownOwner(G)return end if G.IsOpen then G.DropdownFrame.Visible=true end local J=u:Create(G.DropdownFrame,TweenInfo.new(.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Size=b})J.Completed:Connect(function()if not G.IsOpen and G.DropdownFrame then G.DropdownFrame.Visible=false end d.refreshDropdownOwner(G)end)J:Play()if h then local f=u:Create(G.OwnerItem,TweenInfo.new(.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out),{Size=h})f.Completed:Connect(function()d.refreshDropdownOwner(G)end)f:Play()end end function d.setDropdownOpen(G,f,u)if not G then return end G.IsOpen=f and true or false d.refreshDropdownSize(G,u)G:Fire({Type="DropdownOpenChanged";IsOpen=G.IsOpen;Selected=table.clone(G.SelectedIds)})end function d.setDropdownSelection(G,f,u,e)if not G then return end local b=G.ButtonsById[f]if not b then return end if u then if G.MaxSelections==1 then for u=#G.SelectedIds,1,-1 do local e=G.SelectedIds[u]if e~=f then G.SelectedLookup[e]=nil table.remove(G.SelectedIds,u)d.applyDropdownButtonVisual(G.ButtonsById[e],false)end end elseif G.MaxSelections>1 and(#G.SelectedIds>=G.MaxSelections and not G.SelectedLookup[f])then return end if not G.SelectedLookup[f]then G.SelectedLookup[f]=true G.SelectedIds[#G.SelectedIds+1]=f end else if G.SelectedLookup[f]then G.SelectedLookup[f]=nil for u=#G.SelectedIds,1,-1 do if G.SelectedIds[u]==f then table.remove(G.SelectedIds,u)break end end end end d.applyDropdownButtonVisual(b,G.SelectedLookup[f]==true)if not e then G:Fire({Type="DropdownSelectionChanged";Selected=table.clone(G.SelectedIds);ChangedId=f;IsSelected=G.SelectedLookup[f]==true})end end function d.rebuildDropdownButtons(G)if not G or not G.DropdownFrame or not G.ButtonTemplate then return end for f,u in ipairs(G.DropdownFrame:GetChildren())do if u:IsA("TextButton")and u~=G.ButtonTemplate then u:Destroy()end end local f=G.DropdownFrame:FindFirstChildOfClass("UIListLayout")if not f then f=Instance.new("UIListLayout")f.SortOrder=Enum.SortOrder.LayoutOrder f.Parent=G.DropdownFrame end G.Layout=f G.ButtonsById={}G.SelectedLookup={}G.SelectedIds={}G.ButtonTemplate.Visible=false local u=G.TemplateButtonHeight or 32 for f=1,#G.Options,1 do local e=G.Options[f]local b=G.ButtonTemplate:Clone()b.Name="DropdownButton"b.LayoutOrder=f b.Visible=true b.AutomaticSize=Enum.AutomaticSize.None b.Size=UDim2.new(1,0,0,u)local L=b:FindFirstChild("DropdownButtonTitle")if L then L.Text=e.Text end d.applyDropdownButtonVisual(b,false)b.MouseButton1Click:Connect(function()local f=not G.SelectedLookup[e.Id]d.setDropdownSelection(G,e.Id,f)end)b.Parent=G.DropdownFrame G.ButtonsById[e.Id]=b end;(G.Layout:GetPropertyChangedSignal("AbsoluteContentSize")):Connect(function()if G.IsOpen then d.refreshDropdownSize(G,true)end end)d.refreshDropdownSize(G,true)end function d.setupDropdown(G,f)if not G then return nil end local u=G:FindFirstChild("DropdownButton")if not u then return nil end local e=J("Dropdown",G)e.DropdownFrame=G e.DropdownFrame.ClipsDescendants=true e.ButtonTemplate=u e.WidthSize=G.Size e.MaxSelections=tonumber(f and f.MaxSelections)or 1 e.Options=d.normalizeDropdownOptions(f and f.Options or{})e.ButtonsById={}e.SelectedLookup={}e.SelectedIds={}e.IsOpen=false e.DropdownPadding=8 e.OwnerItem=nil e.OwnerScrollingFrame=nil e.CollapsedItemHeight=0 e.TemplateButtonHeight=24 G.Visible=false G.Size=UDim2.new(e.WidthSize.X.Scale,e.WidthSize.X.Offset,0,0)d.rebuildDropdownButtons(e)return e end function d.createInnerCategoryTitle(G,f)local u=d.cloneTemplate("ExampleInnerCategoryTitle")if not u then return nil end local e=u:FindFirstChild("InnerCategoryTitle")if e then e.Text=f or e.Text end G:AddItem(u)return u end function d.createDivider(G)local f=d.cloneTemplate("ExampleDivider")if not f then return nil end G:AddItem(f)return f end function d.createFunction1(G,f)local u=d.cloneTemplate("ExampleFunction1")if not u then return nil end local e=u:FindFirstChild("Function")local b=d.find(e,"FunctionTitle","TextLabel")local L=d.find(e,"FunctionDescription","TextLabel")if b then b.Text=f.Title or b.Text end if L then L.Text=f.Description or L.Text end local h=J("Function1",u)h.Bind=d.setupBindFrame(d.find(e,"BindFrame","Frame"))h.Toggle=d.setupToggle(d.find(e,"ToggleButtonFrame","Frame"))h.Slider=d.setupSlider(d.find(e,"SliderBackground","Frame"),d.find(e,"CustomInput","TextBox"),{MaxValue=f.MaxValue or 500,Value=f.Value or 0})m(h,"Bind",h.Bind)m(h,"Toggle",h.Toggle)m(h,"Slider",h.Slider)G:AddItem(u)G.Page:RegisterControl(h)return h end function d.createFunction2(G,f)local u=d.cloneTemplate("ExampleFunction2")if not u then return nil end local e=u:FindFirstChild("Function")local b=d.find(e,"FunctionTitle","TextLabel")if b then b.Text=f.Title or b.Text end local L=J("Function2",u)L.Bind=d.setupBindFrame(d.find(e,"BindFrame","Frame"))L.Toggle=d.setupToggle(d.find(e,"ToggleButtonFrame","Frame"))m(L,"Bind",L.Bind)m(L,"Toggle",L.Toggle)G:AddItem(u)G.Page:RegisterControl(L)return L end function d.createFunction3(G,f)local u=d.cloneTemplate("ExampleFunction3")if not u then return nil end local e=u:FindFirstChild("Function")local b=d.find(e,"FunctionTitle","TextLabel")local L=d.find(e,"FunctionDescription","TextLabel")if b then b.Text=f.Title or b.Text end if L then L.Text=f.Description or L.Text end local h=J("Function3",u)h.Bind=d.setupBindFrame(d.find(e,"BindFrame","Frame"))h.Input=d.setupInputFrame(d.find(e,"InputFrame","Frame"),{PlaceholderText=f.PlaceholderText or"Enter text...";ActionText=f.ActionText or"Submit"})m(h,"Bind",h.Bind)m(h,"Input",h.Input)G:AddItem(u)G.Page:RegisterControl(h)return h end function d.createFunction4(G,f)local u=d.cloneTemplate("ExampleFunction4")if not u then return nil end local e=u:FindFirstChild("Function")local b=d.find(e,"FunctionTitle","TextLabel")local L=d.find(e,"FunctionDescription","TextLabel")local h=nil local K=nil if e then e.ClipsDescendants=false end u.ClipsDescendants=false if e then for G,f in ipairs(e:GetChildren())do if f:IsA("TextButton")and f.Name=="ActionButton"then h=f elseif f:IsA("Frame")and f.Name=="DropdownFrame"then K=f end end end local C=d.find(h,"Title","TextLabel")if b then b.Text=f.Title or b.Text end if L then L.Text=f.Description or L.Text end if C then C.Text=f.ActionText or C.Text end local g=J("Function4",u)g.Bind=d.setupBindFrame(d.find(e,"BindFrame","Frame"))g.Toggle=d.setupToggle(d.find(e,"ToggleButtonFrame","Frame"))g.Dropdown=d.setupDropdown(K,{MaxSelections=f.MaxSelections or 1;Options=f.Options or{}})m(g,"Bind",g.Bind)m(g,"Toggle",g.Toggle)m(g,"Dropdown",g.Dropdown)G:AddItem(u)if e then local G=math.floor(((u.Size.Y.Offset*e.Size.Y.Scale)+e.Size.Y.Offset)+.5)e.Size=UDim2.new(e.Size.X.Scale,e.Size.X.Offset,0,G)e.Position=UDim2.new(e.Position.X.Scale,e.Position.X.Offset,0,0)end if g.Dropdown and(K and e)then g.Dropdown.OwnerItem=u g.Dropdown.OwnerScrollingFrame=G.Frame g.Dropdown.CollapsedItemHeight=u.Size.Y.Offset g.Dropdown.DropdownPadding=8 K.Position=UDim2.new(K.Position.X.Scale,K.Position.X.Offset,0,e.Size.Y.Offset+6)K.ZIndex=20 for G,f in ipairs(K:GetDescendants())do if f:IsA("GuiObject")then f.ZIndex=21 end end end if h and g.Dropdown then h.MouseButton1Click:Connect(function()d.setDropdownOpen(g.Dropdown,not g.Dropdown.IsOpen)g:Fire({Type="DropdownActionPressed";IsOpen=g.Dropdown.IsOpen,Selected=table.clone(g.Dropdown.SelectedIds)})end)end G.Page:RegisterControl(g)G.Page:RegisterControl(g.Dropdown)return g end function d.createFunction5(G,f)local u=d.cloneTemplate("ExampleFunction5")if not u then return nil end local e=u:FindFirstChild("Function")local b=d.find(e,"FunctionTitle","TextLabel")local L=d.find(e,"ActionButton","TextButton")if b then b.Text=f.Title or b.Text end local h=J("Function5",u)h.Bind=d.setupBindFrame(d.find(e,"BindFrame","Frame"))h.Action=d.setupActionButton(L,{Text=f.ActionText or"Run"})m(h,"Bind",h.Bind)m(h,"Action",h.Action)G:AddItem(u)G.Page:RegisterControl(h)return h end function d.buildPlayerPage()if j.PageRegistry.Player then return j.PageRegistry.Player end local G=d.createGeneratedPage({Name="Player",Title="Player";Description="Player library showcase";Button=h.NavigationPlayerButton})local f=G:CreateColumn(1,1,"PlayerScrollingFrame")d.createInnerCategoryTitle(f,"Player Examples")d.createFunction1(f,{Title="WalkSpeed";Description="Slider, bind, toggle and custom input example.",MaxValue=500;Value=120})d.createDivider(f)d.createFunction2(f,{Title="Loop Jump"})d.createFunction3(f,{Title="Teleport to Player";Description="Input frame example for username based actions.",PlaceholderText="Enter player username...",ActionText="Teleport"})d.createFunction4(f,{Title="Hitbox Team Filter",Description="Toggle, bind and dropdown example.";ActionText="Optional team selection...",MaxSelections=1;Options={"Engineering Department","Security Team","Medical Unit","Visitors"}})d.createFunction5(f,{Title="Quick Action";ActionText="Jump"})return G end function d.setupPages()if not d.captureTemplates()then return end d.registerStaticPage("Profile",h.ProfileCategoryFrame,h.NavigationProfileButton)d.registerStaticPage("Settings",h.SettingsCategoryFrame,h.NavigationSettingsButton)d.buildPlayerPage()d.bindGlobalLibraryInput()if h.CategoryExample then h.CategoryExample.Visible=false end end function d.refreshDropdownOwner(G)if not G or not G.OwnerScrollingFrame then return end task.defer(function()K(G.OwnerScrollingFrame)end)end end local function F(G)local f={}if type(G)~="table"then return f end for G,u in next,G do f[G]=u end return f end local function R(G)G=tostring(G or"")G=G:gsub("^%s+","")G=G:gsub("%s+$","")return G end d.PageDefinitions=d.PageDefinitions or{}d.Make=d.Make or{}do local G=d.Make function G.Column(G,f)f=F(f)f.Items=G or{}return f end function G.Title(G)return{Type="InnerTitle";Text=G}end function G.Divider()return{Type="Divider"}end function G.Function1(G)G=F(G)G.Type="Function1"return G end function G.Function2(G)G=F(G)G.Type="Function2"return G end function G.Function3(G)G=F(G)G.Type="Function3"return G end function G.Function4(G)G=F(G)G.Type="Function4"return G end function G.Function5(G)G=F(G)G.Type="Function5"return G end end do function d.clearPageDefinitions()table.clear(d.PageDefinitions)end function d.registerPageDefinition(G)if type(G)~="table"then return nil end if type(G.Name)~="string"or G.Name==""then return nil end d.PageDefinitions[G.Name]=G return G end function d.getNavigationButtonByKey(G)if typeof(G)=="Instance"then return G end if type(G)~="string"then return nil end local f={Profile=h.NavigationProfileButton;Dashboard=h.NavigationProfileButton;Player=h.NavigationPlayerButton,Visuals=h.NavigationVisualsButton,Motion=h.NavigationMotionButton;World=h.NavigationMotionButton;Utility=h.NavigationUtilityButton;Settings=h.NavigationSettingsButton,Console=h.NavigationConsoleButton}return f[G]end function d.normalizeDefinitionType(G)G=string.lower(R(G))local f={title="innertitle",innertitle="innertitle",innercategorytitle="innertitle";header="innertitle";divider="divider",function1="function1";function2="function2";function3="function3";function4="function4";function5="function5"}return f[G]end function d.getDefinitionColumns(G)if type(G)~="table"then return{}end if type(G.Columns)=="table"and#G.Columns>0 then return G.Columns end if type(G.Items)=="table"and#G.Items>0 then return{{Items=G.Items;Template=1,Name=G.Name.."Column1";WidthScale=1}}end return{}end function d.getColumnWidthScale(G,f)local u=tonumber(f and f.WidthScale)if u and u>0 then return u end local e=d.getDefinitionColumns(G)if#e<=1 then return.5 end return.5 end function d.assignControlId(G,f,u)if not G or not f or not u then return f end G.ControlMap=G.ControlMap or{}G.ControlMap[u]=f f.Id=u return f end function d.buildElementFromDefinition(G,f,u)if type(u)~="table"then return nil end local e=d.normalizeDefinitionType(u.Type or u.Kind or u.Element or u.Template)if not e then return nil end if e=="innertitle"then return d.createInnerCategoryTitle(f,u.Text or u.Title or u.Name or"Category")end if e=="divider"then return d.createDivider(f)end if e=="function1"then return d.assignControlId(G,d.createFunction1(f,u),u.Id)end if e=="function2"then return d.assignControlId(G,d.createFunction2(f,u),u.Id)end if e=="function3"then return d.assignControlId(G,d.createFunction3(f,u),u.Id)end if e=="function4"then return d.assignControlId(G,d.createFunction4(f,u),u.Id)end if e=="function5"then return d.assignControlId(G,d.createFunction5(f,u),u.Id)end return nil end function d.buildColumnFromDefinition(G,f,u,e)if not G or not u then return nil end local b=G:CreateColumn(u.Template or e,u.LayoutOrder or e,u.Name or(G.Name..("Column"..tostring(e))))if not b or not b.Frame then return nil end b.Frame.Size=UDim2.new(d.getColumnWidthScale(f,u),0,b.Frame.Size.Y.Scale,b.Frame.Size.Y.Offset)local L=u.Items or{}for f=1,#L,1 do d.buildElementFromDefinition(G,b,L[f])end return b end function d.buildPageFromDefinition(G)if type(G)~="table"then return nil end if type(G.Name)~="string"or G.Name==""then return nil end if j.PageRegistry[G.Name]then return j.PageRegistry[G.Name]end local f=d.getNavigationButtonByKey(G.ButtonKey or G.Button)local u=d.createGeneratedPage({Name=G.Name;Title=G.Title or G.Name,Description=G.Description or"",Button=f})if not u then return nil end u.ControlMap=u.ControlMap or{}local e=d.getDefinitionColumns(G)for f=1,math.min(#e,2),1 do d.buildColumnFromDefinition(u,G,e[f],f)end return u end function d.buildDefinedPages()local G={}for f,u in next,d.PageDefinitions do G[#G+1]=u end table.sort(G,function(G,f)local u=tonumber(G.Order)or 999999 local e=tonumber(f.Order)or 999999 if u==e then return tostring(G.Name)<tostring(f.Name)end return u<e end)for f=1,#G,1 do d.buildPageFromDefinition(G[f])end end function d.setupPages()if not d.captureTemplates()then return end d.registerStaticPage("Profile",h.ProfileCategoryFrame,h.NavigationProfileButton)d.registerStaticPage("Settings",h.SettingsCategoryFrame,h.NavigationSettingsButton)d.buildDefinedPages()d.bindGlobalLibraryInput()if h.CategoryExample then h.CategoryExample.Visible=false end end function n.applyDefaultPageState()d.showPage("Profile")end end do local G=d.Make d.clearPageDefinitions()d.registerPageDefinition({Name="Player";Order=10,ButtonKey="Player",Title="Player",Description="Movement, teleportation & character utilities.";Columns={G.Column({G.Title("Movement");G.Function1({Id="WalkSpeed",Title="WalkSpeed",Description="Increase character walkspeed";MaxValue=350,Value=16}),G.Function1({Id="TeleportWalk",Title="TeleportWalk",Description="Increase character forward force";MaxValue=100;Value=2}),G.Divider({});G.Function2({Id="InfiniteJump",Title="InfiniteJump",Description="Turn on & off character jump cooldown"});G.Function2({Id="EdgeJump";Title="Edge Jump",Description="Makes your character jump at the edge of the part"}),G.Function2({Id="Swim";Title="Air Swim";Description="Makes your character swim in air"}),G.Divider({}),G.Function3({Id="Blink";Title="Blink";Description="Teleports your character forard by choosen length",PlaceholderText="Enter a valid distance...";ActionText="Blink"});G.Divider({});G.Title("Player Utilities");G.Function1({Id="HipHeight",Title="Hip Height",Description="Manage your character hip height";MaxValue=50;Value=2}),G.Function5({Id="Jump",Title="Makes you jump";ActionText="Jump"});G.Function5({Id="Sit",Title="Makes you sit",ActionText="Sit"}),G.Function5({Id="Trip";Title="Makes you trip",ActionText="Trip"});G.Function2({Id="AntiVoid",Title="Anti Void"}),G.Function2({Id="AntiSlip",Title="Anti Slip"});G.Function2({Id="GodMode";Title="God Mode"}),G.Function1({Id="Reach";Title="Increase Reach";Description="Increases reach for held tools";MaxValue=250;Value=5});G.Function1({Id="Strengthen",Title="Strengthen";Description="Make your player much stronger";MaxValue=10000,Value=100})},{Template=1;Name="PlayerLeft";WidthScale=.5}),G.Column({G.Title("Psyhics & Position"),G.Function1({Id="Fly";Title="Fly";Description="Turn on & off character flight",MaxValue=500,Value=50});G.Function1({Id="Gravity";Title="Gravity",Description="Manage the gravity force";MaxValue=500,Value=25}),G.Function1({Id="Jumpheight",Title="Jumpheight";Description="Increase character jumpheight",MaxValue=350;Value=50});G.Function1({Id="Spin",Title="Spin",Description="Spins your character at the selected speed";MaxValue=350;Value=10});G.Function2({Id="Noclip";Title="Noclip"});G.Function2({Id="ClickTeleport";Title="Click Teleport"});G.Function2({Id="ClickDelete";Title="Click Delete"});G.Function5({Id="DeathTeleport";Title="Death Teleport",ActionText="Teleport"});G.Divider({});G.Function3({Id="PlayerTeleport";Title="Player Teleport";Description="Teleports you to the specified player",PlaceholderText="Enter player username...";ActionText="Teleport"});G.Function3({Id="SpectatePlayer";Title="Spectate Player";Description="Spectates the specified player",PlaceholderText="Enter player username...";ActionText="Spectate"});G.Function3({Id="PlayerOrbit";Title="Player Orbit";Description="Orbits the specified player",PlaceholderText="Enter player username...";ActionText="Orbit"});G.Function3({Id="StareAt",Title="Stare at Player";Description="Stares at the specified player";PlaceholderText="Enter player username...",ActionText="Stare"});G.Function3({Id="Bang",Title="Bang a Player";Description="Bangs the specified player";PlaceholderText="Enter player username...";ActionText="Bang"});G.Function2({Id="WalkFling";Title="Walk Fling"}),G.Function2({Id="FlyFling";Title="Fly Fling"});G.Divider({});G.Title("Camera & Perspective");G.Function2({Id="Freecam",Title="Freecam"}),G.Function1({Id="MaxZoom",Title="Max Zoom",Description="Manage your max camera zoom",MaxValue=1000;Value=75}),G.Function1({Id="MinZoom",Title="Min Zoom";Description="Manage your minimal camera zoom",MaxValue=50;Value=.5})},{Template=1;Name="PlayerLeft",WidthScale=.5})}})d.registerPageDefinition({Name="Visuals";Order=20,ButtonKey="Visuals",Title="Visuals",Description="ESP, highlights and render utilities.";Columns={G.Column({G.Title("Display"),G.Function1({Id="ESP";Title="ESP",Description="Displays nametags above players";MaxValue=2500,Value=250}),G.Function4({Id="EspConfig",Title="ESP Configurations",Description="Configure the ESP Visuals";ActionText="Click to view the options...";MaxSelections=99,Options={"Display Health";"Display Distance";"Display Held Items","Use Team Color for Username"}}),G.Function4({Id="ESPTeamFilter",Title="ESP Team Filter";Description="Choose teams to apply ESP to",ActionText="Optional Team Selection...",MaxSelections=99;Options={"Team1","Team2";"Team3","Team4";"Team5"}}),G.Divider({});G.Title("Rendering");G.Function1({Id="HitboxTransparency";Title="Hitbox Transparency";Description="Manage Hitbox Transparency of other Players";MaxValue=100;Value=0}),G.Function2({Id="Xray",Title="Xray"}),G.Function2({Id="Fullbright",Title="Fullbright"})},{Template=1,Name="VisualsLeft",WidthScale=.5});G.Column({G.Title("Rendering");G.Function1({Id="Chams";Title="Chams",Description="Highlights players";MaxValue=2500;Value=250});G.Function4({Id="ChamsConfig",Title="Chams Configurations",Description="Configure the Chams Visuals",ActionText="Click to view the options...";MaxSelections=99;Options={"Use Team Color for Fill";"Use Team Color for Outline"}});G.Function4({Id="ChamsTeamFilter";Title="Chams Team Filter",Description="Choose teams to apply ESP to",ActionText="Optional Team Selection...",MaxSelections=99,Options={"Team1","Team2";"Team3","Team4";"Team5"}});G.Divider({});G.Function1({Id="Tracers",Title="Tracers",Description="Renders lines that lead to players.",MaxValue=2500;Value=250}),G.Function4({Id="TracersConfig",Title="Tracers Configurations";Description="Configure the Tracers Visuals";ActionText="Click to view the options...";MaxSelections=99;Options={"Use Team Color for Lines";"Offscreen rendering"}}),G.Function4({Id="TracersTeamFilter",Title="Tracers Configurations";Description="Configure the Tracers Visuals",ActionText="Click to view the options...";MaxSelections=99;Options={"Team1";"Team2";"Team3";"Team4";"Team5"}})},{Template=2;Name="VisualsRight";WidthScale=.5})}})d.registerPageDefinition({Name="World & Environment",Order=20;ButtonKey="Motion",Title="World & Environment",Description="Local World & Environment configurations",Columns={G.Column({G.Title("Configurations"),G.Function2({Id="DisableEnableRespawn";Title="Disable/Enable Respawn"}),G.Function2({Id="DisableEnableLeaderstats",Title="Disable/Enable Leaderstats"}),G.Divider({});G.Function2({Id="DisableEnableTextures",Title="Disable/Enable Textures"}),G.Function2({Id="DisableEnableParticles";Title="Disable/Enable Particles"});G.Function2({Id="DisableEnableEffects";Title="Disable/Enable Effects"})},{Template=2,Name="WorldLeft",WidthScale=.5});G.Column({G.Title("Configurations");G.Function1({Id="TimeOfTheDay",Title="Time of the Day";Description="Changes the current world time.",MaxValue=24;Value=0});G.Function1({Id="FogThickness",Title="Fog Thickness";Description="Changes the current world time.";MaxValue=10,Value=0})},{Template=2;Name="WorldRight";WidthScale=.5})}})end do function k.getTorso(G)if not G then return nil end return G:FindFirstChild("Torso")or G:FindFirstChild("UpperTorso")or G:FindFirstChild("LowerTorso")or G:FindFirstChild("HumanoidRootPart")end function k.getWalkFlingFeature()return k.getOrCreateFeature("WalkFling",{Value=0;DefaultValue=0,MaxValue=0})end function k.stopWalkFling(G)if not G then return end G.WalkFlingConnection=k.disconnectSignal(G.WalkFlingConnection)G.WalkFlingDied=k.disconnectSignal(G.WalkFlingDied)G.WalkFlingRunning=false if G.OriginalCollision then for G,f in pairs(G.OriginalCollision)do if G and G.Parent then G.CanCollide=f end end G.OriginalCollision=nil end end function k.startWalkFling(G)if not G or not G.Enabled then return end k.stopWalkFling(G)local f=b local u=f.Character if not u then return end G.OriginalCollision={}for f,u in ipairs(u:GetDescendants())do if u:IsA("BasePart")then G.OriginalCollision[u]=u.CanCollide u.CanCollide=false end end G.WalkFlingRunning=true local L=.1 G.WalkFlingConnection=e.Heartbeat:Connect(function()if not G.Enabled or not G.WalkFlingRunning then k.stopWalkFling(G)return end local f=k.getCurrentRoot()if not f then return end local u=f.Velocity f.Velocity=u*10000+Vector3.new(0,10000,0)e.RenderStepped:Wait()if f and f.Parent then f.Velocity=u end e.Stepped:Wait()if f and f.Parent then f.Velocity=u+Vector3.new(0,L,0)L=L*-1 end end)local h=k.getCurrentHumanoid()if h then G.WalkFlingDied=h.Died:Connect(function()k.setWalkFlingEnabled(false)end)end end function k.setWalkFlingEnabled(G)local f=k.getWalkFlingFeature()f.Enabled=G and true or false if f.Enabled then k.startWalkFling(f)else k.stopWalkFling(f)end end function k.toggleWalkFling()local G=k.getWalkFlingFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setWalkFlingEnabled(not G.Enabled)end function k.bindWalkFlingControl(G)local f=k.getWalkFlingFeature()k.bindToggleOnlyControl(f,G,k.setWalkFlingEnabled)end function k.setupWalkFling()local G=k.getPlayerPageControl("WalkFling")if not G then warn("[Uniware] WalkFling control was not found")return end k.bindWalkFlingControl(G)end function k.getFlyFlingFeature()return k.getOrCreateFeature("FlyFling",{Value=0;DefaultValue=0;MaxValue=0})end function k.setFlyFlingEnabled(G)local f=k.getFlyFlingFeature()f.Enabled=G and true or false local u=k.getFlyFeature()local e=k.getWalkFlingFeature()if f.Enabled then if u then k.setFlyEnabled(true)end if e then k.setWalkFlingEnabled(true)end else if u then k.setFlyEnabled(false)end if e then k.setWalkFlingEnabled(false)end end end function k.toggleFlyFling()local G=k.getFlyFlingFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setFlyFlingEnabled(not G.Enabled)end function k.bindFlyFlingControl(G)local f=k.getFlyFlingFeature()k.bindToggleOnlyControl(f,G,k.setFlyFlingEnabled)end function k.setupFlyFling()local G=k.getPlayerPageControl("FlyFling")if not G then warn("[Uniware] FlyFling control was not found")return end k.bindFlyFlingControl(G)end function k.captureCharacterCollisionState(G,f)if not G or not f then return end local u=G.CollisionState or{}G.CollisionState=u table.clear(u)for G,f in ipairs(f:GetDescendants())do if f:IsA("BasePart")then u[f]=f.CanCollide end end G.CollisionStateCaptured=true end function k.restoreCharacterCollisionState(G)if not G then return end local f=G.CollisionState if not f then G.CollisionStateCaptured=false return end for G,f in next,f do if G and G.Parent then G.CanCollide=f end end table.clear(f)G.CollisionStateCaptured=false end function k.getRegistry()k.Registry=k.Registry or{}return k.Registry end function k.disconnectSignal(G)if G then G:Disconnect()end return nil end function k.getCharacter()return b.Character end function k.getCurrentHumanoid()local G=k.getCharacter()if not G then return nil end return G:FindFirstChildOfClass("Humanoid")end function k.getCurrentRoot()local G=k.getCharacter()if not G then return nil end return G:FindFirstChild("HumanoidRootPart")end function k.setCharacterCollisionEnabled(G,f)if not G then return end for G,u in ipairs(G:GetDescendants())do if u:IsA("BasePart")then u.CanCollide=f end end end function k.normalizeSliderValue(G,f,u)local e=tonumber(G)if e==math.huge then return math.huge end return math.max(0,math.floor(e or f or 0))end function k.normalizeAppliedValue(G,f)local u=tonumber(G)if u==math.huge then return 999999 end return math.max(0,math.floor(u or f or 0))end function k.getOrCreateFeature(G,f)local u=k.getRegistry()local e=u[G]if e then return e end e={Id=G,Enabled=false;Value=f and f.Value or 0,DefaultValue=f and f.DefaultValue or f and f.Value or 0;MaxValue=f and f.MaxValue or 100;BoundKeyCode=nil,Control=nil,ToggleControl=nil,SliderControl=nil,BindControl=nil,ToggleConnection=nil;SliderConnection=nil;BindConnection=nil;CharacterConnection=nil,HumanoidConnection=nil;EnforceConnection=nil;AuxConnection=nil;AuxConnection2=nil,Yaw=0;EdgeReady=false;BodyVelocity=nil;BodyGyro=nil}u[G]=e return e end function k.getPlayerPageControl(G)local f=j.PageRegistry and j.PageRegistry.Player return f and(f.ControlMap and f.ControlMap[G])or nil end function k.syncSliderControl(G)local f=G and G.SliderControl if not f then return end f.Value=k.normalizeSliderValue(G.Value,G.Value,f.MaxValue or G.MaxValue)f.IsInfinite=false d.applySliderVisual(f)end function k.bindFeatureBind(G,f)G.BindConnection=k.disconnectSignal(G.BindConnection)G.BindControl=f G.BoundKeyCode=f and f.BoundKeyCode or nil if not f then return end G.BindConnection=f:OnChanged(function(f)if not f then return end if f.Type=="BindSet"then G.BoundKeyCode=f.KeyCode return end if f.Type=="BindCleared"then G.BoundKeyCode=nil end end)end function k.bindSliderToggleControl(G,f,u,e)if not G or not f then return end G.Control=f G.ToggleControl=f.Toggle G.SliderControl=f.Slider G.BindControl=f.Bind G.MaxValue=f.Slider and f.Slider.MaxValue or G.MaxValue G.ToggleConnection=k.disconnectSignal(G.ToggleConnection)G.SliderConnection=k.disconnectSignal(G.SliderConnection)k.bindFeatureBind(G,G.BindControl)if G.SliderControl then u(G.SliderControl.Value,"init")G.SliderConnection=G.SliderControl:OnChanged(function(G)if G and G.Type=="SliderChanged"then u(G.Value,G.Source or"slider")end end)end if G.ToggleControl then G.ToggleConnection=G.ToggleControl:OnChanged(function(G)if G and G.Type=="ToggleChanged"then e(G.IsOn)end end)end end function k.bindToggleOnlyControl(G,f,u)if not G or not f then return end G.Control=f G.ToggleControl=f.Toggle G.BindControl=f.Bind G.ToggleConnection=k.disconnectSignal(G.ToggleConnection)k.bindFeatureBind(G,G.BindControl)if G.ToggleControl then G.ToggleConnection=G.ToggleControl:OnChanged(function(G)if G and G.Type=="ToggleChanged"then u(G.IsOn)end end)end end function k.toggleFeatureFromBind(G)if not G then return end if G.Id=="WalkSpeed"then k.toggleWalkSpeed()return end if G.Id=="TeleportWalk"then k.toggleTeleportWalk()return end if G.Id=="InfiniteJump"then k.toggleInfiniteJump()return end if G.Id=="EdgeJump"then k.toggleEdgeJump()return end if G.Id=="Fly"then k.toggleFly()return end if G.Id=="Gravity"then k.toggleGravity()return end if G.Id=="Spin"then k.toggleSpin()return end end function k.getWalkSpeedFeature()return k.getOrCreateFeature("WalkSpeed",{Value=16,DefaultValue=16;MaxValue=350})end function k.captureWalkSpeedDefault(G,f)if not G or not f or G.Enabled then return end G.DefaultValue=f.WalkSpeed end function k.bindWalkSpeedDefaultWatcher(G,f)G.HumanoidConnection=k.disconnectSignal(G.HumanoidConnection)if not G or not f then return end G.HumanoidConnection=(f:GetPropertyChangedSignal("WalkSpeed")):Connect(function()k.captureWalkSpeedDefault(G,f)end)end function k.applyWalkSpeed(G,f)f=f or k.getCurrentHumanoid()if not G or not f then return end if G.Enabled then f.WalkSpeed=k.normalizeAppliedValue(G.Value,16)return end f.WalkSpeed=math.max(0,math.floor(tonumber(G.DefaultValue)or 16))end function k.stopWalkSpeedEnforce(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startWalkSpeedEnforce(G)if not G or not G.Enabled then return end k.stopWalkSpeedEnforce(G)G.EnforceConnection=e.Heartbeat:Connect(function()k.applyWalkSpeed(G)end)end function k.setWalkSpeedValue(G)local f=k.getWalkSpeedFeature()f.Value=k.normalizeAppliedValue(G,16)k.syncSliderControl(f)if f.Enabled then k.applyWalkSpeed(f)end end function k.setWalkSpeedEnabled(G)local f=k.getWalkSpeedFeature()local u=k.getCurrentHumanoid()f.Enabled=G and true or false if f.Enabled then k.captureWalkSpeedDefault(f,u)k.applyWalkSpeed(f,u)k.startWalkSpeedEnforce(f)return end k.stopWalkSpeedEnforce(f)k.applyWalkSpeed(f,u)end function k.toggleWalkSpeed()local G=k.getWalkSpeedFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setWalkSpeedEnabled(not G.Enabled)end function k.bindWalkSpeedCharacterLifecycle()local G=k.getWalkSpeedFeature()local f=k.getCurrentHumanoid()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.HumanoidConnection=k.disconnectSignal(G.HumanoidConnection)G.CharacterConnection=b.CharacterAdded:Connect(function(f)local u=f:WaitForChild("Humanoid",10)if not u then return end G.DefaultValue=u.WalkSpeed k.bindWalkSpeedDefaultWatcher(G,u)if G.Enabled then task.defer(function()k.applyWalkSpeed(G,u)k.startWalkSpeedEnforce(G)end)end end)if f then G.DefaultValue=f.WalkSpeed k.bindWalkSpeedDefaultWatcher(G,f)end end function k.bindWalkSpeedControl(G)local f=k.getWalkSpeedFeature()k.bindSliderToggleControl(f,G,k.setWalkSpeedValue,k.setWalkSpeedEnabled)end function k.setupWalkSpeed()local G=k.getPlayerPageControl("WalkSpeed")if not G then warn("[Uniware] WalkSpeed control was not found")return end k.bindWalkSpeedCharacterLifecycle()k.bindWalkSpeedControl(G)end function k.getTeleportWalkFeature()return k.getOrCreateFeature("TeleportWalk",{Value=2;DefaultValue=2;MaxValue=25})end function k.getTeleportWalkSpeedFactor(G)local f=k.normalizeSliderValue(G and G.Value or 2,2,G and G.MaxValue or 25)return 1+(f/8)end function k.stopTeleportWalk(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startTeleportWalk(G)if not G or not G.Enabled then return end k.stopTeleportWalk(G)G.EnforceConnection=e.RenderStepped:Connect(function(f)local u=k.getCharacter()local e=k.getCurrentHumanoid()local b=k.getCurrentRoot()if not G.Enabled or not u or not e or not b or e.Health<=0 then return end local L=e.MoveDirection if L.Magnitude<=0 then return end local h=k.getTeleportWalkSpeedFactor(G)local J=math.max(0,h-1)if J<=0 then return end u:PivotTo(u:GetPivot()+(((L.Unit*e.WalkSpeed)*J)*f))end)end function k.setTeleportWalkValue(G)local f=k.getTeleportWalkFeature()f.Value=k.normalizeSliderValue(G,2,f.MaxValue)k.syncSliderControl(f)end function k.setTeleportWalkEnabled(G)local f=k.getTeleportWalkFeature()f.Enabled=G and true or false if f.Enabled then k.startTeleportWalk(f)return end k.stopTeleportWalk(f)end function k.toggleTeleportWalk()local G=k.getTeleportWalkFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setTeleportWalkEnabled(not G.Enabled)end function k.bindTeleportWalkControl(G)local f=k.getTeleportWalkFeature()k.bindSliderToggleControl(f,G,k.setTeleportWalkValue,k.setTeleportWalkEnabled)end function k.setupTeleportWalk()local G=k.getPlayerPageControl("TeleportWalk")if not G then warn("[Uniware] TeleportWalk control was not found")return end k.bindTeleportWalkControl(G)end function k.getGravityFeature()return k.getOrCreateFeature("Gravity",{Value=2,DefaultValue=2,MaxValue=50,PreviousValue=2})end function k.getGravityJumpMultiplier(G)local f=k.normalizeAppliedValue(G and G.Value or 2,2)return 1+(f/8)end function k.captureGravityDefaults(G,f)f=f or k.getCurrentHumanoid()if not G or not f or G.Enabled then return end G.DefaultUseJumpPower=f.UseJumpPower G.DefaultJumpPower=f.JumpPower G.DefaultJumpHeight=f.JumpHeight end function k.applyGravity(G,f)f=f or k.getCurrentHumanoid()if not G or not f then return end if G.Enabled then local u=k.getGravityJumpMultiplier(G)if G.DefaultUseJumpPower==false then f.UseJumpPower=false f.JumpHeight=math.max(0,((tonumber(G.DefaultJumpHeight)or f.JumpHeight or 7.2))*u)else f.UseJumpPower=true f.JumpPower=math.max(0,((tonumber(G.DefaultJumpPower)or f.JumpPower or 50))*u)end return end if G.DefaultUseJumpPower~=nil then f.UseJumpPower=G.DefaultUseJumpPower end if G.DefaultJumpPower~=nil then f.JumpPower=G.DefaultJumpPower end if G.DefaultJumpHeight~=nil then f.JumpHeight=G.DefaultJumpHeight end end function k.stopGravityEnforce(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startGravityEnforce(G)if not G or not G.Enabled then return end k.stopGravityEnforce(G)G.EnforceConnection=e.Heartbeat:Connect(function()k.applyGravity(G)end)end function k.setGravityValue(G)local f=k.getGravityFeature()local u=f.Value if G==math.huge then f.Value=999999 else f.Value=k.normalizeAppliedValue(G,2)end k.syncSliderControl(f)if f.Enabled then k.applyGravity(f)end if G<u then local G=k.getCurrentHumanoid()local f=k.getCurrentRoot()if G and(f and G:GetState()==Enum.HumanoidStateType.Freefall)then f.Velocity=Vector3.new(f.Velocity.X,-30,f.Velocity.Z)end end f.PreviousValue=f.Value end function k.setGravityEnabled(G)local f=k.getGravityFeature()local u=k.getCurrentHumanoid()f.Enabled=G and true or false if f.Enabled then k.captureGravityDefaults(f,u)k.applyGravity(f,u)k.startGravityEnforce(f)return end k.stopGravityEnforce(f)k.applyGravity(f,u)end function k.toggleGravity()local G=k.getGravityFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setGravityEnabled(not G.Enabled)end function k.bindGravityCharacterLifecycle()local G=k.getGravityFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.CharacterConnection=b.CharacterAdded:Connect(function(f)local u=f:WaitForChild("Humanoid",10)if not u then return end G.DefaultUseJumpPower=u.UseJumpPower G.DefaultJumpPower=u.JumpPower G.DefaultJumpHeight=u.JumpHeight if G.Enabled then task.defer(function()k.applyGravity(G,u)k.startGravityEnforce(G)end)end end)local f=k.getCurrentHumanoid()if f then k.captureGravityDefaults(G,f)end end function k.bindGravityControl(G)local f=k.getGravityFeature()k.bindSliderToggleControl(f,G,k.setGravityValue,k.setGravityEnabled)end function k.setupGravity()local G=k.getPlayerPageControl("Gravity")if not G then warn("[Uniware] Gravity control was not found")return end k.bindGravityCharacterLifecycle()k.bindGravityControl(G)end function k.getInfiniteJumpFeature()return k.getOrCreateFeature("InfiniteJump",{Value=0;DefaultValue=0,MaxValue=0})end function k.stopInfiniteJump(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startInfiniteJump(G)if not G or not G.Enabled then return end k.stopInfiniteJump(G)G.EnforceConnection=f.JumpRequest:Connect(function()local f=k.getCurrentHumanoid()if not G.Enabled or not f or f.Health<=0 then return end f:ChangeState(Enum.HumanoidStateType.Jumping)end)end function k.setInfiniteJumpEnabled(G)local f=k.getInfiniteJumpFeature()f.Enabled=G and true or false if f.Enabled then k.startInfiniteJump(f)return end k.stopInfiniteJump(f)end function k.toggleInfiniteJump()local G=k.getInfiniteJumpFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setInfiniteJumpEnabled(not G.Enabled)end function k.bindInfiniteJumpControl(G)local f=k.getInfiniteJumpFeature()k.bindToggleOnlyControl(f,G,k.setInfiniteJumpEnabled)end function k.setupInfiniteJump()local G=k.getPlayerPageControl("InfiniteJump")if not G then warn("[Uniware] InfiniteJump control was not found")return end k.bindInfiniteJumpControl(G)end function k.getEdgeJumpFeature()return k.getOrCreateFeature("EdgeJump",{Value=0;DefaultValue=0,MaxValue=0})end function k.stopEdgeJump(G)if not G then return end G.EdgeReady=false G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)G.AuxConnection=k.disconnectSignal(G.AuxConnection)end function k.startEdgeJump(G)if not G or not G.Enabled then return end k.stopEdgeJump(G)G.EdgeReady=false local f=k.getCurrentHumanoid()if f then G.AuxConnection=f.StateChanged:Connect(function(f,u)if not G.Enabled then return end if u==Enum.HumanoidStateType.Running or u==Enum.HumanoidStateType.RunningNoPhysics then G.EdgeReady=true end end)end G.EnforceConnection=e.RenderStepped:Connect(function()local f=k.getCurrentHumanoid()local u=k.getCurrentRoot()if not G.Enabled or not f or not u or f.Health<=0 then return end if f.FloorMaterial==Enum.Material.Air then if G.EdgeReady then G.EdgeReady=false f:ChangeState(Enum.HumanoidStateType.Jumping)end else if f.MoveDirection.Magnitude>.01 then G.EdgeReady=true end end end)end function k.setEdgeJumpEnabled(G)local f=k.getEdgeJumpFeature()f.Enabled=G and true or false if f.Enabled then k.startEdgeJump(f)return end k.stopEdgeJump(f)end function k.toggleEdgeJump()local G=k.getEdgeJumpFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setEdgeJumpEnabled(not G.Enabled)end function k.bindEdgeJumpCharacterLifecycle()local G=k.getEdgeJumpFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.CharacterConnection=b.CharacterAdded:Connect(function()if G.Enabled then task.defer(function()k.startEdgeJump(G)end)end end)end function k.bindEdgeJumpControl(G)local f=k.getEdgeJumpFeature()k.bindToggleOnlyControl(f,G,k.setEdgeJumpEnabled)end function k.setupEdgeJump()local G=k.getPlayerPageControl("EdgeJump")if not G then warn("[Uniware] EdgeJump control was not found")return end k.bindEdgeJumpCharacterLifecycle()k.bindEdgeJumpControl(G)end function k.getFlyFeature()return k.getOrCreateFeature("Fly",{Value=50;DefaultValue=50,MaxValue=500})end function k.stopFly(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)if G.BodyVelocity then G.BodyVelocity:Destroy()G.BodyVelocity=nil end if G.BodyGyro then G.BodyGyro:Destroy()G.BodyGyro=nil end local f=k.getCharacter()local u=k.getCurrentHumanoid()local e=k.getCurrentRoot()if f then k.setCharacterCollisionEnabled(f,true)end if u then u.PlatformStand=false u:ChangeState(Enum.HumanoidStateType.GettingUp)end if e then e.AssemblyLinearVelocity=Vector3.zero e.AssemblyAngularVelocity=Vector3.zero end end function k.startFly(G)if not G or not G.Enabled then return end k.stopFly(G)local u=k.getCharacter()local b=k.getCurrentHumanoid()local L=k.getCurrentRoot()local h=workspace.CurrentCamera if not u or not b or not L or not h then return end b.PlatformStand=true k.setCharacterCollisionEnabled(u,false)G.BodyVelocity=Instance.new("BodyVelocity")G.BodyVelocity.Name="UniwareFlyVelocity"G.BodyVelocity.MaxForce=Vector3.new(math.huge,math.huge,math.huge)G.BodyVelocity.P=10000 G.BodyVelocity.Velocity=Vector3.zero G.BodyVelocity.Parent=L G.BodyGyro=Instance.new("BodyGyro")G.BodyGyro.Name="UniwareFlyGyro"G.BodyGyro.MaxTorque=Vector3.new(math.huge,math.huge,math.huge)G.BodyGyro.P=100000 G.BodyGyro.CFrame=h.CFrame G.BodyGyro.Parent=L G.EnforceConnection=e.RenderStepped:Connect(function()local u=k.getCharacter()local e=k.getCurrentHumanoid()local b=k.getCurrentRoot()local L=workspace.CurrentCamera if not G.Enabled or not u or not e or not b or e.Health<=0 or not L or not G.BodyVelocity or not G.BodyGyro then return end e.PlatformStand=true k.setCharacterCollisionEnabled(u,false)local h=L.CFrame local J=Vector3.zero if f:IsKeyDown(Enum.KeyCode.W)then J+=h.LookVector end if f:IsKeyDown(Enum.KeyCode.S)then J-=h.LookVector end if f:IsKeyDown(Enum.KeyCode.A)then J-=h.RightVector end if f:IsKeyDown(Enum.KeyCode.D)then J+=h.RightVector end if f:IsKeyDown(Enum.KeyCode.Space)then J+=h.UpVector end if f:IsKeyDown(Enum.KeyCode.LeftControl)or f:IsKeyDown(Enum.KeyCode.C)then J-=h.UpVector end if J.Magnitude>0 then J=J.Unit*k.normalizeAppliedValue(G.Value,50)end G.BodyVelocity.Velocity=J local m=h.LookVector local K=k.getSpinFeature()if K.Enabled then m=(CFrame.fromAxisAngle(Vector3.new(0,1,0),K.Yaw)):VectorToWorldSpace(m)end G.BodyGyro.CFrame=CFrame.new(b.Position,b.Position+m)end)end function k.setFlyValue(G)local f=k.getFlyFeature()f.Value=k.normalizeSliderValue(G,50,f.MaxValue)k.syncSliderControl(f)end function k.setFlyEnabled(G)local f=k.getFlyFeature()f.Enabled=G and true or false if f.Enabled then k.startFly(f)return end k.stopFly(f)end function k.toggleFly()local G=k.getFlyFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setFlyEnabled(not G.Enabled)end function k.bindFlyCharacterLifecycle()local G=k.getFlyFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.CharacterConnection=b.CharacterAdded:Connect(function()if G.Enabled then task.defer(function()k.startFly(G)end)end end)end function k.bindFlyControl(G)local f=k.getFlyFeature()k.bindSliderToggleControl(f,G,k.setFlyValue,k.setFlyEnabled)end function k.setupFly()local G=k.getPlayerPageControl("Fly")if not G then warn("[Uniware] Fly control was not found")return end k.bindFlyCharacterLifecycle()k.bindFlyControl(G)end function k.getSpinFeature()return k.getOrCreateFeature("Spin",{Value=10,DefaultValue=10;MaxValue=350})end function k.getSpinRadiansPerSecond(G)local f=k.normalizeSliderValue(G and G.Value or 10,10,G and G.MaxValue or 350)return f*math.pi end function k.stopSpin(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startSpin(G)if not G or not G.Enabled then return end k.stopSpin(G)G.EnforceConnection=e.RenderStepped:Connect(function(f)local u=k.getSpinRadiansPerSecond(G)local e=u*f G.Yaw=((G.Yaw+e))%((math.pi*2))if(k.getFlyFeature()).Enabled then return end local b=k.getCharacter()local L=k.getCurrentHumanoid()if not G.Enabled or not b or not L or L.Health<=0 then return end b:PivotTo(b:GetPivot()*CFrame.Angles(0,e,0))end)end function k.setSpinValue(G)local f=k.getSpinFeature()f.Value=k.normalizeSliderValue(G,10,f.MaxValue)k.syncSliderControl(f)end function k.setSpinEnabled(G)local f=k.getSpinFeature()f.Enabled=G and true or false if f.Enabled then k.startSpin(f)return end k.stopSpin(f)end function k.toggleSpin()local G=k.getSpinFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setSpinEnabled(not G.Enabled)end function k.bindSpinControl(G)local f=k.getSpinFeature()k.bindSliderToggleControl(f,G,k.setSpinValue,k.setSpinEnabled)end function k.setupSpin()local G=k.getPlayerPageControl("Spin")if not G then warn("[Uniware] Spin control was not found")return end k.bindSpinControl(G)end function k.getCurrentCamera()return workspace.CurrentCamera end function k.trimText(G)return(tostring(G or"")):match("^%s*(.-)%s*$")end function k.normalizePreciseValue(G,f)local u=tonumber(G)if u==math.huge then return math.huge end return math.max(0,u or f or 0)end function k.getCurrentInputText(G)local f=G and G.InputControl local u=f and f.Input return k.trimText(u and u.Text or"")end function k.getFlatLookVector(G)local f=G.LookVector local u=Vector3.new(f.X,0,f.Z)if u.Magnitude<=0 then return Vector3.new(0,0,-1)end return u.Unit end function k.findPlayerByName(f)local u=string.lower(k.trimText(f))if u==""then return nil end local e=nil local b=nil for G,f in ipairs(G:GetPlayers())do local L=string.lower(f.Name)local h=string.lower(f.DisplayName)if L==u or h==u then return f end if not e then if string.sub(L,1,#u)==u or string.sub(h,1,#u)==u then e=f end end if not b then if string.find(L,u,1,true)or string.find(h,u,1,true)then b=f end end end return e or b end function k.getPlayerRoot(G)local f=G and G.Character if not f then return nil end return f:FindFirstChild("HumanoidRootPart")end function k.getPlayerHumanoid(G)local f=G and G.Character if not f then return nil end return f:FindFirstChildOfClass("Humanoid")end function k.isR15(G)local f=G.Character if not f then return false end local u=f:FindFirstChildOfClass("Humanoid")return u and u.RigType==Enum.HumanoidRigType.R15 end function k.getMouseRaycastResult(G,u)local e=k.getCurrentCamera()if not e then return nil end local b=f:GetMouseLocation()local L=e:ViewportPointToRay(b.X,b.Y)local h=RaycastParams.new()h.FilterType=Enum.RaycastFilterType.Exclude h.FilterDescendantsInstances=G or{}return workspace:Raycast(L.Origin,L.Direction*((u or 1000)),h)end function k.hasHumanoidAncestor(G)local f=G while f do if f:IsA("Model")and f:FindFirstChildOfClass("Humanoid")then return true end f=f.Parent end return false end function k.bindInputActionControl(G,f,u)if not G or not f then return end G.Control=f G.BindControl=f.Bind G.InputControl=f.Input G.ActionConnection=k.disconnectSignal(G.ActionConnection)k.bindFeatureBind(G,G.BindControl)if G.InputControl then G.ActionConnection=G.InputControl:OnChanged(function(G)if G and G.Type=="ActionTriggered"then u(G.Text or"")end end)end end function k.bindActionOnlyControl(G,f,u)if not G or not f then return end G.Control=f G.BindControl=f.Bind G.ActionControl=f.Action G.ActionConnection=k.disconnectSignal(G.ActionConnection)k.bindFeatureBind(G,G.BindControl)if G.ActionControl then G.ActionConnection=G.ActionControl:OnChanged(function(G)if G and G.Type=="ActionTriggered"then u()end end)end end function k.activateFeatureFromBind(G)if not G then return end if G.Id=="WalkSpeed"then k.toggleWalkSpeed()return end if G.Id=="TeleportWalk"then k.toggleTeleportWalk()return end if G.Id=="InfiniteJump"then k.toggleInfiniteJump()return end if G.Id=="EdgeJump"then k.toggleEdgeJump()return end if G.Id=="Fly"then k.toggleFly()return end if G.Id=="Gravity"then k.toggleGravity()return end if G.Id=="Spin"then k.toggleSpin()return end if G.Id=="Blink"then k.runBlink(k.getCurrentInputText(G))return end if G.Id=="Noclip"then k.toggleNoclip()return end if G.Id=="DeathTeleport"then k.runDeathTeleport()return end if G.Id=="Jumpheight"then k.toggleJumpheight()return end if G.Id=="HipHeight"then k.toggleHipHeight()return end if G.Id=="Jump"then k.runJumpAction()return end if G.Id=="Sit"then k.runSitAction()return end if G.Id=="Trip"then k.runTripAction()return end if G.Id=="AntiVoid"then k.toggleAntiVoid()return end if G.Id=="AntiSlip"then k.toggleAntiSlip()return end if G.Id=="Strengthen"then k.toggleStrengthen()return end if G.Id=="PlayerTeleport"then k.runPlayerTeleport(k.getCurrentInputText(G))return end if G.Id=="SpectatePlayer"then k.runSpectatePlayer(k.getCurrentInputText(G))return end if G.Id=="MaxZoom"then k.toggleMaxZoom()return end if G.Id=="MinZoom"then k.toggleMinZoom()return end if G.Id=="Freecam"then k.toggleFreecam()return end end function k.handlePointerWorldAction()if j.ActiveBindControl and j.ActiveBindControl.IsAwaiting then return end if f:GetFocusedTextBox()then return end local G=k.getClickDeleteFeature()if G and((G.Enabled or G.HoldActive))then if k.performClickDelete()then return end end local u=k.getClickTeleportFeature()if u and((u.Enabled or u.HoldActive))then k.performClickTeleport()end end function k.shouldIgnoreBoundKeyboardInput()if j.ActiveBindControl and j.ActiveBindControl.IsAwaiting then return true end if f:GetFocusedTextBox()then return true end return false end function k.getFeatureByBoundKey(G)if typeof(G)~="EnumItem"then return nil end local f=k.getRegistry()for f,u in next,f do if u.BoundKeyCode and u.BoundKeyCode==G then return u end end return nil end function k.setupBoundInput()y(w.FeatureInputBegan)y(w.FeatureInputEnded)w.FeatureInputBegan=f.InputBegan:Connect(function(G,f)local u=k.getFreecamFeature()if u and(u.Enabled and(not u.BoundKeyCode and G.KeyCode==Enum.KeyCode.Space))then k.setFreecamEnabled(false)return end if G.UserInputType==Enum.UserInputType.MouseButton1 then if f then return end if k.shouldIgnoreBoundKeyboardInput()then return end k.handlePointerWorldAction()return end if G.UserInputType~=Enum.UserInputType.Keyboard then return end if k.shouldIgnoreBoundKeyboardInput()then return end local e=k.getFeatureByBoundKey(G.KeyCode)if not e then return end if e.Id=="ClickTeleport"or e.Id=="ClickDelete"then e.HoldActive=true return end k.activateFeatureFromBind(e)end)w.FeatureInputEnded=f.InputEnded:Connect(function(G)if G.UserInputType~=Enum.UserInputType.Keyboard then return end local f=k.getFeatureByBoundKey(G.KeyCode)if not f then return end if f.Id=="ClickTeleport"or f.Id=="ClickDelete"then f.HoldActive=false end end)end function k.getBlinkFeature()return k.getOrCreateFeature("Blink",{Value=0;DefaultValue=0,MaxValue=0})end function k.runBlink(G)local f=tonumber(k.trimText(G))local u=k.getCharacter()local e=k.getCurrentRoot()if not f or not u or not e then return end local b=k.getFlatLookVector(e.CFrame)u:PivotTo(u:GetPivot()+(b*f))end function k.bindBlinkControl(G)local f=k.getBlinkFeature()k.bindInputActionControl(f,G,k.runBlink)end function k.setupBlink()local G=k.getPlayerPageControl("Blink")if not G then warn("[Uniware] Blink control was not found")return end k.bindBlinkControl(G)end function k.getNoclipFeature()return k.getOrCreateFeature("Noclip",{Value=0;DefaultValue=0;MaxValue=0})end function k.stopNoclip(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)k.restoreCharacterCollisionState(G)end function k.startNoclip(G)if not G or not G.Enabled then return end k.stopNoclip(G)local f=k.getCharacter()if f and not G.CollisionStateCaptured then k.captureCharacterCollisionState(G,f)end G.EnforceConnection=e.Stepped:Connect(function()local f=k.getCharacter()if not G.Enabled or not f then return end if not G.CollisionStateCaptured then k.captureCharacterCollisionState(G,f)end for G,f in ipairs(f:GetDescendants())do if f:IsA("BasePart")then f.CanCollide=false end end end)end function k.setNoclipEnabled(G)local f=k.getNoclipFeature()f.Enabled=G and true or false if f.Enabled then k.startNoclip(f)return end k.stopNoclip(f)end function k.toggleNoclip()local G=k.getNoclipFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setNoclipEnabled(not G.Enabled)end function k.bindNoclipCharacterLifecycle()local G=k.getNoclipFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.CharacterConnection=b.CharacterAdded:Connect(function()if G.Enabled then task.defer(function()k.startNoclip(G)end)end end)end function k.bindNoclipControl(G)local f=k.getNoclipFeature()k.bindToggleOnlyControl(f,G,k.setNoclipEnabled)end function k.setupNoclip()local G=k.getPlayerPageControl("Noclip")if not G then warn("[Uniware] Noclip control was not found")return end k.bindNoclipCharacterLifecycle()k.bindNoclipControl(G)end function k.getClickTeleportFeature()return k.getOrCreateFeature("ClickTeleport",{Value=0,DefaultValue=0;MaxValue=0})end function k.performClickTeleport()local G=k.getClickTeleportFeature()local f=k.getCharacter()local u=k.getCurrentRoot()if not G or not((G.Enabled or G.HoldActive))or not f or not u then return false end local e=k.getMouseRaycastResult({f},1000)if not e then return false end local b=e.Position if b.Y<-1000 then return true end u.CFrame=CFrame.new(b+Vector3.new(0,3,0))u.AssemblyLinearVelocity=Vector3.zero u.AssemblyAngularVelocity=Vector3.zero return true end function k.setClickTeleportEnabled(G)local f=k.getClickTeleportFeature()f.Enabled=G and true or false end function k.toggleClickTeleport()local G=k.getClickTeleportFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setClickTeleportEnabled(not G.Enabled)end function k.bindClickTeleportControl(G)local f=k.getClickTeleportFeature()k.bindToggleOnlyControl(f,G,k.setClickTeleportEnabled)end function k.setupClickTeleport()local G=k.getPlayerPageControl("ClickTeleport")if not G then warn("[Uniware] ClickTeleport control was not found")return end k.bindClickTeleportControl(G)end function k.getClickDeleteFeature()return k.getOrCreateFeature("ClickDelete",{Value=0;DefaultValue=0;MaxValue=0})end function k.performClickDelete()local G=k.getClickDeleteFeature()local f=k.getCharacter()if not G or not((G.Enabled or G.HoldActive))then return false end local u=k.getMouseRaycastResult({f},1000)if not u or not u.Instance then return false end local e=u.Instance if not e or not e.Parent then return false end if e==workspace.Terrain then return true end if not e:IsDescendantOf(workspace)then return true end if f and e:IsDescendantOf(f)then return true end if k.hasHumanoidAncestor(e)then return true end pcall(function()e:Destroy()end)return true end function k.setClickDeleteEnabled(G)local f=k.getClickDeleteFeature()f.Enabled=G and true or false end function k.toggleClickDelete()local G=k.getClickDeleteFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setClickDeleteEnabled(not G.Enabled)end function k.bindClickDeleteControl(G)local f=k.getClickDeleteFeature()k.bindToggleOnlyControl(f,G,k.setClickDeleteEnabled)end function k.setupClickDelete()local G=k.getPlayerPageControl("ClickDelete")if not G then warn("[Uniware] ClickDelete control was not found")return end k.bindClickDeleteControl(G)end function k.getDeathTeleportFeature()return k.getOrCreateFeature("DeathTeleport",{Value=0;DefaultValue=0;MaxValue=0})end function k.runDeathTeleport()local G=k.getDeathTeleportFeature()local f=k.getCurrentRoot()if not G or not G.StoredCFrame or not f then return end f.CFrame=G.StoredCFrame+Vector3.new(0,3,0)f.AssemblyLinearVelocity=Vector3.zero f.AssemblyAngularVelocity=Vector3.zero end function k.bindDeathTeleportTracker()local G=k.getDeathTeleportFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.AuxConnection=k.disconnectSignal(G.AuxConnection)local function f(f)G.AuxConnection=k.disconnectSignal(G.AuxConnection)local u=f:FindFirstChildOfClass("Humanoid")or f:WaitForChild("Humanoid",10)if not u then return end G.AuxConnection=u.Died:Connect(function()local u=f:FindFirstChild("HumanoidRootPart")if u then G.StoredCFrame=u.CFrame end end)end G.CharacterConnection=b.CharacterAdded:Connect(function(G)f(G)end)local u=k.getCharacter()if u then f(u)end end function k.bindDeathTeleportControl(G)local f=k.getDeathTeleportFeature()k.bindActionOnlyControl(f,G,k.runDeathTeleport)end function k.setupDeathTeleport()local G=k.getPlayerPageControl("DeathTeleport")if not G then warn("[Uniware] DeathTeleport control was not found")return end k.bindDeathTeleportTracker()k.bindDeathTeleportControl(G)end function k.getJumpheightFeature()return k.getOrCreateFeature("Jumpheight",{Value=50;DefaultValue=50,MaxValue=350})end function k.captureJumpheightDefaults(G,f)f=f or k.getCurrentHumanoid()if not G or not f or G.Enabled then return end G.DefaultUseJumpPower=f.UseJumpPower G.DefaultJumpPower=f.JumpPower G.DefaultJumpHeight=f.JumpHeight end function k.applyJumpheight(G,f)f=f or k.getCurrentHumanoid()if not G or not f then return end if G.Enabled then f.UseJumpPower=false f.JumpHeight=k.normalizePreciseValue(G.Value,50)return end if G.DefaultUseJumpPower~=nil then f.UseJumpPower=G.DefaultUseJumpPower end if G.DefaultJumpPower~=nil then f.JumpPower=G.DefaultJumpPower end if G.DefaultJumpHeight~=nil then f.JumpHeight=G.DefaultJumpHeight end end function k.stopJumpheightEnforce(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startJumpheightEnforce(G)if not G or not G.Enabled then return end k.stopJumpheightEnforce(G)G.EnforceConnection=e.Heartbeat:Connect(function()k.applyJumpheight(G)end)end function k.setJumpheightValue(G)local f=k.getJumpheightFeature()f.Value=k.normalizePreciseValue(G,50)k.syncSliderControl(f)if f.Enabled then k.applyJumpheight(f)end end function k.setJumpheightEnabled(G)local f=k.getJumpheightFeature()local u=k.getCurrentHumanoid()f.Enabled=G and true or false if f.Enabled then k.captureJumpheightDefaults(f,u)k.applyJumpheight(f,u)k.startJumpheightEnforce(f)return end k.stopJumpheightEnforce(f)k.applyJumpheight(f,u)end function k.toggleJumpheight()local G=k.getJumpheightFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setJumpheightEnabled(not G.Enabled)end function k.bindJumpheightCharacterLifecycle()local G=k.getJumpheightFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.CharacterConnection=b.CharacterAdded:Connect(function(f)local u=f:WaitForChild("Humanoid",10)if not u then return end G.DefaultUseJumpPower=u.UseJumpPower G.DefaultJumpPower=u.JumpPower G.DefaultJumpHeight=u.JumpHeight if G.Enabled then task.defer(function()k.applyJumpheight(G,u)k.startJumpheightEnforce(G)end)end end)local f=k.getCurrentHumanoid()if f then k.captureJumpheightDefaults(G,f)end end function k.bindJumpheightControl(G)local f=k.getJumpheightFeature()k.bindSliderToggleControl(f,G,k.setJumpheightValue,k.setJumpheightEnabled)end function k.setupJumpheight()local G=k.getPlayerPageControl("Jumpheight")if not G then warn("[Uniware] Jumpheight control was not found")return end k.bindJumpheightCharacterLifecycle()k.bindJumpheightControl(G)end function k.getHipHeightFeature()return k.getOrCreateFeature("HipHeight",{Value=2;DefaultValue=2;MaxValue=50})end function k.captureHipHeightDefault(G,f)f=f or k.getCurrentHumanoid()if not G or not f or G.Enabled then return end G.DefaultValue=f.HipHeight end function k.applyHipHeight(G,f)f=f or k.getCurrentHumanoid()if not G or not f then return end if G.Enabled then f.HipHeight=k.normalizePreciseValue(G.Value,2)return end f.HipHeight=tonumber(G.DefaultValue)or 0 end function k.stopHipHeightEnforce(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startHipHeightEnforce(G)if not G or not G.Enabled then return end k.stopHipHeightEnforce(G)G.EnforceConnection=e.Heartbeat:Connect(function()k.applyHipHeight(G)end)end function k.setHipHeightValue(G)local f=k.getHipHeightFeature()f.Value=k.normalizePreciseValue(G,2)k.syncSliderControl(f)if f.Enabled then k.applyHipHeight(f)end end function k.setHipHeightEnabled(G)local f=k.getHipHeightFeature()local u=k.getCurrentHumanoid()f.Enabled=G and true or false if f.Enabled then k.captureHipHeightDefault(f,u)k.applyHipHeight(f,u)k.startHipHeightEnforce(f)return end k.stopHipHeightEnforce(f)k.applyHipHeight(f,u)end function k.toggleHipHeight()local G=k.getHipHeightFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setHipHeightEnabled(not G.Enabled)end function k.bindHipHeightCharacterLifecycle()local G=k.getHipHeightFeature()G.CharacterConnection=k.disconnectSignal(G.CharacterConnection)G.CharacterConnection=b.CharacterAdded:Connect(function(f)local u=f:WaitForChild("Humanoid",10)if not u then return end G.DefaultValue=u.HipHeight if G.Enabled then task.defer(function()k.applyHipHeight(G,u)k.startHipHeightEnforce(G)end)end end)local f=k.getCurrentHumanoid()if f then k.captureHipHeightDefault(G,f)end end function k.bindHipHeightControl(G)local f=k.getHipHeightFeature()k.bindSliderToggleControl(f,G,k.setHipHeightValue,k.setHipHeightEnabled)end function k.setupHipHeight()local G=k.getPlayerPageControl("HipHeight")if not G then warn("[Uniware] HipHeight control was not found")return end k.bindHipHeightCharacterLifecycle()k.bindHipHeightControl(G)end function k.getJumpActionFeature()return k.getOrCreateFeature("Jump",{Value=0,DefaultValue=0,MaxValue=0})end function k.runJumpAction()local G=k.getFreecamFeature()if G and(G.Enabled and not G.BoundKeyCode)then k.setFreecamEnabled(false)return end local f=k.getCurrentHumanoid()if not f or f.Health<=0 then return end f:ChangeState(Enum.HumanoidStateType.Jumping)end function k.setupJumpAction()local G=k.getPlayerPageControl("Jump")if not G then warn("[Uniware] Jump control was not found")return end k.bindActionOnlyControl(k.getJumpActionFeature(),G,k.runJumpAction)end function k.getSitActionFeature()return k.getOrCreateFeature("Sit",{Value=0,DefaultValue=0;MaxValue=0})end function k.runSitAction()local G=k.getCurrentHumanoid()if not G or G.Health<=0 then return end G.Sit=true end function k.setupSitAction()local G=k.getPlayerPageControl("Sit")if not G then warn("[Uniware] Sit control was not found")return end k.bindActionOnlyControl(k.getSitActionFeature(),G,k.runSitAction)end function k.getTripActionFeature()return k.getOrCreateFeature("Trip",{Value=0;DefaultValue=0,MaxValue=0})end function k.runTripAction()local G=k.getCurrentHumanoid()local f=k.getCurrentRoot()if not G or G.Health<=0 then return end G.Sit=false pcall(function()G:ChangeState(Enum.HumanoidStateType.Ragdoll)end)if G:GetState()~=Enum.HumanoidStateType.Ragdoll then G:ChangeState(Enum.HumanoidStateType.FallingDown)end if f then f.AssemblyAngularVelocity=Vector3.new(14,0,14)f.AssemblyLinearVelocity=f.AssemblyLinearVelocity+(k.getFlatLookVector(f.CFrame)*6)end end function k.setupTripAction()local G=k.getPlayerPageControl("Trip")if not G then warn("[Uniware] Trip control was not found")return end k.bindActionOnlyControl(k.getTripActionFeature(),G,k.runTripAction)end function k.getAntiVoidFeature()return k.getOrCreateFeature("AntiVoid",{Value=0;DefaultValue=0;MaxValue=0})end function k.getGroundedSafeCFrame(G,f)local u=RaycastParams.new()u.FilterType=Enum.RaycastFilterType.Exclude u.FilterDescendantsInstances={G}local e=workspace:Raycast(f.Position,Vector3.new(0,-12,0),u)if e then return CFrame.new(e.Position+Vector3.new(0,3.5,0))end return nil end function k.stopAntiVoid(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)G.StoredCFrame=nil end function k.startAntiVoid(G)if not G or not G.Enabled then return end k.stopAntiVoid(G)G.EnforceConnection=e.Heartbeat:Connect(function()local f=k.getCharacter()local u=k.getCurrentHumanoid()local e=k.getCurrentRoot()if not G.Enabled or not f or not u or not e or u.Health<=0 then return end local b=k.getGroundedSafeCFrame(f,e)if b then G.StoredCFrame=b end if e.Position.Y<=-50 and G.StoredCFrame then e.CFrame=G.StoredCFrame e.AssemblyLinearVelocity=Vector3.zero e.AssemblyAngularVelocity=Vector3.zero end end)end function k.setAntiVoidEnabled(G)local f=k.getAntiVoidFeature()f.Enabled=G and true or false if f.Enabled then k.startAntiVoid(f)return end k.stopAntiVoid(f)end function k.toggleAntiVoid()local G=k.getAntiVoidFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setAntiVoidEnabled(not G.Enabled)end function k.bindAntiVoidControl(G)local f=k.getAntiVoidFeature()k.bindToggleOnlyControl(f,G,k.setAntiVoidEnabled)end function k.setupAntiVoid()local G=k.getPlayerPageControl("AntiVoid")if not G then warn("[Uniware] AntiVoid control was not found")return end k.bindAntiVoidControl(G)end function k.getAntiSlipFeature()return k.getOrCreateFeature("AntiSlip",{Value=0;DefaultValue=0,MaxValue=0})end function k.stopAntiSlip(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startAntiSlip(G)if not G or not G.Enabled then return end k.stopAntiSlip(G)G.EnforceConnection=e.Heartbeat:Connect(function()local f=k.getCurrentHumanoid()local u=k.getCurrentRoot()if not G.Enabled or not f or not u or f.Health<=0 then return end if f.FloorMaterial==Enum.Material.Air then return end local e=u.AssemblyLinearVelocity local b=f.MoveDirection if b.Magnitude>.01 then local G=b.Unit*f.WalkSpeed u.AssemblyLinearVelocity=Vector3.new(G.X,e.Y,G.Z)return end if f.FloorMaterial==Enum.Material.Ice or f.FloorMaterial==Enum.Material.Glacier then u.AssemblyLinearVelocity=Vector3.new(0,e.Y,0)end end)end function k.setAntiSlipEnabled(G)local f=k.getAntiSlipFeature()f.Enabled=G and true or false if f.Enabled then k.startAntiSlip(f)return end k.stopAntiSlip(f)end function k.toggleAntiSlip()local G=k.getAntiSlipFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setAntiSlipEnabled(not G.Enabled)end function k.bindAntiSlipControl(G)local f=k.getAntiSlipFeature()k.bindToggleOnlyControl(f,G,k.setAntiSlipEnabled)end function k.setupAntiSlip()local G=k.getPlayerPageControl("AntiSlip")if not G then warn("[Uniware] AntiSlip control was not found")return end k.bindAntiSlipControl(G)end function k.getStrengthenFeature()return k.getOrCreateFeature("Strengthen",{Value=100,DefaultValue=100;MaxValue=10000})end function k.canStrengthAffectPart(G)if not G or not G:IsA("BasePart")then return false end if G.Anchored then return false end local f=k.getCharacter()if f and G:IsDescendantOf(f)then return false end if k.hasHumanoidAncestor(G)then return false end return true end function k.applyStrengthImpulse(G,f,u)if not k.canStrengthAffectPart(u)then return end local e=u.Position-f.Position if e.Magnitude<=0 then e=f.CFrame.LookVector else e=e.Unit end local b=k.normalizePreciseValue(G.Value,100)if b==math.huge then b=1000000 end local L=e*(((u.AssemblyMass*b)*2))pcall(function()u:ApplyImpulse(L)end)end function k.stopStrengthen(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)end function k.startStrengthen(G)if not G or not G.Enabled then return end k.stopStrengthen(G)G.EnforceConnection=e.Heartbeat:Connect(function()local f=k.getCurrentRoot()if not G.Enabled or not f then return end local u=f:GetTouchingParts()local e={}for b=1,#u,1 do local L=u[b]if not e[L]then e[L]=true k.applyStrengthImpulse(G,f,L)end end end)end function k.setStrengthenValue(G)local f=k.getStrengthenFeature()f.Value=k.normalizePreciseValue(G,100)k.syncSliderControl(f)end function k.setStrengthenEnabled(G)local f=k.getStrengthenFeature()f.Enabled=G and true or false if f.Enabled then k.startStrengthen(f)return end k.stopStrengthen(f)end function k.toggleStrengthen()local G=k.getStrengthenFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setStrengthenEnabled(not G.Enabled)end function k.bindStrengthenControl(G)local f=k.getStrengthenFeature()k.bindSliderToggleControl(f,G,k.setStrengthenValue,k.setStrengthenEnabled)end function k.setupStrengthen()local G=k.getPlayerPageControl("Strengthen")if not G then warn("[Uniware] Strengthen control was not found")return end k.bindStrengthenControl(G)end function k.getPlayerTeleportFeature()return k.getOrCreateFeature("PlayerTeleport",{Value=0,DefaultValue=0,MaxValue=0})end function k.runPlayerTeleport(G)local f=k.findPlayerByName(G)local u=k.getCurrentRoot()local e=k.getPlayerRoot(f)if not f or f==b or not u or not e then return end local L=e.Position-(k.getFlatLookVector(e.CFrame)*3)u.CFrame=CFrame.new(L+Vector3.new(0,2,0),e.Position)u.AssemblyLinearVelocity=Vector3.zero u.AssemblyAngularVelocity=Vector3.zero end function k.bindPlayerTeleportControl(G)local f=k.getPlayerTeleportFeature()k.bindInputActionControl(f,G,k.runPlayerTeleport)end function k.setupPlayerTeleport()local G=k.getPlayerPageControl("PlayerTeleport")if not G then warn("[Uniware] PlayerTeleport control was not found")return end k.bindPlayerTeleportControl(G)end function k.getSpectatePlayerFeature()return k.getOrCreateFeature("SpectatePlayer",{Value=0,DefaultValue=0;MaxValue=0})end function k.stopSpectating(G)G=G or k.getSpectatePlayerFeature()if not G then return end G.MonitorConnection=k.disconnectSignal(G.MonitorConnection)G.IsSpectating=false G.TargetPlayer=nil G.TargetHumanoid=nil local f=k.getCurrentCamera()local u=k.getCurrentHumanoid()if f and u then f.CameraSubject=u end if G.ActionButton then G.ActionButton.Text="Spectate"end end function k.startSpectating(G,f,u)if not G or not f or not u then return end local b=k.getCurrentCamera()local L=k.getCurrentHumanoid()if not b or not L then return end local h=k.getFreecamFeature()if h and h.Enabled then k.setFreecamEnabled(false)end k.stopSpectating(G)G.IsSpectating=true G.TargetPlayer=f G.TargetHumanoid=u b.CameraSubject=u if G.ActionButton then G.ActionButton.Text="Stop"end G.MonitorConnection=e.RenderStepped:Connect(function()if not G.IsSpectating then return end local f=k.getCurrentCamera()local u=k.getCurrentHumanoid()local e=G.TargetHumanoid if not f or not u then k.stopSpectating(G)return end if not e or not e.Parent or e.Health<=0 then k.stopSpectating(G)return end if u.MoveDirection.Magnitude>.05 or u.Jump then k.stopSpectating(G)end end)end function k.runSpectatePlayer(G)local f=k.getSpectatePlayerFeature()local u=k.getCurrentCamera()local e=k.getCurrentHumanoid()if not f or not u or not e then return end if f.IsSpectating then k.stopSpectating(f)return end local b=k.trimText(G)local L=string.lower(b)if b==""or L=="me"or L=="self"then k.stopSpectating(f)return end local h=k.findPlayerByName(b)local J=k.getPlayerHumanoid(h)if not h or not J then return end k.startSpectating(f,h,J)end function k.bindSpectatePlayerControl(G)local f=k.getSpectatePlayerFeature()if G and(G.Input and G.Input.ActionButton)then f.ActionButton=G.Input.ActionButton end k.bindInputActionControl(f,G,k.runSpectatePlayer)end function k.setupSpectatePlayer()local G=k.getPlayerPageControl("SpectatePlayer")if not G then warn("[Uniware] SpectatePlayer control was not found")return end k.bindSpectatePlayerControl(G)end function k.getMaxZoomFeature()return k.getOrCreateFeature("MaxZoom",{Value=75;DefaultValue=nil;MaxValue=1000})end function k.getMinZoomFeature()return k.getOrCreateFeature("MinZoom",{Value=.5;DefaultValue=nil;MaxValue=50})end function k.captureZoomDefaults()local G=k.getMaxZoomFeature()local f=k.getMinZoomFeature()if G.DefaultValue==nil then G.DefaultValue=b.CameraMaxZoomDistance end if f.DefaultValue==nil then f.DefaultValue=b.CameraMinZoomDistance end end function k.applyZoomSettings()k.captureZoomDefaults()local G=k.getMaxZoomFeature()local f=k.getMinZoomFeature()local u=G.Enabled and k.normalizePreciseValue(G.Value,G.DefaultValue or 75)or(G.DefaultValue or b.CameraMaxZoomDistance)local e=f.Enabled and k.normalizePreciseValue(f.Value,f.DefaultValue or.5)or(f.DefaultValue or b.CameraMinZoomDistance)if e>u then if f.Enabled and not G.Enabled then u=e else e=u end end b.CameraMinZoomDistance=e b.CameraMaxZoomDistance=u end function k.setMaxZoomValue(G)local f=k.getMaxZoomFeature()f.Value=k.normalizePreciseValue(G,75)k.syncSliderControl(f)if f.Enabled then k.applyZoomSettings()end end function k.setMaxZoomEnabled(G)local f=k.getMaxZoomFeature()f.Enabled=G and true or false k.applyZoomSettings()end function k.toggleMaxZoom()local G=k.getMaxZoomFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setMaxZoomEnabled(not G.Enabled)end function k.bindMaxZoomControl(G)local f=k.getMaxZoomFeature()k.bindSliderToggleControl(f,G,k.setMaxZoomValue,k.setMaxZoomEnabled)end function k.setupMaxZoom()local G=k.getPlayerPageControl("MaxZoom")if not G then warn("[Uniware] MaxZoom control was not found")return end k.captureZoomDefaults()k.bindMaxZoomControl(G)end function k.setMinZoomValue(G)local f=k.getMinZoomFeature()f.Value=k.normalizePreciseValue(G,.5)k.syncSliderControl(f)if f.Enabled then k.applyZoomSettings()end end function k.setMinZoomEnabled(G)local f=k.getMinZoomFeature()f.Enabled=G and true or false k.applyZoomSettings()end function k.toggleMinZoom()local G=k.getMinZoomFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setMinZoomEnabled(not G.Enabled)end function k.bindMinZoomControl(G)local f=k.getMinZoomFeature()k.bindSliderToggleControl(f,G,k.setMinZoomValue,k.setMinZoomEnabled)end function k.setupMinZoom()local G=k.getPlayerPageControl("MinZoom")if not G then warn("[Uniware] MinZoom control was not found")return end k.captureZoomDefaults()k.bindMinZoomControl(G)end function k.getFreecamFeature()return k.getOrCreateFeature("Freecam",{Value=0,DefaultValue=0;MaxValue=0})end function k.stopFreecam(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)local u=k.getCurrentCamera()local e=k.getCurrentHumanoid()local b=k.getCurrentRoot()if u then u.CameraType=G.OriginalCameraType or Enum.CameraType.Custom u.CameraSubject=G.OriginalCameraSubject or e or u.CameraSubject end if b then b.Anchored=G.OriginalRootAnchored==true b.AssemblyLinearVelocity=Vector3.zero b.AssemblyAngularVelocity=Vector3.zero end if e then e.WalkSpeed=G.OriginalWalkSpeed or 16 e.AutoRotate=G.OriginalAutoRotate~=false e.PlatformStand=G.OriginalPlatformStand==true e.UseJumpPower=G.OriginalUseJumpPower~=false if e.UseJumpPower then e.JumpPower=G.OriginalJumpPower or 50 else e.JumpHeight=G.OriginalJumpHeight or 7.2 end e:Move(Vector3.zero,false)if not e.PlatformStand then e:ChangeState(Enum.HumanoidStateType.GettingUp)end end f.MouseBehavior=Enum.MouseBehavior.Default f.MouseIconEnabled=true G.OriginalCameraType=nil G.OriginalCameraSubject=nil G.OriginalWalkSpeed=nil G.OriginalAutoRotate=nil G.OriginalPlatformStand=nil G.OriginalUseJumpPower=nil G.OriginalJumpPower=nil G.OriginalJumpHeight=nil G.OriginalRootAnchored=nil end function k.startFreecam(G)if not G or not G.Enabled then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)local u=k.getSpectatePlayerFeature()if u and u.IsSpectating then k.stopSpectating(u)end local b=k.getCurrentCamera()local L=k.getCurrentHumanoid()local h=k.getCurrentRoot()if not b then return end G.OriginalCameraType=b.CameraType G.OriginalCameraSubject=b.CameraSubject if h then G.OriginalRootAnchored=h.Anchored h.AssemblyLinearVelocity=Vector3.zero h.AssemblyAngularVelocity=Vector3.zero h.Anchored=true end if L then G.OriginalWalkSpeed=L.WalkSpeed G.OriginalAutoRotate=L.AutoRotate G.OriginalPlatformStand=L.PlatformStand G.OriginalUseJumpPower=L.UseJumpPower G.OriginalJumpPower=L.JumpPower G.OriginalJumpHeight=L.JumpHeight L.WalkSpeed=0 L.AutoRotate=false L.PlatformStand=false if L.UseJumpPower then L.JumpPower=0 else L.JumpHeight=0 end L:Move(Vector3.zero,false)end local J=b.CFrame.LookVector G.FreecamPosition=b.CFrame.Position G.FreecamYaw=math.atan2(-J.X,-J.Z)G.FreecamPitch=math.asin(math.clamp(J.Y,-1,1))G.FreecamSensitivity=.0025 b.CameraType=Enum.CameraType.Scriptable f.MouseBehavior=Enum.MouseBehavior.LockCenter f.MouseIconEnabled=false G.EnforceConnection=e.RenderStepped:Connect(function(u)local e=k.getCurrentCamera()if not G.Enabled or not e then return end local b=f:GetMouseDelta()G.FreecamYaw=G.FreecamYaw-(b.X*G.FreecamSensitivity)G.FreecamPitch=math.clamp(G.FreecamPitch-(b.Y*G.FreecamSensitivity),-1.5,1.5)local L=CFrame.Angles(0,G.FreecamYaw,0)*CFrame.Angles(G.FreecamPitch,0,0)local h=L.LookVector local J=L.RightVector local m=Vector3.new(0,1,0)local K=Vector3.zero local C=100 if f:IsKeyDown(Enum.KeyCode.W)then K+=h end if f:IsKeyDown(Enum.KeyCode.S)then K-=h end if f:IsKeyDown(Enum.KeyCode.A)then K-=J end if f:IsKeyDown(Enum.KeyCode.D)then K+=J end if f:IsKeyDown(Enum.KeyCode.Space)then K+=m end if f:IsKeyDown(Enum.KeyCode.LeftControl)then K-=m end if f:IsKeyDown(Enum.KeyCode.LeftShift)then C*=3 end if K.Magnitude>0 then G.FreecamPosition+=(K.Unit*C)*u end e.CFrame=CFrame.new(G.FreecamPosition)*L end)end function k.setFreecamEnabled(G)local f=k.getFreecamFeature()f.Enabled=G and true or false if f.ToggleControl then d.setToggleState(f.ToggleControl,f.Enabled,true)end if f.Enabled then if not f.BoundKeyCode then t.Show("No bind for freecam detected!","Hey, looks like you haven\'t binded freecam, jump to exit freecam until you bind it to a key!",3)end k.startFreecam(f)else k.stopFreecam(f)end end function k.toggleFreecam()local G=k.getFreecamFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setFreecamEnabled(not G.Enabled)end function k.bindFreecamControl(G)local f=k.getFreecamFeature()k.bindToggleOnlyControl(f,G,k.setFreecamEnabled)end function k.setupFreecam()local G=k.getPlayerPageControl("Freecam")if not G then warn("[Uniware] Freecam control was not found")return end k.bindFreecamControl(G)end function k.getAirSwimFeature()return k.getOrCreateFeature("AirSwim",{Value=0;DefaultValue=0;MaxValue=0})end function k.stopAirSwim(G)if not G then return end G.SwimBeatConnection=k.disconnectSignal(G.SwimBeatConnection)G.HumanoidDiedConnection=k.disconnectSignal(G.HumanoidDiedConnection)if G.OriginalGravity then workspace.Gravity=G.OriginalGravity G.OriginalGravity=nil end local f=k.getCurrentHumanoid()if f and G.OriginalStateEnables then for G,u in pairs(G.OriginalStateEnables)do f:SetStateEnabled(G,u)end G.OriginalStateEnables=nil if f:GetState()==Enum.HumanoidStateType.Swimming then f:ChangeState(Enum.HumanoidStateType.Landed)end end G.OriginalGravity=nil G.OriginalStateEnables=nil end function k.startAirSwim(G)if not G or not G.Enabled then return end k.stopAirSwim(G)local u=k.getCurrentHumanoid()local b=k.getCurrentRoot()if not u or not b then return end G.OriginalGravity=workspace.Gravity local L=Enum.HumanoidStateType:GetEnumItems()for G=#L,1,-1 do if L[G]==Enum.HumanoidStateType.None then table.remove(L,G)break end end G.OriginalStateEnables={}for f,e in ipairs(L)do G.OriginalStateEnables[e]=u:GetStateEnabled(e)u:SetStateEnabled(e,false)end u:ChangeState(Enum.HumanoidStateType.Swimming)workspace.Gravity=0 G.SwimBeatConnection=e.Heartbeat:Connect(function()if not G.Enabled then return end local u=k.getCurrentHumanoid()local e=k.getCurrentRoot()if not u or not e then return end if u:GetState()~=Enum.HumanoidStateType.Swimming then u:ChangeState(Enum.HumanoidStateType.Swimming)end if u.MoveDirection==Vector3.new()and not f:IsKeyDown(Enum.KeyCode.Space)then e.Velocity=Vector3.new()end end)G.HumanoidDiedConnection=u.Died:Connect(function()k.setAirSwimEnabled(false)end)end function k.setAirSwimEnabled(G)local f=k.getAirSwimFeature()f.Enabled=G and true or false if f.Enabled then k.startAirSwim(f)else k.stopAirSwim(f)end end function k.toggleAirSwim()local G=k.getAirSwimFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setAirSwimEnabled(not G.Enabled)end function k.bindAirSwimControl(G)local f=k.getAirSwimFeature()k.bindToggleOnlyControl(f,G,k.setAirSwimEnabled)end function k.setupAirSwim()local G=k.getPlayerPageControl("Swim")if not G then warn("[Uniware] AirSwim control was not found")return end k.bindAirSwimControl(G)end function k.getPlayerOrbitFeature()return k.getOrCreateFeature("PlayerOrbit",{Value=0,DefaultValue=0;MaxValue=0})end function k.stopOrbit(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)G.OrbitTarget=nil G.OrbitAngle=0 if G.ActionButton then G.ActionButton.Text="Orbit"end end function k.startOrbit(G,f)if not G or not G.Enabled or not f then return end k.stopOrbit(G)G.OrbitTarget=f G.OrbitAngle=0 local u=8 local b=2 G.EnforceConnection=e.RenderStepped:Connect(function(e)local L=k.getCurrentRoot()local h=k.getPlayerRoot(f)local J=k.getPlayerHumanoid(f)if not G.Enabled or not L or not h or not J or J.Health<=0 then k.stopOrbit(G)return end G.OrbitAngle=((G.OrbitAngle+8*e))%((math.pi*8))local m=Vector3.new(math.cos(G.OrbitAngle)*u,b,math.sin(G.OrbitAngle)*u)local K=h.Position+m L.CFrame=CFrame.new(K)L.AssemblyLinearVelocity=Vector3.zero L.AssemblyAngularVelocity=Vector3.zero end)if G.ActionButton then G.ActionButton.Text="Stop"end end function k.runPlayerOrbit(G)local f=k.getPlayerOrbitFeature()if not f then return end if f.OrbitTarget then k.stopOrbit(f)return end local u=k.findPlayerByName(G)if not u or u==b then return end f.Enabled=true k.startOrbit(f,u)end function k.bindPlayerOrbitControl(G)local f=k.getPlayerOrbitFeature()if G and(G.Input and G.Input.ActionButton)then f.ActionButton=G.Input.ActionButton end k.bindInputActionControl(f,G,k.runPlayerOrbit)end function k.setupPlayerOrbit()local G=k.getPlayerPageControl("PlayerOrbit")if not G then warn("[Uniware] PlayerOrbit control was not found")return end k.bindPlayerOrbitControl(G)end function k.getGodModeFeature()return k.getOrCreateFeature("GodMode",{Value=0;DefaultValue=0,MaxValue=0})end function k.stopGodMode(G)if not G then return end G.Enabled=false local f=k.getCharacter()local u=k.getCurrentHumanoid()if not f or not u then return end if G.OriginalHumanoid then G.OriginalHumanoid.Parent=f u:Destroy()b.Character=f workspace.CurrentCamera.CameraSubject=G.OriginalHumanoid G.OriginalHumanoid=nil end if G.AnimateScript then G.AnimateScript.Disabled=false G.AnimateScript=nil end G.HealthLoop=k.disconnectSignal(G.HealthLoop)G.StateLoop=k.disconnectSignal(G.StateLoop)end function k.startGodMode(G)if not G or not G.Enabled then return end k.stopGodMode(G)local f=k.getCharacter()local u=k.getCurrentHumanoid()local L=workspace.CurrentCamera if not f or not u or not L then return end local h=u:Clone()h.Parent=f b.Character=nil h:SetStateEnabled(Enum.HumanoidStateType.Dead,false)h:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)h:SetStateEnabled(Enum.HumanoidStateType.Physics,false)h.BreakJointsOnDeath=true u:Destroy()b.Character=f L.CameraSubject=h G.OriginalHumanoid=h local J=f:FindFirstChild("Animate")if J then J.Disabled=true task.wait()J.Disabled=false G.AnimateScript=J end G.HealthLoop=e.Heartbeat:Connect(function()if G.Enabled and(h and h.Parent)then h.Health=h.MaxHealth end end)end function k.setGodModeEnabled(G)local f=k.getGodModeFeature()f.Enabled=G and true or false if f.Enabled then k.startGodMode(f)else k.stopGodMode(f)end end function k.toggleGodMode()local G=k.getGodModeFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setGodModeEnabled(not G.Enabled)end function k.bindGodModeControl(G)local f=k.getGodModeFeature()k.bindToggleOnlyControl(f,G,k.setGodModeEnabled)end function k.setupGodMode()local G=k.getPlayerPageControl("GodMode")if not G then warn("[Uniware] GodMode control was not found")return end k.bindGodModeControl(G)end function k.getReachFeature()return k.getOrCreateFeature("Reach",{Value=5;DefaultValue=5,MaxValue=250})end function k.stopReach(G)if not G then return end G.EnforceConnection=k.disconnectSignal(G.EnforceConnection)for G,f in pairs(G.ModifiedTools or{})do if G and G.Parent then G.Handle.Size=f.OriginalSize G.GripPos=f.OriginalGrip if G.Handle:FindFirstChild("SelectionBoxCreated")then G.Handle.SelectionBoxCreated:Destroy()end end end G.ModifiedTools={}end function k.applyReachToTool(G,f)if not f or not f:IsA("Tool")or not f.Handle then return end local u=G.Value/5 local e=f.Handle.Size.Z*u G.ModifiedTools=G.ModifiedTools or{}if not G.ModifiedTools[f]then G.ModifiedTools[f]={OriginalSize=f.Handle.Size;OriginalGrip=f.GripPos}end f.Handle.Size=Vector3.new(f.Handle.Size.X,f.Handle.Size.Y,e)f.GripPos=Vector3.new(0,0,0)f.Handle.Massless=true local b=f.Handle:FindFirstChild("SelectionBoxCreated")if not b then b=Instance.new("SelectionBox")b.Name="SelectionBoxCreated"b.Adornee=f.Handle b.Parent=f.Handle end end function k.startReach(G)if not G or not G.Enabled then return end k.stopReach(G)G.EnforceConnection=e.RenderStepped:Connect(function()local f=k.getCharacter()if not f then return end for f,u in ipairs(f:GetDescendants())do if u:IsA("Tool")and(u.Handle and not G.ModifiedTools[u])then k.applyReachToTool(G,u)end end end)end function k.setReachValue(G)local f=k.getReachFeature()f.Value=k.normalizeSliderValue(G,5,f.MaxValue)k.syncSliderControl(f)if f.Enabled then k.stopReach(f)k.startReach(f)end end function k.setReachEnabled(G)local f=k.getReachFeature()f.Enabled=G and true or false if f.Enabled then k.startReach(f)else k.stopReach(f)end end function k.toggleReach()local G=k.getReachFeature()if G.ToggleControl then d.setToggleState(G.ToggleControl,not G.Enabled)return end k.setReachEnabled(not G.Enabled)end function k.bindReachControl(G)local f=k.getReachFeature()k.bindSliderToggleControl(f,G,k.setReachValue,k.setReachEnabled)end function k.setupReach()local G=k.getPlayerPageControl("Reach")if not G then warn("[Uniware] Reach control was not found")return end k.bindReachControl(G)end function k.getStareAtFeature()return k.getOrCreateFeature("StareAt",{Value=0,DefaultValue=0,MaxValue=0})end function k.stopStareAt(G)if not G then return end G.IsActive=false G.StareConnection=k.disconnectSignal(G.StareConnection)if G.InputControl and G.InputControl.ActionButton then G.InputControl.ActionButton.Text="Stare"end end function k.startStareAt(G,f)if not G or not f or f==b then return end k.stopStareAt(G)G.IsActive=true G.TargetPlayer=f if G.InputControl and G.InputControl.ActionButton then G.InputControl.ActionButton.Text="Stop"end G.StareConnection=e.RenderStepped:Connect(function()local u=k.getCurrentRoot()local e=k.getPlayerRoot(f)if not G.IsActive or not u or not e then k.stopStareAt(G)return end local b=Vector3.new(e.Position.X,u.Position.Y,e.Position.Z)u.CFrame=CFrame.new(u.Position,b)end)G.AuxConnection=k.disconnectSignal(G.AuxConnection)G.AuxConnection=f.CharacterAdded:Connect(function()k.stopStareAt(G)end)local u=k.getPlayerHumanoid(f)if u then G.AuxConnection2=u.Died:Connect(function()k.stopStareAt(G)end)end end function k.toggleStareAt(G)local f=k.getStareAtFeature()if f.IsActive then k.stopStareAt(f)return end local u=k.findPlayerByName(G)if not u or u==b then return end k.startStareAt(f,u)end function k.bindStareAtControl(G)local f=k.getStareAtFeature()k.bindInputActionControl(f,G,k.toggleStareAt)end function k.setupStareAt()local G=k.getPlayerPageControl("StareAt")if not G then warn("[Uniware] StareAt control was not found")return end k.bindStareAtControl(G)end function k.getBangFeature()return k.getOrCreateFeature("Bang",{Value=0,DefaultValue=0,MaxValue=0})end function k.stopBang(G)if not G then return end G.IsActive=false G.BangConnection=k.disconnectSignal(G.BangConnection)G.BangDied=k.disconnectSignal(G.BangDied)G.BangDeath=k.disconnectSignal(G.BangDeath)G.BangDeath2=k.disconnectSignal(G.BangDeath2)if G.AnimationTrack then G.AnimationTrack:Stop()G.AnimationTrack=nil end if G.Animation then G.Animation:Destroy()G.Animation=nil end local f=k.getCharacter()local u=k.getCurrentHumanoid()if f then k.setCharacterCollisionEnabled(f,true)end if u then u.PlatformStand=false end if G.InputControl and G.InputControl.ActionButton then G.InputControl.ActionButton.Text="Bang"end end function k.startBang(G,f)if not G or not f or f==b then return end k.stopBang(G)local u=k.getCharacter()local L=k.getCurrentHumanoid()local h=k.getCurrentRoot()local J=k.getPlayerRoot(f)if not u or not L or not h or not J then return end k.setCharacterCollisionEnabled(u,false)L.PlatformStand=true local m=k.isR15(b)and"5918726674"or"148840371"local K=Instance.new("Animation")K.AnimationId="rbxassetid://"..m local C,g=pcall(function()return L:LoadAnimation(K)end)if C and g then G.Animation=K G.AnimationTrack=g G.AnimationTrack:Play(.1,1,1)G.AnimationTrack:AdjustSpeed(3)else K:Destroy()end G.IsActive=true G.TargetPlayer=f if G.InputControl and G.InputControl.ActionButton then G.InputControl.ActionButton.Text="Stop"end G.BangConnection=e.Stepped:Connect(function()local u=k.getCharacter()local e=k.getCurrentRoot()local b=k.getPlayerRoot(f)if not G.IsActive or not u or not e or not b then k.stopBang(G)return end k.setCharacterCollisionEnabled(u,false)e.CFrame=b.CFrame*CFrame.new(0,0,1.1)e.AssemblyLinearVelocity=Vector3.zero e.AssemblyAngularVelocity=Vector3.zero end)G.BangDied=L.Died:Connect(function()k.stopBang(G)end)G.BangDeath=f.CharacterAdded:Connect(function()k.stopBang(G)end)local T=k.getPlayerHumanoid(f)if T then G.BangDeath2=T.Died:Connect(function()k.stopBang(G)end)end end function k.toggleBang(G)local f=k.getBangFeature()if f.IsActive then k.stopBang(f)return end local u=k.findPlayerByName(G)if not u or u==b then return end k.startBang(f,u)end function k.bindBangControl(G)local f=k.getBangFeature()k.bindInputActionControl(f,G,k.toggleBang)end function k.setupBang()local G=k.getPlayerPageControl("Bang")if not G then warn("[Uniware] Bang control was not found")return end k.bindBangControl(G)end function n.setupFeatureRuntime()k.setupWalkSpeed()k.setupTeleportWalk()k.setupInfiniteJump()k.setupEdgeJump()k.setupFly()k.setupGravity()k.setupSpin()k.setupBlink()k.setupNoclip()k.setupClickTeleport()k.setupClickDelete()k.setupDeathTeleport()k.setupJumpheight()k.setupHipHeight()k.setupJumpAction()k.setupSitAction()k.setupTripAction()k.setupAntiVoid()k.setupAntiSlip()k.setupStrengthen()k.setupPlayerTeleport()k.setupSpectatePlayer()k.setupMaxZoom()k.setupMinZoom()k.setupFreecam()k.setupWalkFling()k.setupFlyFling()k.setupAirSwim()k.setupPlayerOrbit()k.setupGodMode()k.setupReach()k.setupStareAt()k.setupBang()k.setupBoundInput()end end o()h.ScreenGui.Parent=L m.CacheUI()local l,Q=pcall(function()n.start()end)if not l then warn("[Uniware] Controller.start failed:",Q)if h.WelcomeOverlay then h.WelcomeOverlay.Visible=false end return end local z,Y=pcall(function()m.PlayStartupWelcome()end)if not z then warn("[Uniware] Runtime.PlayStartupWelcome failed:",Y)if h.WelcomeOverlay then h.WelcomeOverlay.Visible=false end end
+--// CFrame Zero Runtime - Commands Only
+--// Uses the scaled command UI shape from NewFixedUI in a commands-only runtime.
+
+local Services = {
+	Players = game:GetService("Players"),
+	TweenService = game:GetService("TweenService"),
+	UserInputService = game:GetService("UserInputService"),
+	RunService = game:GetService("RunService"),
+	Lighting = game:GetService("Lighting"),
+	GuiService = game:GetService("GuiService"),
+	HttpService = game:GetService("HttpService"),
+}
+
+local LocalPlayer = Services.Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local Content = Content or { fromUri = function(uri) return uri end }
+
+local TweenService = Services.TweenService
+local UserInputService = Services.UserInputService
+local RunService = Services.RunService
+local Lighting = Services.Lighting
+local GuiService = Services.GuiService
+local HttpService = Services.HttpService
+
+local Env = _G
+if typeof(getgenv) == "function" then
+	local ok, genv = pcall(getgenv)
+	if ok and type(genv) == "table" then
+		Env = genv
+	end
+end
+
+local Runtime = {
+	Alive = true,
+	Connections = {},
+	Tweens = {},
+	Threads = {},
+	Refs = {},
+	Commands = {},
+	CommandRows = {},
+	CategoryRows = {},
+	OriginalLighting = nil,
+	FullbrightObjectStates = {},
+	FullbrightEnabled = false,
+	HoveringMain = false,
+	InputFocused = false,
+	HintVisible = false,
+	HintTarget = nil,
+	HintRow = nil,
+	HintHoverStamp = 0,
+	HintHoverRow = nil,
+	SanitizingInput = false,
+	CloseStamp = 0,
+	Settings = nil,
+	SettingsOpen = false,
+	CapturingBind = false,
+	DraggingSlider = false,
+	FullbrightInputUpdating = false,
+	FullbrightDropdownOpen = false,
+	OnBoardingBlur = nil,
+	DefaultClockTime = nil,
+	DefaultShadowSoftness = nil,
+}
+
+--// Hint cursor tuning:
+--// AnchorPoint controls which point of the hint follows the mouse.
+--// Offset moves that attached point in pixels.
+--// X: positive = right, negative = left.
+--// Y: positive = down, negative = up.
+--// Increase the Y anchor toward 1 to place more of the hint above the mouse; lower it to move the hint down.
+--// Hint size is inside buildHint: Size = UDim2.fromOffset(185, 92).
+local HintFollow = {
+	AnchorPoint = Vector2.new(1, 0.78),
+	Offset = Vector2.new(0, 0),
+}
+
+Runtime.DefaultClockTime = Lighting.ClockTime
+Runtime.DefaultShadowSoftness = Lighting.ShadowSoftness
+
+local CommandData = {
+	{
+		Category = "WORLD",
+		Display = "fullbright / fb",
+		Aliases = { "fullbright", "fb" },
+		Description = "Brightens your client view by lifting ambient light, reducing fog, and disabling heavy shadows so darker maps and indoor areas stay much easier to see while the effect is active.",
+		Undo = "unfullbright / unfb",
+		Editable = true,
+		SettingsPage = "fullbright",
+	},
+	{
+		Category = "WORLD",
+		Display = "disableshadows",
+		Aliases = { "disableshadows" },
+		Description = "Disables global world shadows on your client for a cleaner and brighter view. If another command changes shadows after this, the newest command wins.",
+		Undo = "enableshadows",
+	},
+	{
+		Category = "WORLD",
+		Display = "time <number>",
+		Aliases = { "time" },
+		Description = "Changes the client-side world time. Use a number from 0 to 24, for example: time 12.",
+		Undo = "resettime",
+	},
+	{
+		Category = "PLAYER",
+		Display = "sit",
+		Aliases = { "sit" },
+		Description = "Makes your character sit once. This command has no active toggle state and no undo command.",
+	},
+}
+
+local SETTINGS_FILE = "CFrameZeroSettings.json"
+local DEFAULT_SETTINGS = {
+	Fullbright = {
+		Enabled = false,
+		BindKey = "",
+		Brightness = 5,
+		ForceDay = false,
+		OverrideOptions = {
+			Ambient = true,
+			OutdoorAmbient = true,
+			Brightness = true,
+			ExposureCompensation = true,
+			Fog = true,
+			Shadows = true,
+			ColorShifts = true,
+			Environment = true,
+			PostEffects = true,
+			Atmosphere = true,
+		},
+	},
+}
+
+local SettingsSizing = {
+	ToggleAspect = 10,
+	BindAspect = 10,
+	SliderAspect = 5.5,
+	SliderBarAspect = 80,
+	DropdownOptionAspect = 10,
+	ButtonHoverScale = 1.1,
+	ButtonPressScale = 0.9,
+}
+
+local FULLBRIGHT_OVERRIDE_OPTIONS = {
+	{
+		Key = "Ambient",
+		Text = "Ambient",
+	},
+	{
+		Key = "OutdoorAmbient",
+		Text = "OutdoorAmbient",
+	},
+	{
+		Key = "Brightness",
+		Text = "Brightness",
+	},
+	{
+		Key = "ExposureCompensation",
+		Text = "ExposureCompensation",
+	},
+	{
+		Key = "Fog",
+		Text = "Fog",
+	},
+	{
+		Key = "Shadows",
+		Text = "Shadows",
+	},
+	{
+		Key = "ColorShifts",
+		Text = "Color shifts",
+	},
+	{
+		Key = "Environment",
+		Text = "Environment scales",
+	},
+	{
+		Key = "PostEffects",
+		Text = "Post-processing effects",
+	},
+	{
+		Key = "Atmosphere",
+		Text = "Atmosphere",
+	},
+}
+
+local HINT_HOVER_DELAY = 0.4
+
+local applyFullbrightState
+local refreshFullbrightSettingsUi
+
+local function cloneDefaults(value)
+	if type(value) ~= "table" then
+		return value
+	end
+
+	local clone = {}
+	for key, child in pairs(value) do
+		clone[key] = cloneDefaults(child)
+	end
+	return clone
+end
+
+local function clampNumber(value, minValue, maxValue)
+	local number = tonumber(value) or minValue
+	number = math.floor(number + 0.5)
+	return math.clamp(number, minValue, maxValue)
+end
+
+local function getFullbrightSettings()
+	Runtime.Settings = Runtime.Settings or cloneDefaults(DEFAULT_SETTINGS)
+	Runtime.Settings.Fullbright = Runtime.Settings.Fullbright or cloneDefaults(DEFAULT_SETTINGS.Fullbright)
+	return Runtime.Settings.Fullbright
+end
+
+local function getFullbrightOverrideOptions()
+	local settings = getFullbrightSettings()
+	settings.OverrideOptions = type(settings.OverrideOptions) == "table" and settings.OverrideOptions or cloneDefaults(DEFAULT_SETTINGS.Fullbright.OverrideOptions)
+
+	for key, defaultValue in pairs(DEFAULT_SETTINGS.Fullbright.OverrideOptions) do
+		if type(settings.OverrideOptions[key]) ~= "boolean" then
+			settings.OverrideOptions[key] = defaultValue
+		end
+	end
+
+	return settings.OverrideOptions
+end
+
+local function keyFromName(name)
+	if type(name) ~= "string" or name == "" then
+		return nil
+	end
+
+	local ok, keyCode = pcall(function()
+		return Enum.KeyCode[name]
+	end)
+
+	if ok and typeof(keyCode) == "EnumItem" then
+		return keyCode
+	end
+
+	return nil
+end
+
+local function sanitizeSettings(settings)
+	settings.Fullbright = type(settings.Fullbright) == "table" and settings.Fullbright or cloneDefaults(DEFAULT_SETTINGS.Fullbright)
+
+	local fullbright = settings.Fullbright
+	fullbright.Enabled = fullbright.Enabled == true
+	fullbright.ForceDay = fullbright.ForceDay == true
+	fullbright.Brightness = clampNumber(fullbright.Brightness, 0, 100)
+	fullbright.OverrideOptions = type(fullbright.OverrideOptions) == "table" and fullbright.OverrideOptions or cloneDefaults(DEFAULT_SETTINGS.Fullbright.OverrideOptions)
+
+	for key, defaultValue in pairs(DEFAULT_SETTINGS.Fullbright.OverrideOptions) do
+		if type(fullbright.OverrideOptions[key]) ~= "boolean" then
+			fullbright.OverrideOptions[key] = defaultValue
+		end
+	end
+
+	if keyFromName(fullbright.BindKey) == nil then
+		fullbright.BindKey = ""
+	end
+end
+
+local function readSettingsFile()
+	if type(readfile) ~= "function" then
+		return nil
+	end
+
+	if type(isfile) == "function" then
+		local ok, exists = pcall(isfile, SETTINGS_FILE)
+		if not ok or not exists then
+			return nil
+		end
+	end
+
+	local ok, raw = pcall(readfile, SETTINGS_FILE)
+	if ok and type(raw) == "string" and raw ~= "" then
+		return raw
+	end
+
+	return nil
+end
+
+local function saveSettings()
+	if type(writefile) ~= "function" or not Runtime.Settings then
+		return
+	end
+
+	sanitizeSettings(Runtime.Settings)
+	getFullbrightOverrideOptions()
+
+	local settingsToSave = cloneDefaults(Runtime.Settings)
+	if settingsToSave.Fullbright then
+		settingsToSave.Fullbright.Enabled = false
+	end
+
+	local ok, encoded = pcall(function()
+		return HttpService:JSONEncode(settingsToSave)
+	end)
+
+	if ok and type(encoded) == "string" then
+		pcall(writefile, SETTINGS_FILE, encoded)
+	end
+end
+
+local function loadSettings()
+	local settings = cloneDefaults(DEFAULT_SETTINGS)
+	local raw = readSettingsFile()
+
+	if raw then
+		local ok, decoded = pcall(function()
+			return HttpService:JSONDecode(raw)
+		end)
+
+		if ok and type(decoded) == "table" then
+			for sectionName, sectionValue in pairs(decoded) do
+				if type(sectionValue) == "table" and type(settings[sectionName]) == "table" then
+					for key, value in pairs(sectionValue) do
+						settings[sectionName][key] = value
+					end
+				end
+			end
+		end
+	end
+
+	sanitizeSettings(settings)
+	settings.Fullbright.Enabled = false
+	Runtime.Settings = settings
+	getFullbrightOverrideOptions()
+end
+
+local function commitSettings(applyNow)
+	sanitizeSettings(Runtime.Settings)
+	saveSettings()
+
+	if applyNow ~= false and applyFullbrightState then
+		applyFullbrightState()
+	end
+
+	if refreshFullbrightSettingsUi then
+		refreshFullbrightSettingsUi(false)
+	end
+end
+
+
+local function getGuiParent()
+	if typeof(gethui) == "function" then
+		local ok, hui = pcall(gethui)
+		if ok and typeof(hui) == "Instance" then
+			return hui
+		end
+	end
+
+	return PlayerGui
+end
+
+local function isCFrameZeroGui(gui)
+	if not gui or not gui:IsA("ScreenGui") then
+		return false
+	end
+
+	if gui.Name == "CFrameZeroUI" then
+		return true
+	end
+
+	return gui.Name == "MainUI"
+		and gui:FindFirstChild("OnBoarding") ~= nil
+		and gui:FindFirstChild("Main") ~= nil
+end
+
+local function destroyOldGui()
+	local parents = { PlayerGui, getGuiParent() }
+	local used = {}
+
+	for _, parent in ipairs(parents) do
+		if typeof(parent) == "Instance" and not used[parent] then
+			used[parent] = true
+
+			for _, child in ipairs(parent:GetChildren()) do
+				if isCFrameZeroGui(child) then
+					child:Destroy()
+				end
+			end
+		end
+	end
+end
+
+local function path(root, ...)
+	local current = root
+	for _, name in ipairs({ ... }) do
+		if not current then
+			return nil
+		end
+		current = current:FindFirstChild(name)
+	end
+	return current
+end
+
+local function new(className, props, parent)
+	local inst = Instance.new(className)
+
+	for key, value in pairs(props or {}) do
+		inst[key] = value
+	end
+
+	inst.Parent = parent
+	return inst
+end
+
+local function corner(parent, radius)
+	local c = new("UICorner", {}, parent)
+	c.CornerRadius = radius or UDim.new(0, 5)
+	return c
+end
+
+local function stroke(parent, thickness, transparency)
+	return new("UIStroke", {
+		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+		Color = Color3.fromRGB(255, 255, 255),
+		Thickness = thickness or 1.5,
+		Transparency = transparency or 0.9,
+	}, parent)
+end
+
+local function aspect(parent, ratio)
+	local a = new("UIAspectRatioConstraint", {}, parent)
+	if ratio then
+		a.AspectRatio = ratio
+	end
+	return a
+end
+
+local function aspectFromWidth(parent, ratio)
+	local a = aspect(parent, ratio)
+	pcall(function()
+		a.AspectType = Enum.AspectType.ScaleWithParentSize
+	end)
+	pcall(function()
+		a.DominantAxis = Enum.DominantAxis.Width
+	end)
+	return a
+end
+
+local function aspectFromHeight(parent, ratio)
+	local a = aspect(parent, ratio)
+	pcall(function()
+		a.AspectType = Enum.AspectType.ScaleWithParentSize
+	end)
+	pcall(function()
+		a.DominantAxis = Enum.DominantAxis.Height
+	end)
+	return a
+end
+
+local function mainGradient(parent)
+	return new("UIGradient", {
+		Rotation = 15,
+		Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 33, 39)),
+			ColorSequenceKeypoint.new(0.6453, Color3.fromRGB(30, 33, 39)),
+			ColorSequenceKeypoint.new(0.6522, Color3.fromRGB(36, 40, 47)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(36, 40, 47)),
+		}),
+	}, parent)
+end
+
+local function safeScrollImages(scroll)
+	if not scroll then
+		return
+	end
+
+	local image = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+
+	scroll.ScrollBarThickness = 4
+	scroll.ScrollBarImageTransparency = 0
+	scroll.ScrollBarImageColor3 = Color3.fromRGB(193, 54, 54)
+	scroll.TopImage = image
+	scroll.MidImage = image
+	scroll.BottomImage = image
+
+	pcall(function()
+		scroll.TopImageContent = Content.fromUri(image)
+	end)
+	pcall(function()
+		scroll.MiddleImageContent = Content.fromUri(image)
+	end)
+	pcall(function()
+		scroll.MidImageContent = Content.fromUri(image)
+	end)
+	pcall(function()
+		scroll.BottomImageContent = Content.fromUri(image)
+	end)
+end
+
+local function connect(signal, callback)
+	local connection = signal:Connect(callback)
+	Runtime.Connections[#Runtime.Connections + 1] = connection
+	return connection
+end
+
+
+local function getPaddingPixels(padding)
+	if not padding then
+		return 0
+	end
+
+	local total = 0
+	pcall(function()
+		total += padding.PaddingTop.Offset
+		total += padding.PaddingBottom.Offset
+	end)
+
+	return total
+end
+
+local function updateScrollableCanvas(scroll)
+	if not scroll then
+		return
+	end
+
+	local layout = scroll:FindFirstChildOfClass("UIListLayout")
+	local padding = scroll:FindFirstChildOfClass("UIPadding")
+	local contentHeight = getPaddingPixels(padding)
+
+	if layout then
+		contentHeight += layout.AbsoluteContentSize.Y
+	end
+
+	local visibleHeight = scroll.AbsoluteSize.Y
+	if visibleHeight <= 0 then
+		task.defer(function()
+			updateScrollableCanvas(scroll)
+		end)
+		return
+	end
+
+	local canvasHeight = math.max(math.ceil(contentHeight), math.ceil(visibleHeight))
+	scroll.CanvasSize = UDim2.fromOffset(0, canvasHeight)
+
+	local maxCanvasY = math.max(canvasHeight - visibleHeight, 0)
+	if scroll.CanvasPosition.Y > maxCanvasY then
+		scroll.CanvasPosition = Vector2.new(scroll.CanvasPosition.X, maxCanvasY)
+	end
+end
+
+local function configureTightScrollingFrame(scroll)
+	if not scroll then
+		return
+	end
+
+	Runtime.TightScrollFrames = Runtime.TightScrollFrames or {}
+	if Runtime.TightScrollFrames[scroll] then
+		updateScrollableCanvas(scroll)
+		return
+	end
+	Runtime.TightScrollFrames[scroll] = true
+
+	safeScrollImages(scroll)
+
+	pcall(function()
+		scroll.AutomaticCanvasSize = Enum.AutomaticSize.None
+	end)
+	pcall(function()
+		scroll.ElasticBehavior = Enum.ElasticBehavior.Never
+	end)
+
+	local function queueUpdate()
+		task.defer(function()
+			updateScrollableCanvas(scroll)
+		end)
+	end
+
+	queueUpdate()
+
+	local layout = scroll:FindFirstChildOfClass("UIListLayout")
+	if layout then
+		connect(layout:GetPropertyChangedSignal("AbsoluteContentSize"), queueUpdate)
+	end
+
+	connect(scroll:GetPropertyChangedSignal("AbsoluteSize"), queueUpdate)
+	connect(scroll:GetPropertyChangedSignal("CanvasPosition"), function()
+		updateScrollableCanvas(scroll)
+	end)
+	connect(scroll.ChildAdded, queueUpdate)
+	connect(scroll.ChildRemoved, queueUpdate)
+end
+
+local function addThread(thread)
+	Runtime.Threads[#Runtime.Threads + 1] = thread
+	return thread
+end
+
+local function playTween(instance, info, props)
+	if not instance then
+		return nil
+	end
+
+	local tween = TweenService:Create(instance, info, props)
+	Runtime.Tweens[#Runtime.Tweens + 1] = tween
+	tween:Play()
+	return tween
+end
+
+local function waitTween(tween)
+	if tween then
+		tween.Completed:Wait()
+	end
+end
+
+local function cancelTweens()
+	for _, tween in ipairs(Runtime.Tweens) do
+		pcall(function()
+			tween:Cancel()
+		end)
+	end
+	Runtime.Tweens = {}
+end
+
+local function disconnectAll()
+	for _, connection in ipairs(Runtime.Connections) do
+		pcall(function()
+			connection:Disconnect()
+		end)
+	end
+	Runtime.Connections = {}
+end
+
+local function setInstanceProperty(instance, propertyName, value)
+	pcall(function()
+		instance[propertyName] = value
+	end)
+end
+
+local function restoreFullbrightObjectStates()
+	for object, state in pairs(Runtime.FullbrightObjectStates or {}) do
+		if typeof(object) == "Instance" and object.Parent and type(state) == "table" then
+			for propertyName, value in pairs(state) do
+				setInstanceProperty(object, propertyName, value)
+			end
+		end
+	end
+
+	Runtime.FullbrightObjectStates = {}
+end
+
+local function restoreLighting()
+	local data = Runtime.OriginalLighting
+	Runtime.FullbrightEnabled = false
+
+	if data then
+		for propertyName, value in pairs(data) do
+			setInstanceProperty(Lighting, propertyName, value)
+		end
+	end
+
+	restoreFullbrightObjectStates()
+	Runtime.OriginalLighting = nil
+end
+
+local function enableOnBoardingBlur()
+	local blur = Runtime.OnBoardingBlur
+
+	if not blur or blur.Parent ~= Lighting then
+		blur = Instance.new("BlurEffect")
+		blur.Name = "CFrameZeroOnBoardingBlur"
+		blur.Size = 0
+		blur.Parent = Lighting
+		Runtime.OnBoardingBlur = blur
+	end
+
+	playTween(blur, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = 12,
+	})
+end
+
+local function disableOnBoardingBlur()
+	local blur = Runtime.OnBoardingBlur
+	Runtime.OnBoardingBlur = nil
+
+	if not blur then
+		return
+	end
+
+	local tween = playTween(blur, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = 0,
+	})
+
+	task.spawn(function()
+		waitTween(tween)
+		if blur then
+			blur:Destroy()
+		end
+	end)
+end
+
+local function cleanup()
+	Runtime.Alive = false
+	cancelTweens()
+	disconnectAll()
+	disableOnBoardingBlur()
+	restoreLighting()
+
+	if Runtime.Refs.Gui then
+		Runtime.Refs.Gui:Destroy()
+	end
+end
+
+if type(Env.CFrameZeroRuntime) == "table" and type(Env.CFrameZeroRuntime.Cleanup) == "function" then
+	pcall(Env.CFrameZeroRuntime.Cleanup)
+end
+
+destroyOldGui()
+Env.CFrameZeroRuntime = Runtime
+Runtime.Cleanup = cleanup
+loadSettings()
+
+-- Commands should never auto-enable from saved settings on execution.
+-- Persistent settings like binds, brightness, force-day, and override choices still save normally.
+Runtime.FullbrightEnabled = false
+Runtime.OriginalLighting = nil
+Runtime.FullbrightObjectStates = {}
+if Runtime.Settings and Runtime.Settings.Fullbright then
+	Runtime.Settings.Fullbright.Enabled = false
+end
+restoreLighting()
+
+local mainUi = new("ScreenGui", {
+	Name = "CFrameZeroUI",
+	ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	IgnoreGuiInset = true,
+	ResetOnSpawn = false,
+}, nil)
+
+Runtime.Refs.Gui = mainUi
+
+local function buildBoardMainFrame(container)
+	local mainFrame = new("Frame", {
+		Name = "MainFrame",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.9993, 0.9974),
+		Position = UDim2.fromScale(0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, container)
+
+	corner(mainFrame, UDim.new(0, 5))
+
+	local divider = new("Frame", {
+		Name = "Divider",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.5677, 0.0096),
+		Position = UDim2.fromScale(0.0566, 0.2903),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, mainFrame)
+
+	corner(divider, UDim.new(1, 0))
+	new("UIGradient", {
+		Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+			ColorSequenceKeypoint.new(0.6176, Color3.fromRGB(255, 255, 255)),
+			ColorSequenceKeypoint.new(0.6384, Color3.fromRGB(193, 54, 54)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(193, 54, 54)),
+		}),
+	}, divider)
+
+	mainGradient(mainFrame)
+	return mainFrame
+end
+
+local function buildBoardLoading(container)
+	local loading = new("Frame", {
+		Name = "Loading",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 0.97,
+		Size = UDim2.fromScale(0.9993, 0.1203),
+		Position = UDim2.fromScale(0, 0.8791),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, container)
+
+	local barBack = new("Frame", {
+		Name = "LoadingBarBackground",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.9071, 0.217),
+		Position = UDim2.fromScale(0.0765, 0.5969),
+		BackgroundColor3 = Color3.fromRGB(26, 29, 34),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, loading)
+
+	corner(barBack, UDim.new(1, 0))
+
+	local bar = new("Frame", {
+		Name = "LoadingBar",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(1, 1),
+		BackgroundColor3 = Color3.fromRGB(193, 54, 54),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, barBack)
+
+	corner(bar, UDim.new(1, 0))
+	return loading
+end
+
+local function buildBoardText(container)
+	new("TextLabel", {
+		Text = 'Developed by <font color="rgb(203,57,57)">uni</font>',
+		Name = "Creator",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 5,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		RichText = true,
+		Position = UDim2.fromScale(0.3457, 0.3238),
+		Size = UDim2.fromScale(0.2785, 0.0575),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Right,
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, container)
+
+	new("TextLabel", {
+		Text = "Preparing client runtime",
+		Name = "LoadingStatus",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 2,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		Size = UDim2.fromScale(0.61, 0.042),
+		Position = UDim2.fromScale(0.0768, 0.892),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, container)
+
+	new("TextLabel", {
+		Text = 'CFrame <font color="rgb(203, 57, 57)">Zero</font>',
+		Name = "Title",
+		TextSize = 14,
+		BackgroundTransparency = 1,
+		ZIndex = 2,
+		BorderSizePixel = 0,
+		TextScaled = true,
+		TextWrapped = true,
+		RichText = true,
+		Size = UDim2.fromScale(0.6197, 0.1813),
+		Position = UDim2.fromScale(0.0579, 0.0838),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+	}, container)
+
+	new("TextLabel", {
+		Text = "VERSION: 1.0.0",
+		Name = "Version",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 2,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		Size = UDim2.fromScale(0.3084, 0.0566),
+		Position = UDim2.fromScale(0.0587, 0.3266),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, container)
+end
+
+local function buildBoardImages(container)
+	local avatar = new("ImageLabel", {
+		Image = "rbxassetid://129947899712384",
+		Name = "Avatar",
+		BackgroundTransparency = 1,
+		ZIndex = 6,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.3062, 0.7941),
+		Position = UDim2.fromScale(0.6946, 0.0501),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	}, container)
+	aspect(avatar, 0.6)
+
+	local circle = new("ImageLabel", {
+		Image = "rbxassetid://95521811822581",
+		Name = "LoadingCircle",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 4,
+		Size = UDim2.fromScale(0.0438, 0.0739),
+		Position = UDim2.fromScale(0.0165, 0.8985),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		ImageColor3 = Color3.fromRGB(193, 54, 54),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, container)
+	aspect(circle)
+end
+
+local function buildBackgroundDim(parent)
+	local dim = new("Frame", {
+		Name = "BackgroundDim",
+		BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundTransparency = 0.5,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(1, 1),
+		Position = UDim2.fromScale(0, 0),
+		ZIndex = 0,
+		Visible = false,
+	}, parent)
+
+	return dim
+end
+
+local function buildOnBoarding(parent)
+	local board = new("ImageLabel", {
+		Image = "rbxassetid://95827797495948",
+		Name = "OnBoarding",
+		ImageTransparency = 0.8899,
+		ZIndex = 1,
+		BackgroundTransparency = 1,
+		Visible = false,
+		AnchorPoint = Vector2.one * 0.5,
+		Size = UDim2.fromScale(0.259, 0.2292),
+		Position = UDim2.fromScale(0.4999, 0.5),
+		SliceCenter = Rect.new(85, 85, 427, 427),
+		ScaleType = Enum.ScaleType.Slice,
+		BorderColor3 = Color3.fromRGB(27, 42, 53),
+	}, parent)
+
+	local container = new("Frame", {
+		Name = "Container",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		Size = UDim2.fromScale(0.9694, 0.9513),
+		Position = UDim2.fromScale(0.0153, 0.0226),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, board)
+
+	buildBoardMainFrame(container)
+	buildBoardLoading(container)
+	buildBoardImages(container)
+	buildBoardText(container)
+	aspect(container, 1.75)
+	corner(container, UDim.new(0, 5))
+	stroke(container, 1.5, 0.9)
+	aspect(board, 1.7)
+
+	return board
+end
+
+local function buildCategoryTitle(parent, categoryName, order)
+	local row = new("Frame", {
+		Name = "CategoryTitle",
+		LayoutOrder = order or 1,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.9194, 0.0496),
+		Position = UDim2.fromScale(0.0402, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ClipsDescendants = true,
+	}, parent)
+
+	new("UISizeConstraint", {
+		MinSize = Vector2.new(0, 28),
+		MaxSize = Vector2.new(10000, 28),
+	}, row)
+
+	local title = new("TextLabel", {
+		Text = string.upper(tostring(categoryName or "Commands")),
+		Name = "CategoryTitle",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 2,
+		TextSize = 13,
+		TextWrapped = false,
+		TextScaled = false,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = UDim2.fromScale(1, 0.72),
+		Position = UDim2.fromScale(0.004, 0.14),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, row)
+
+	Runtime.CategoryRows[#Runtime.CategoryRows + 1] = {
+		Frame = row,
+		Title = title,
+		Category = categoryName or "Commands",
+		MatchCount = 0,
+	}
+
+	return row
+end
+
+local function buildCommandRow(parent, data, order)
+	local row = new("Frame", {
+		Name = "CommandFrame",
+		LayoutOrder = order or 1,
+		BorderSizePixel = 0,
+		BackgroundTransparency = 0.97,
+		Size = UDim2.fromScale(0.9194, 0.0367),
+		Position = UDim2.fromScale(0.0402, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		Active = true,
+		ClipsDescendants = true,
+	}, parent)
+
+	stroke(row, 0.51, 0.9)
+	corner(row, UDim.new(0, 2))
+
+	new("UISizeConstraint", {
+		MinSize = Vector2.new(0, 22),
+		MaxSize = Vector2.new(10000, 22),
+	}, row)
+
+	local title = new("TextLabel", {
+		Text = data.Display,
+		Name = "CommandTitle",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 2,
+		TextSize = 13,
+		TextWrapped = false,
+		TextScaled = false,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = data.Editable and UDim2.fromScale(0.82, 0.72) or UDim2.fromScale(0.93, 0.72),
+		Position = UDim2.fromScale(0.033, 0.14),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, row)
+
+	local editButton = nil
+	if data.Editable then
+		editButton = new("ImageButton", {
+			Image = "rbxassetid://118932265176548",
+			Name = "EditCommand",
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.94, 0.48),
+			Size = UDim2.fromScale(0.052, 0.62),
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BorderColor3 = Color3.fromRGB(0, 0, 0),
+			ZIndex = 6,
+		}, row)
+		aspect(editButton)
+	end
+
+	Runtime.CommandRows[#Runtime.CommandRows + 1] = {
+		Frame = row,
+		Title = title,
+		EditButton = editButton,
+		Data = data,
+		Category = data.Category or "Commands",
+		Search = table.concat(data.Aliases, " ") .. " " .. data.Display .. " " .. (data.Undo or "") .. " " .. (data.Description or ""),
+	}
+
+	return row
+end
+
+local function buildCommandScroll(mainFrame)
+	local scroll = new("ScrollingFrame", {
+		Name = "ScrollingFrame",
+		BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		ScrollBarThickness = 3,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ScrollBarImageTransparency = 0.25,
+		Active = true,
+		Size = UDim2.fromScale(0.9809, 0.7733),
+		Position = UDim2.fromScale(0, 0.0899),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0),
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		CanvasSize = UDim2.new(),
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+	}, mainFrame)
+
+	safeScrollImages(scroll)
+
+	new("UIListLayout", {
+		Padding = UDim.new(0, 6),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	}, scroll)
+
+	new("UIPadding", {
+		PaddingTop = UDim.new(0, 5),
+		PaddingBottom = UDim.new(0, 5),
+	}, scroll)
+
+	configureTightScrollingFrame(scroll)
+
+	table.clear(Runtime.CommandRows)
+	table.clear(Runtime.CategoryRows)
+
+	local categories = {}
+	local categoryOrder = {}
+
+	for _, data in ipairs(CommandData) do
+		local categoryName = data.Category or "Commands"
+		if not categories[categoryName] then
+			categories[categoryName] = {}
+			categoryOrder[#categoryOrder + 1] = categoryName
+		end
+		categories[categoryName][#categories[categoryName] + 1] = data
+	end
+
+	local order = 1
+	for _, categoryName in ipairs(categoryOrder) do
+		local list = categories[categoryName]
+		if list and #list > 0 then
+			buildCategoryTitle(scroll, categoryName, order)
+			order += 1
+
+			for _, data in ipairs(list) do
+				buildCommandRow(scroll, data, order)
+				order += 1
+			end
+		end
+	end
+
+	return scroll
+end
+
+local function buildInput(mainContainer)
+	local frame = new("Frame", {
+		Name = "CommandInputFrame",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 0.97,
+		Size = UDim2.fromScale(0.9337, 0.082),
+		Position = UDim2.fromScale(0.0303, 0.8899),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, mainContainer)
+
+	stroke(frame, 1.5, 0.9)
+	corner(frame, UDim.new(0, 2))
+
+	new("TextBox", {
+		PlaceholderText = "Enter a command...",
+		Name = "CommandInput",
+		Text = "",
+		ClearTextOnFocus = false,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 5,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		Size = UDim2.fromScale(0.9582, -0.558),
+		Position = UDim2.fromScale(0.0419, 0.75),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		TextColor3 = Color3.fromRGB(235, 235, 235),
+		PlaceholderColor3 = Color3.fromRGB(157, 157, 157),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, frame)
+
+	return frame
+end
+
+local function buildHint(parent)
+	local hint = new("Frame", {
+		Name = "HintFrame",
+		BorderSizePixel = 0,
+		Visible = false,
+		AnchorPoint = HintFollow.AnchorPoint,
+		Size = UDim2.fromOffset(185, 92),
+		Position = UDim2.fromOffset(0, 0),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(28, 30, 36),
+		ZIndex = 200,
+		ClipsDescendants = false,
+		Active = false,
+		Selectable = false,
+	}, parent)
+
+	stroke(hint, 1, 0.9)
+	corner(hint, UDim.new(0, 2))
+
+	new("UISizeConstraint", {
+		MinSize = Vector2.new(170, 84),
+		MaxSize = Vector2.new(205, 104),
+	}, hint)
+
+	new("Frame", {
+		Name = "Top",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 0.97,
+		Size = UDim2.fromScale(1, 0.225),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		ZIndex = 201,
+	}, hint)
+
+	new("TextLabel", {
+		Text = "fullbright / fb",
+		Name = "Title",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 202,
+		TextSize = 13,
+		TextWrapped = false,
+		TextScaled = false,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = UDim2.fromScale(0.90, 0.145),
+		Position = UDim2.fromScale(0.04, 0.065),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, hint)
+
+	new("TextLabel", {
+		Text = "Command description goes here",
+		Name = "Description",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 202,
+		TextSize = 12,
+		TextWrapped = true,
+		TextScaled = false,
+		Position = UDim2.fromScale(0.04, 0.285),
+		Size = UDim2.fromScale(0.91, 0.405),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, hint)
+
+	new("Frame", {
+		Name = "Bottom",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 0.97,
+		Size = UDim2.fromScale(1, 0.225),
+		Position = UDim2.fromScale(0, 0.775),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ZIndex = 201,
+	}, hint)
+
+	new("TextLabel", {
+		Text = "unfullbright / unfb",
+		Name = "Title2",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 202,
+		TextSize = 13,
+		TextWrapped = false,
+		TextScaled = false,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = UDim2.fromScale(0.90, 0.145),
+		Position = UDim2.fromScale(0.04, 0.825),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, hint)
+
+	return hint
+end
+
+
+local function buildSettingsLabel(parent, text, width, isSlider)
+	local sizeY = isSlider and -0.2856 or -0.5694
+	local posX = isSlider and 0.0338 or 0.0367
+	local posY = isSlider and 0.3953 or 0.7473
+
+	return new("TextLabel", {
+		Text = text,
+		Name = "Title",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 10001,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = UDim2.fromScale(width or 0.6608, sizeY),
+		Position = UDim2.fromScale(posX, posY),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, parent)
+end
+
+local function buildToggleModule(parent, titleText, order, refName)
+	local module = new("Frame", {
+		Name = "ModuleExample1",
+		LayoutOrder = order,
+		BackgroundTransparency = 0.97,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.919, 0.045),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, parent)
+
+	stroke(module, 0.51, 0.9)
+	aspectFromWidth(module, SettingsSizing.ToggleAspect)
+	buildSettingsLabel(module, titleText, 0.6608, false)
+
+	local button = new("TextButton", {
+		Text = "",
+		Name = "ToggleButton",
+		TextSize = 14,
+		BackgroundTransparency = 0.97,
+		ZIndex = 10002,
+		BorderSizePixel = 0,
+		AutoButtonColor = false,
+		Position = UDim2.fromScale(0.8349, 0.164),
+		Size = UDim2.fromScale(0.2389, 0.702),
+		FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		ClipsDescendants = true,
+	}, module)
+
+	stroke(button, 0.51, 0.9)
+	aspectFromHeight(button, 2)
+
+	local moving = new("Frame", {
+		Name = "Moving",
+		ZIndex = 10003,
+		BorderSizePixel = 0,
+		Active = false,
+		Selectable = false,
+		Position = UDim2.fromScale(0, 0),
+		Size = UDim2.fromScale(1, 1),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(170, 57, 57),
+	}, button)
+
+	stroke(moving, 0.51, 0.9)
+	aspectFromHeight(moving, 1)
+
+	Runtime.Refs[refName .. "Module"] = module
+	Runtime.Refs[refName .. "ToggleButton"] = button
+	Runtime.Refs[refName .. "Moving"] = moving
+
+	return module
+end
+
+local function buildBindModule(parent)
+	local module = new("Frame", {
+		Name = "ModuleExample5",
+		LayoutOrder = 2,
+		BackgroundTransparency = 0.97,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.919, 0.045),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, parent)
+
+	stroke(module, 0.51, 0.9)
+	aspectFromWidth(module, SettingsSizing.BindAspect)
+	buildSettingsLabel(module, "Keybind", 0.6608, false)
+
+	local button = new("TextButton", {
+		Text = "",
+		Name = "BindButton",
+		TextSize = 14,
+		BorderSizePixel = 0,
+		AutoButtonColor = false,
+		Position = UDim2.fromScale(0.8389, 0.18),
+		Size = UDim2.fromScale(0.1437, 0.6522),
+		FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+		TextColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(28, 37, 45),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ZIndex = 10002,
+	}, module)
+
+	stroke(button, 0.51, 0.9)
+	aspectFromHeight(button, 2.2)
+
+	local keyLabel = new("TextLabel", {
+		Text = "Bind...",
+		Name = "BindedKey",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 10003,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		Size = UDim2.fromScale(0.7762, -0.6183),
+		Position = UDim2.fromScale(0.1, 0.7839),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Center,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, button)
+
+	Runtime.Refs.FullbrightBindButton = button
+	Runtime.Refs.FullbrightBindedKey = keyLabel
+	return module
+end
+
+local function buildSliderModule(parent)
+	local module = new("Frame", {
+		Name = "ModuleExample3",
+		LayoutOrder = 3,
+		BackgroundTransparency = 0.97,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.919, 0.0846),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, parent)
+
+	stroke(module, 0.51, 0.9)
+	aspectFromWidth(module, SettingsSizing.SliderAspect)
+	buildSettingsLabel(module, "Brightness", 0.6605, true)
+
+	local slider = new("Frame", {
+		Name = "SliderBackground",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.9298, 0.0626),
+		Position = UDim2.fromScale(0.041, 0.7219),
+		BackgroundColor3 = Color3.fromRGB(28, 37, 45),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		Active = true,
+	}, module)
+
+	stroke(slider, 0.51, 0.9)
+	corner(slider, UDim.new(1, 0))
+	aspectFromWidth(slider, SettingsSizing.SliderBarAspect)
+
+	local moving = new("TextButton", {
+		Text = "",
+		Name = "Moving",
+		TextSize = 14,
+		ZIndex = 10003,
+		BorderSizePixel = 0,
+		AutoButtonColor = false,
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.fromScale(0, 0.5),
+		Size = UDim2.fromScale(0.0679, 4.9096),
+		FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(170, 57, 57),
+	}, slider)
+
+	stroke(moving, 0.51, 0.9)
+	corner(moving, UDim.new(1, 0))
+	aspect(moving)
+
+	local inputBack = new("Frame", {
+		Name = "InputBackground",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.1439, 0.6814),
+		Position = UDim2.fromScale(0.8389, 0.0799),
+		BackgroundColor3 = Color3.fromRGB(28, 37, 45),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+	}, module)
+
+	stroke(inputBack, 0.51, 0.9)
+	aspect(inputBack, 2.0999)
+
+	local input = new("TextBox", {
+		PlaceholderText = "100",
+		Name = "InputTextBox",
+		Text = "",
+		ClearTextOnFocus = false,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 10003,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		Size = UDim2.fromScale(0.9582, -0.558),
+		Position = UDim2.fromScale(0.1, 0.75),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		PlaceholderColor3 = Color3.fromRGB(157, 157, 157),
+		TextColor3 = Color3.fromRGB(235, 235, 235),
+	}, inputBack)
+
+	Runtime.Refs.FullbrightSliderBackground = slider
+	Runtime.Refs.FullbrightSliderMoving = moving
+	Runtime.Refs.FullbrightInputTextBox = input
+	return module
+end
+
+
+local function buildDropdownModule(parent, order)
+	local module = new("Frame", {
+		Name = "ModuleExample2",
+		LayoutOrder = order,
+		BackgroundTransparency = 0.97,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.919, 0.085),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ZIndex = 10020,
+	}, parent)
+
+	stroke(module, 0.51, 0.9)
+	aspectFromWidth(module, 5.1999)
+	buildSettingsLabel(module, "Override Features", 0.6605, true)
+
+	local button = new("TextButton", {
+		Text = "",
+		Name = "DropdownButton",
+		TextSize = 14,
+		BackgroundTransparency = 0.97,
+		ZIndex = 10022,
+		BorderSizePixel = 0,
+		AutoButtonColor = false,
+		Position = UDim2.fromScale(0.0169, 0.5465),
+		Size = UDim2.fromScale(0.9612, 0.3716),
+		FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json"),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	}, module)
+
+	stroke(button, 0.51, 0.9)
+	aspectFromWidth(button, 13.5)
+
+	local state = new("ImageLabel", {
+		Image = "rbxassetid://138153991601855",
+		Name = "State",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Rotation = 0,
+		Size = UDim2.fromScale(0.0571, 0.8692),
+		Position = UDim2.fromScale(0.9239, 0.109),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ZIndex = 10024,
+	}, button)
+	aspect(state)
+
+	local label = new("TextLabel", {
+		Text = "Pick override options.",
+		Name = "ChoosenOption",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 10023,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = UDim2.fromScale(0.9033, -0.6183),
+		Position = UDim2.fromScale(0.0206, 0.784),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, button)
+
+	Runtime.Refs.FullbrightOverrideDropdownModule = module
+	Runtime.Refs.FullbrightOverrideDropdownButton = button
+	Runtime.Refs.FullbrightOverrideDropdownState = state
+	Runtime.Refs.FullbrightOverrideDropdownLabel = label
+	Runtime.Refs.FullbrightOverrideRows = {}
+
+	return module
+end
+
+local function buildDropdownOptionRow(parent, option, order)
+	local row = new("Frame", {
+		Name = "ModuleExample1",
+		LayoutOrder = order,
+		Visible = false,
+		BackgroundTransparency = 0.97,
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ZIndex = 10030,
+		Active = true,
+	}, parent)
+
+	stroke(row, 0.51, 0.9)
+	aspectFromWidth(row, SettingsSizing.DropdownOptionAspect or SettingsSizing.ToggleAspect)
+	corner(row, UDim.new(0, 2))
+
+	local title = new("TextLabel", {
+		Text = option.Text,
+		Name = "Title",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 10031,
+		TextSize = 14,
+		TextWrapped = true,
+		TextScaled = true,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+		Size = UDim2.fromScale(0.91, -0.5694),
+		Position = UDim2.fromScale(0.0367, 0.7473),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, row)
+
+	local click = new("TextButton", {
+		Text = "",
+		Name = "ClickButton",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		AutoButtonColor = false,
+		Size = UDim2.fromScale(1, 1),
+		Position = UDim2.fromScale(0, 0),
+		TextColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		ZIndex = 10032,
+	}, row)
+
+	Runtime.Refs.FullbrightOverrideRows[option.Key] = {
+		Frame = row,
+		Title = title,
+		Button = click,
+		Option = option,
+	}
+
+	return row
+end
+
+local function buildFullbrightOverrideDropdown(parent, order)
+	buildDropdownModule(parent, order)
+
+	for index, option in ipairs(FULLBRIGHT_OVERRIDE_OPTIONS) do
+		buildDropdownOptionRow(parent, option, order + index)
+	end
+end
+
+
+local function buildSettingsBuilder(parent)
+	local builder = new("Frame", {
+		Name = "SettingsBuilder",
+		BorderSizePixel = 0,
+		ZIndex = 10000,
+		Visible = false,
+		Size = UDim2.fromScale(0.9993, 0.9974),
+		Position = UDim2.fromScale(0, 1),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		ClipsDescendants = true,
+	}, parent)
+
+	corner(builder, UDim.new(0, 5))
+	mainGradient(builder)
+
+	local scroll = new("ScrollingFrame", {
+		Name = "ScrollingFrame",
+		BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+		ScrollBarThickness = 4,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ScrollBarImageTransparency = 0,
+		Active = true,
+		Size = UDim2.fromScale(0.981, 0.91),
+		Position = UDim2.fromScale(0, 0.09),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ScrollBarImageColor3 = Color3.fromRGB(193, 54, 54),
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		CanvasSize = UDim2.new(),
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		ZIndex = 10001,
+	}, builder)
+
+	safeScrollImages(scroll)
+
+	new("UIListLayout", {
+		Padding = UDim.new(0, 4),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	}, scroll)
+
+	new("UIPadding", {
+		PaddingTop = UDim.new(0, 5),
+		PaddingBottom = UDim.new(0, 5),
+	}, scroll)
+
+	buildToggleModule(scroll, "Enabled", 1, "FullbrightEnabled")
+	buildBindModule(scroll)
+	buildSliderModule(scroll)
+	buildToggleModule(scroll, "Force Day Time", 4, "FullbrightDay")
+	buildFullbrightOverrideDropdown(scroll, 5)
+	configureTightScrollingFrame(scroll)
+
+	local backButton = new("ImageButton", {
+		Image = "rbxassetid://91613428185416",
+		Name = "BackButton",
+		ZIndex = 10002,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.fromScale(0.0645, 0.0589),
+		Position = UDim2.fromScale(0.94725, 0.04345),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	}, builder)
+	aspect(backButton)
+
+	local title = new("TextLabel", {
+		Text = 'Fullbright <font color="rgb(203, 57, 57)">Settings</font>',
+		Name = "Title",
+		TextSize = 14,
+		BackgroundTransparency = 1,
+		ZIndex = 10002,
+		BorderSizePixel = 0,
+		TextScaled = false,
+		TextWrapped = false,
+		RichText = true,
+		Size = UDim2.fromScale(0.64, 0.058),
+		Position = UDim2.fromScale(0.04, 0.014),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextYAlignment = Enum.TextYAlignment.Center,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+	}, builder)
+
+	Runtime.Refs.SettingsBuilder = builder
+	Runtime.Refs.SettingsScroll = scroll
+	Runtime.Refs.SettingsBackButton = backButton
+	Runtime.Refs.SettingsTitle = title
+	return builder
+end
+
+local function buildMain(parent)
+	local main = new("ImageLabel", {
+		Name = "Main",
+		Image = "rbxassetid://95827797495948",
+		ZIndex = 0,
+		BackgroundTransparency = 1,
+		ImageTransparency = 0.9,
+		AnchorPoint = Vector2.one * 0.5,
+		Position = UDim2.fromScale(0.912, 0.8759),
+		Size = UDim2.fromScale(0.1504, 0.2474),
+		SliceCenter = Rect.new(85, 85, 427, 427),
+		ScaleType = Enum.ScaleType.Slice,
+		BorderColor3 = Color3.fromRGB(27, 42, 53),
+		ClipsDescendants = false,
+	}, parent)
+
+	new("UISizeConstraint", {
+		MinSize = Vector2.new(255, 285),
+		MaxSize = Vector2.new(300, 335),
+	}, main)
+
+	local container = new("Frame", {
+		Name = "MainContainer",
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		Size = UDim2.fromScale(0.9274, 0.9684),
+		Position = UDim2.fromScale(0.0349, 0.0325),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ClipsDescendants = false,
+	}, main)
+
+	local frame = new("Frame", {
+		Name = "MainFrame",
+		BorderSizePixel = 0,
+		Size = UDim2.fromScale(0.9955, 0.9974),
+		Position = UDim2.fromScale(0, 0),
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		ClipsDescendants = false,
+	}, container)
+
+	corner(frame, UDim.new(0, 5))
+	mainGradient(frame)
+	buildCommandScroll(frame)
+	buildInput(container)
+
+	new("TextLabel", {
+		Text = "VERSION: 1.0.0",
+		Name = "Version",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		ZIndex = 2,
+		TextSize = 13,
+		TextWrapped = false,
+		TextScaled = false,
+		Size = UDim2.fromScale(0.3174, 0.045),
+		Position = UDim2.fromScale(0.507, 0.027),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextXAlignment = Enum.TextXAlignment.Right,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(217, 217, 217),
+	}, container)
+
+	new("TextLabel", {
+		Text = 'CFrame <font color="rgb(203, 57, 57)">Zero</font>',
+		Name = "Title",
+		TextSize = 14,
+		BackgroundTransparency = 1,
+		ZIndex = 2,
+		BorderSizePixel = 0,
+		TextScaled = false,
+		TextWrapped = false,
+		RichText = true,
+		Size = UDim2.fromScale(0.464, 0.0542),
+		Position = UDim2.fromScale(0.0429, 0.0179),
+		FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold),
+		TextYAlignment = Enum.TextYAlignment.Center,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BorderColor3 = Color3.fromRGB(0, 0, 0),
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+	}, container)
+
+	buildSettingsBuilder(container)
+	buildHint(parent)
+	corner(container, UDim.new(0, 5))
+	stroke(container, 1.5, 0.9)
+	aspect(container, 0.97)
+	aspect(main, 0.97)
+
+	return main
+end
+
+local backgroundDim = buildBackgroundDim(mainUi)
+buildOnBoarding(backgroundDim)
+buildMain(mainUi)
+mainUi.Parent = getGuiParent()
+
+local function firstGradient(instance)
+	if not instance then
+		return nil
+	end
+
+	return instance:FindFirstChildWhichIsA("UIGradient")
+end
+
+local function setTextVisible(label, visible)
+	if label and label:IsA("TextLabel") then
+		label.Visible = true
+		label.TextTransparency = visible and 0 or 1
+	end
+end
+
+local function setImageVisible(image, visible)
+	if image and image:IsA("ImageLabel") then
+		image.Visible = true
+		image.ImageTransparency = visible and 0 or 1
+	end
+end
+
+local function fadeText(label, duration, target)
+	if not label then
+		return
+	end
+
+	label.Visible = true
+	playTween(label, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		TextTransparency = target,
+	})
+end
+
+local function fadeImage(image, duration, target)
+	if not image then
+		return
+	end
+
+	image.Visible = true
+	playTween(image, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		ImageTransparency = target,
+	})
+end
+
+local function fadeFrame(frame, duration, target)
+	if not frame then
+		return
+	end
+
+	frame.Visible = true
+	playTween(frame, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		BackgroundTransparency = target,
+	})
+end
+
+local function cacheRefs()
+	local refs = Runtime.Refs
+
+	refs.BackgroundDim = mainUi:FindFirstChild("BackgroundDim")
+	refs.OnBoarding = refs.BackgroundDim and refs.BackgroundDim:FindFirstChild("OnBoarding") or mainUi:FindFirstChild("OnBoarding")
+	refs.Main = mainUi:FindFirstChild("Main")
+	refs.BoardContainer = path(refs.OnBoarding, "Container")
+	refs.BoardMainFrame = path(refs.OnBoarding, "Container", "MainFrame")
+	refs.BoardGradient = firstGradient(refs.BoardMainFrame)
+	refs.BoardDivider = path(refs.OnBoarding, "Container", "MainFrame", "Divider")
+	refs.BoardLoading = path(refs.OnBoarding, "Container", "Loading")
+	refs.LoadingBar = path(refs.OnBoarding, "Container", "Loading", "LoadingBarBackground", "LoadingBar")
+	refs.Avatar = path(refs.OnBoarding, "Container", "Avatar")
+	refs.LoadingCircle = path(refs.OnBoarding, "Container", "LoadingCircle")
+	refs.Creator = path(refs.OnBoarding, "Container", "Creator")
+	refs.LoadingStatus = path(refs.OnBoarding, "Container", "LoadingStatus")
+	refs.BoardTitle = path(refs.OnBoarding, "Container", "Title")
+	refs.BoardVersion = path(refs.OnBoarding, "Container", "Version")
+	refs.MainContainer = path(refs.Main, "MainContainer")
+	refs.MainFrame = path(refs.Main, "MainContainer", "MainFrame")
+	refs.CommandScroll = path(refs.Main, "MainContainer", "MainFrame", "ScrollingFrame")
+	refs.CommandInput = path(refs.Main, "MainContainer", "CommandInputFrame", "CommandInput")
+	refs.HintFrame = mainUi:FindFirstChild("HintFrame")
+	refs.HintTitle = path(refs.HintFrame, "Title")
+	refs.HintDescription = path(refs.HintFrame, "Description")
+	refs.HintBottom = path(refs.HintFrame, "Bottom")
+	refs.HintTitle2 = path(refs.HintFrame, "Title2")
+
+	refs.SettingsBuilder = path(refs.Main, "MainContainer", "SettingsBuilder")
+	refs.SettingsScroll = path(refs.SettingsBuilder, "ScrollingFrame")
+	refs.SettingsBackButton = path(refs.SettingsBuilder, "BackButton")
+	refs.SettingsTitle = path(refs.SettingsBuilder, "Title")
+	refs.FullbrightEnabledMoving = path(refs.SettingsScroll, "ModuleExample1", "ToggleButton", "Moving")
+	refs.FullbrightEnabledToggleButton = path(refs.SettingsScroll, "ModuleExample1", "ToggleButton")
+	refs.FullbrightBindButton = path(refs.SettingsScroll, "ModuleExample5", "BindButton")
+	refs.FullbrightBindedKey = path(refs.SettingsScroll, "ModuleExample5", "BindButton", "BindedKey")
+	refs.FullbrightSliderBackground = path(refs.SettingsScroll, "ModuleExample3", "SliderBackground")
+	refs.FullbrightSliderMoving = path(refs.SettingsScroll, "ModuleExample3", "SliderBackground", "Moving")
+	refs.FullbrightInputTextBox = path(refs.SettingsScroll, "ModuleExample3", "InputBackground", "InputTextBox")
+
+	if refs.SettingsScroll then
+		local toggleModules = {}
+		for _, child in ipairs(refs.SettingsScroll:GetChildren()) do
+			if child.Name == "ModuleExample1" then
+				toggleModules[#toggleModules + 1] = child
+			end
+		end
+
+		table.sort(toggleModules, function(a, b)
+			return a.LayoutOrder < b.LayoutOrder
+		end)
+
+		local dayModule = toggleModules[2]
+		if dayModule then
+			refs.FullbrightDayToggleButton = path(dayModule, "ToggleButton")
+			refs.FullbrightDayMoving = path(dayModule, "ToggleButton", "Moving")
+		end
+	end
+end
+
+local function fixCriticalLayout()
+	local refs = Runtime.Refs
+
+	if refs.Main then
+		refs.Main.Visible = false
+		refs.Main.Position = UDim2.new(0.912, 0, 1.055, 0)
+		refs.Main.ClipsDescendants = false
+	end
+
+	if refs.MainContainer then
+		refs.MainContainer.ClipsDescendants = false
+	end
+
+	if refs.CommandScroll then
+		refs.CommandScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+		configureTightScrollingFrame(refs.CommandScroll)
+		updateScrollableCanvas(refs.CommandScroll)
+	end
+
+	if refs.SettingsScroll then
+		refs.SettingsScroll.ScrollingDirection = Enum.ScrollingDirection.Y
+		configureTightScrollingFrame(refs.SettingsScroll)
+		updateScrollableCanvas(refs.SettingsScroll)
+	end
+
+	if refs.CommandInput then
+		refs.CommandInput.Text = ""
+		refs.CommandInput.ClearTextOnFocus = false
+	end
+
+	if refs.HintFrame then
+		refs.HintFrame.Visible = false
+		refs.HintFrame.AnchorPoint = HintFollow.AnchorPoint
+		refs.HintFrame.Position = UDim2.fromOffset(0, 0)
+		refs.HintFrame.ClipsDescendants = false
+		refs.HintFrame.ZIndex = 200
+	end
+
+	if refs.LoadingBar then
+		refs.LoadingBar.Size = UDim2.fromScale(0, 1)
+	end
+
+	if refs.SettingsBuilder then
+		refs.SettingsBuilder.Visible = false
+		refs.SettingsBuilder.Position = UDim2.fromScale(0, 1)
+	end
+end
+
+local FULLBRIGHT_LIGHTING_PROPERTIES = {
+	"Ambient",
+	"Brightness",
+	"ClockTime",
+	"ColorShift_Bottom",
+	"ColorShift_Top",
+	"EnvironmentDiffuseScale",
+	"EnvironmentSpecularScale",
+	"ExposureCompensation",
+	"FogColor",
+	"FogEnd",
+	"FogStart",
+	"GlobalShadows",
+	"OutdoorAmbient",
+	"ShadowSoftness",
+}
+
+local FULLBRIGHT_LIGHTING_GROUPS = {
+	Ambient = { "Ambient" },
+	OutdoorAmbient = { "OutdoorAmbient" },
+	Brightness = { "Brightness" },
+	ExposureCompensation = { "ExposureCompensation" },
+	Fog = { "FogColor", "FogStart", "FogEnd" },
+	Shadows = { "GlobalShadows", "ShadowSoftness" },
+	ColorShifts = { "ColorShift_Bottom", "ColorShift_Top" },
+	Environment = { "EnvironmentDiffuseScale", "EnvironmentSpecularScale" },
+}
+
+local function getInstanceProperty(instance, propertyName)
+	local ok, value = pcall(function()
+		return instance[propertyName]
+	end)
+
+	if ok then
+		return value, true
+	end
+
+	return nil, false
+end
+
+local function saveLighting()
+	if Runtime.OriginalLighting then
+		return
+	end
+
+	local data = {}
+	for _, propertyName in ipairs(FULLBRIGHT_LIGHTING_PROPERTIES) do
+		local value, ok = getInstanceProperty(Lighting, propertyName)
+		if ok then
+			data[propertyName] = value
+		end
+	end
+
+	Runtime.OriginalLighting = data
+	Runtime.FullbrightObjectStates = Runtime.FullbrightObjectStates or {}
+end
+
+local function rememberObjectState(object, properties)
+	Runtime.FullbrightObjectStates = Runtime.FullbrightObjectStates or {}
+	if Runtime.FullbrightObjectStates[object] then
+		return
+	end
+
+	local state = {}
+	for _, propertyName in ipairs(properties) do
+		local value, ok = getInstanceProperty(object, propertyName)
+		if ok then
+			state[propertyName] = value
+		end
+	end
+
+	Runtime.FullbrightObjectStates[object] = state
+end
+
+
+local POST_EFFECT_CLASSES = {
+	BloomEffect = true,
+	BlurEffect = true,
+	ColorCorrectionEffect = true,
+	DepthOfFieldEffect = true,
+	SunRaysEffect = true,
+}
+
+local function isPostEffect(object)
+	local ok, result = pcall(function()
+		return object:IsA("PostEffect")
+	end)
+
+	if ok and result then
+		return true
+	end
+
+	return POST_EFFECT_CLASSES[object.ClassName] == true
+end
+
+local function isAtmosphere(object)
+	local ok, result = pcall(function()
+		return object:IsA("Atmosphere")
+	end)
+
+	return ok and result
+end
+
+local function restoreLightingProperties(properties)
+	local data = Runtime.OriginalLighting
+	if not data then
+		return
+	end
+
+	for _, propertyName in ipairs(properties or {}) do
+		local savedValue = data[propertyName]
+		if savedValue ~= nil then
+			setInstanceProperty(Lighting, propertyName, savedValue)
+		end
+	end
+end
+
+local function restoreFullbrightObjectsWhere(predicate)
+	for object, state in pairs(Runtime.FullbrightObjectStates or {}) do
+		if typeof(object) == "Instance" and object.Parent and type(state) == "table" and predicate(object) then
+			for propertyName, value in pairs(state) do
+				setInstanceProperty(object, propertyName, value)
+			end
+
+			Runtime.FullbrightObjectStates[object] = nil
+		end
+	end
+end
+
+local function restoreFullbrightOverrideGroup(optionKey)
+	if optionKey == "PostEffects" then
+		restoreFullbrightObjectsWhere(isPostEffect)
+		return
+	end
+
+	if optionKey == "Atmosphere" then
+		restoreFullbrightObjectsWhere(isAtmosphere)
+		return
+	end
+
+	restoreLightingProperties(FULLBRIGHT_LIGHTING_GROUPS[optionKey])
+end
+
+local function overrideFullbrightObjects(overrides)
+	overrides = overrides or getFullbrightOverrideOptions()
+
+	for _, object in ipairs(Lighting:GetDescendants()) do
+		if isPostEffect(object) and overrides.PostEffects ~= false then
+			rememberObjectState(object, { "Enabled" })
+			setInstanceProperty(object, "Enabled", false)
+		elseif isAtmosphere(object) and overrides.Atmosphere ~= false then
+			rememberObjectState(object, { "Density", "Offset", "Color", "Decay", "Glare", "Haze" })
+			setInstanceProperty(object, "Density", 0)
+			setInstanceProperty(object, "Offset", 0)
+			setInstanceProperty(object, "Glare", 0)
+			setInstanceProperty(object, "Haze", 0)
+			setInstanceProperty(object, "Color", Color3.fromRGB(255, 255, 255))
+			setInstanceProperty(object, "Decay", Color3.fromRGB(255, 255, 255))
+		end
+	end
+end
+
+local function getFullbrightAmount()
+	return clampNumber(getFullbrightSettings().Brightness, 0, 100)
+end
+
+local function applyFullbrightLighting()
+	local settings = getFullbrightSettings()
+	local overrides = getFullbrightOverrideOptions()
+	local amount = getFullbrightAmount()
+	local alpha = amount / 100
+	local lightValue = math.clamp(math.floor(50 + (205 * alpha)), 0, 255)
+	local fullbrightColor = Color3.fromRGB(lightValue, lightValue, lightValue)
+
+	saveLighting()
+	Runtime.FullbrightEnabled = true
+
+	if overrides.Ambient ~= false then
+		setInstanceProperty(Lighting, "Ambient", fullbrightColor)
+	end
+
+	if overrides.OutdoorAmbient ~= false then
+		setInstanceProperty(Lighting, "OutdoorAmbient", fullbrightColor)
+	end
+
+	if overrides.Brightness ~= false then
+		setInstanceProperty(Lighting, "Brightness", 1 + (alpha * 8))
+	end
+
+	if settings.ForceDay then
+		setInstanceProperty(Lighting, "ClockTime", 15)
+	elseif Runtime.OriginalLighting and Runtime.OriginalLighting.ClockTime then
+		setInstanceProperty(Lighting, "ClockTime", Runtime.OriginalLighting.ClockTime)
+	end
+
+	if overrides.ColorShifts ~= false then
+		setInstanceProperty(Lighting, "ColorShift_Bottom", Color3.fromRGB(0, 0, 0))
+		setInstanceProperty(Lighting, "ColorShift_Top", Color3.fromRGB(0, 0, 0))
+	end
+
+	if overrides.Environment ~= false then
+		setInstanceProperty(Lighting, "EnvironmentDiffuseScale", 1)
+		setInstanceProperty(Lighting, "EnvironmentSpecularScale", 0)
+	end
+
+	if overrides.ExposureCompensation ~= false then
+		setInstanceProperty(Lighting, "ExposureCompensation", alpha * 2)
+	end
+
+	if overrides.Fog ~= false then
+		setInstanceProperty(Lighting, "FogColor", Color3.fromRGB(255, 255, 255))
+		setInstanceProperty(Lighting, "FogStart", 0)
+		setInstanceProperty(Lighting, "FogEnd", 1000000)
+	end
+
+	if overrides.Shadows ~= false then
+		setInstanceProperty(Lighting, "GlobalShadows", false)
+		setInstanceProperty(Lighting, "ShadowSoftness", 0)
+	end
+
+	overrideFullbrightObjects(overrides)
+end
+
+applyFullbrightState = function()
+	if getFullbrightSettings().Enabled then
+		applyFullbrightLighting()
+	else
+		restoreLighting()
+	end
+end
+
+local function setFullbrightEnabled(enabled)
+	getFullbrightSettings().Enabled = enabled == true
+	commitSettings(true)
+end
+
+local function setFullbrightBrightness(value)
+	getFullbrightSettings().Brightness = clampNumber(value, 0, 100)
+	commitSettings(true)
+end
+
+local function setFullbrightForceDay(enabled)
+	getFullbrightSettings().ForceDay = enabled == true
+	commitSettings(true)
+end
+
+local function setFullbrightBind(keyName)
+	getFullbrightSettings().BindKey = type(keyName) == "string" and keyName or ""
+	commitSettings(false)
+end
+
+local function setFullbrightOverrideOption(optionKey, enabled)
+	local options = getFullbrightOverrideOptions()
+	if type(options[optionKey]) ~= "boolean" then
+		return
+	end
+
+	options[optionKey] = enabled == true
+
+	if not options[optionKey] and getFullbrightSettings().Enabled then
+		restoreFullbrightOverrideGroup(optionKey)
+	end
+
+	commitSettings(true)
+end
+
+local function toggleFullbrightOverrideOption(optionKey)
+	local options = getFullbrightOverrideOptions()
+	if type(options[optionKey]) ~= "boolean" then
+		return
+	end
+
+	setFullbrightOverrideOption(optionKey, not options[optionKey])
+end
+
+local function toggleFullbright()
+	setFullbrightEnabled(not getFullbrightSettings().Enabled)
+end
+
+local function enableFullbright()
+	setFullbrightEnabled(true)
+end
+
+local function disableFullbright()
+	setFullbrightEnabled(false)
+end
+
+local function setClientShadows(enabled)
+	setInstanceProperty(Lighting, "GlobalShadows", enabled == true)
+
+	if enabled then
+		setInstanceProperty(Lighting, "ShadowSoftness", Runtime.DefaultShadowSoftness or 0.2)
+	else
+		setInstanceProperty(Lighting, "ShadowSoftness", 0)
+	end
+end
+
+local function disableShadows()
+	setClientShadows(false)
+end
+
+local function enableShadows()
+	setClientShadows(true)
+end
+
+local function extractCommandArgs(text)
+	local raw = tostring(text or "")
+	raw = raw:gsub("^%s+", "")
+	raw = raw:gsub("%s+$", "")
+	local command, args = raw:match("^(%S+)%s*(.*)$")
+	return string.lower(command or ""), args or ""
+end
+
+local function setClientTimeFromCommand(text)
+	local _, args = extractCommandArgs(text)
+	local value = tonumber(args:match("%-?%d+%.?%d*"))
+	if not value then
+		return
+	end
+
+	setInstanceProperty(Lighting, "ClockTime", math.clamp(value, 0, 24))
+end
+
+local function resetClientTime()
+	setInstanceProperty(Lighting, "ClockTime", Runtime.DefaultClockTime or 12)
+end
+
+local function sitOnce()
+	local character = LocalPlayer.Character
+	if not character then
+		return
+	end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid then
+		return
+	end
+
+	humanoid.Sit = true
+	pcall(function()
+		humanoid:ChangeState(Enum.HumanoidStateType.Seated)
+	end)
+end
+
+local function registerCommands()
+	Runtime.Commands = {
+		fullbright = enableFullbright,
+		fb = enableFullbright,
+		unfullbright = disableFullbright,
+		unfb = disableFullbright,
+		disableshadows = disableShadows,
+		enableshadows = enableShadows,
+		time = setClientTimeFromCommand,
+		resettime = resetClientTime,
+		sit = sitOnce,
+	}
+end
+
+local function normalizeCommand(text)
+	local raw = string.lower(text or "")
+	raw = raw:gsub("^%s+", "")
+	raw = raw:gsub("%s+$", "")
+	return raw:match("^(%S+)") or ""
+end
+
+local function runCommand(text)
+	local command = normalizeCommand(text)
+	local handler = Runtime.Commands[command]
+
+	if handler then
+		handler(text)
+	end
+
+	return handler ~= nil
+end
+
+local function rowMatches(row, query)
+	if query == "" then
+		return true
+	end
+
+	return string.find(string.lower(row.Search), query, 1, true) ~= nil
+end
+
+local function filterCommands(text)
+	local query = normalizeCommand(text)
+	local visibleByCategory = {}
+
+	for _, row in ipairs(Runtime.CommandRows) do
+		local isVisible = rowMatches(row, query)
+		if row.Frame then
+			row.Frame.Visible = isVisible
+		end
+
+		if isVisible then
+			local categoryName = row.Category or "Commands"
+			visibleByCategory[categoryName] = (visibleByCategory[categoryName] or 0) + 1
+		end
+	end
+
+	for _, category in ipairs(Runtime.CategoryRows) do
+		if category.Frame then
+			category.MatchCount = visibleByCategory[category.Category] or 0
+			category.Frame.Visible = category.MatchCount > 0
+		end
+	end
+
+	if Runtime.Refs.CommandScroll then
+		updateScrollableCanvas(Runtime.Refs.CommandScroll)
+	end
+end
+
+local function setToggleVisual(moving, enabled, instant)
+	if not moving then
+		return
+	end
+
+	local props = enabled and {
+		Position = UDim2.fromScale(0.562, 0),
+		BackgroundColor3 = Color3.fromRGB(93, 170, 79),
+	} or {
+		Position = UDim2.fromScale(0, 0),
+		BackgroundColor3 = Color3.fromRGB(170, 57, 57),
+	}
+
+	if instant then
+		for key, value in pairs(props) do
+			moving[key] = value
+		end
+		return
+	end
+
+	playTween(moving, TweenInfo.new(0.07, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), props)
+end
+
+local function getSliderTravelScale(slider, moving)
+	if not slider or not moving or slider.AbsoluteSize.X <= 0 then
+		return 1
+	end
+
+	local thumbScale = moving.AbsoluteSize.X / slider.AbsoluteSize.X
+	return 1 - math.clamp(thumbScale, 0, 0.9)
+end
+
+local function setSliderVisual(value)
+	local refs = Runtime.Refs
+	local moving = refs.FullbrightSliderMoving
+	local slider = refs.FullbrightSliderBackground
+
+	if moving then
+		local alpha = math.clamp(value / 100, 0, 1)
+		moving.Position = UDim2.fromScale(alpha * getSliderTravelScale(slider, moving), 0.5)
+	end
+end
+
+local function setDropdownOptionVisual(rowData, selected, open)
+	if not rowData or not rowData.Frame then
+		return
+	end
+
+	rowData.Frame.Visible = open == true
+	rowData.Frame.Size = open and UDim2.fromScale(0.919, 0.045) or UDim2.fromScale(0, 0)
+	rowData.Frame.BackgroundTransparency = selected and 0.9 or 0.97
+end
+
+local function updateFullbrightDropdownUi(instant)
+	local refs = Runtime.Refs
+	local open = Runtime.FullbrightDropdownOpen == true
+	local options = getFullbrightOverrideOptions()
+	local enabledCount = 0
+
+	for _, option in ipairs(FULLBRIGHT_OVERRIDE_OPTIONS) do
+		local selected = options[option.Key] ~= false
+		if selected then
+			enabledCount += 1
+		end
+
+		setDropdownOptionVisual(refs.FullbrightOverrideRows and refs.FullbrightOverrideRows[option.Key], selected, open)
+	end
+
+	if refs.FullbrightOverrideDropdownLabel then
+		refs.FullbrightOverrideDropdownLabel.Text = string.format("Overrides: %d/%d enabled", enabledCount, #FULLBRIGHT_OVERRIDE_OPTIONS)
+	end
+
+	if refs.FullbrightOverrideDropdownState then
+		local props = {
+			Rotation = open and 180 or 0,
+		}
+
+		if instant then
+			refs.FullbrightOverrideDropdownState.Rotation = props.Rotation
+		else
+			playTween(refs.FullbrightOverrideDropdownState, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), props)
+		end
+	end
+
+	updateScrollableCanvas(refs.SettingsScroll)
+end
+
+refreshFullbrightSettingsUi = function(instant)
+	local refs = Runtime.Refs
+	local settings = getFullbrightSettings()
+
+	setToggleVisual(refs.FullbrightEnabledMoving, settings.Enabled, instant)
+	setToggleVisual(refs.FullbrightDayMoving, settings.ForceDay, instant)
+	setSliderVisual(settings.Brightness)
+	updateFullbrightDropdownUi(instant)
+
+	if refs.FullbrightBindedKey then
+		refs.FullbrightBindedKey.Text = Runtime.CapturingBind and "...." or (settings.BindKey ~= "" and settings.BindKey or "Bind...")
+	end
+
+	if refs.FullbrightInputTextBox and not Runtime.FullbrightInputUpdating then
+		Runtime.FullbrightInputUpdating = true
+		refs.FullbrightInputTextBox.Text = tostring(settings.Brightness)
+		Runtime.FullbrightInputUpdating = false
+	end
+
+	updateScrollableCanvas(refs.CommandScroll)
+	updateScrollableCanvas(refs.SettingsScroll)
+end
+
+local function openSettingsPage(pageName)
+	if pageName ~= "fullbright" then
+		return
+	end
+
+	local refs = Runtime.Refs
+	if not refs.SettingsBuilder then
+		return
+	end
+
+	Runtime.HintVisible = false
+	Runtime.HintTarget = nil
+	if refs.HintFrame then
+		refs.HintFrame.Visible = false
+	end
+	Runtime.SettingsOpen = true
+	Runtime.CapturingBind = false
+	refs.SettingsBuilder.Visible = true
+	refs.SettingsBuilder.Position = UDim2.fromScale(0, 1)
+	refreshFullbrightSettingsUi(true)
+
+	playTween(refs.SettingsBuilder, TweenInfo.new(0.12, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+		Position = UDim2.fromScale(0, 0),
+	})
+end
+
+local function closeSettingsPage()
+	local refs = Runtime.Refs
+	if not refs.SettingsBuilder then
+		return
+	end
+
+	Runtime.SettingsOpen = false
+	Runtime.CapturingBind = false
+	Runtime.FullbrightDropdownOpen = false
+	refreshFullbrightSettingsUi(false)
+
+	playTween(refs.SettingsBuilder, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+		Position = UDim2.fromScale(0, 1),
+	})
+
+	task.delay(0.13, function()
+		if Runtime.Alive and refs.SettingsBuilder and not Runtime.SettingsOpen then
+			refs.SettingsBuilder.Visible = false
+		end
+	end)
+end
+
+local function sliderValueFromMouse()
+	local slider = Runtime.Refs.FullbrightSliderBackground
+	local moving = Runtime.Refs.FullbrightSliderMoving
+
+	if not slider or slider.AbsoluteSize.X <= 0 then
+		return getFullbrightAmount()
+	end
+
+	local thumbWidth = moving and moving.AbsoluteSize.X or 0
+	local travel = math.max(slider.AbsoluteSize.X - thumbWidth, 1)
+	local mouseX = UserInputService:GetMouseLocation().X
+	local alpha = math.clamp((mouseX - slider.AbsolutePosition.X - (thumbWidth * 0.5)) / travel, 0, 1)
+	return clampNumber(alpha * 100, 0, 100)
+end
+
+local function updateSliderFromMouse()
+	setFullbrightBrightness(sliderValueFromMouse())
+end
+
+local function scaleUDim2(size, amount)
+	return UDim2.new(
+		size.X.Scale * amount,
+		math.floor((size.X.Offset * amount) + 0.5),
+		size.Y.Scale * amount,
+		math.floor((size.Y.Offset * amount) + 0.5)
+	)
+end
+
+local function tweenButtonSize(button, targetSize, duration)
+	playTween(button, TweenInfo.new(duration or 0.055, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		Size = targetSize,
+	})
+end
+
+local function centerAnchorGui(button)
+	if not button then
+		return
+	end
+
+	local oldAnchor = button.AnchorPoint
+	if oldAnchor == Vector2.new(0.5, 0.5) then
+		return
+	end
+
+	local position = button.Position
+	local size = button.Size
+	local dx = 0.5 - oldAnchor.X
+	local dy = 0.5 - oldAnchor.Y
+
+	button.AnchorPoint = Vector2.new(0.5, 0.5)
+	button.Position = UDim2.new(
+		position.X.Scale + (size.X.Scale * dx),
+		position.X.Offset + math.floor((size.X.Offset * dx) + 0.5),
+		position.Y.Scale + (size.Y.Scale * dy),
+		position.Y.Offset + math.floor((size.Y.Offset * dy) + 0.5)
+	)
+end
+
+local function setupScaleClickEffect(button)
+	if not button then
+		return
+	end
+
+	centerAnchorGui(button)
+
+	local normalSize = button.Size
+	local hoverSize = scaleUDim2(normalSize, SettingsSizing.ButtonHoverScale)
+	local pressSize = scaleUDim2(normalSize, SettingsSizing.ButtonPressScale)
+	local hovering = false
+
+	connect(button.MouseEnter, function()
+		hovering = true
+		tweenButtonSize(button, hoverSize, 0.055)
+	end)
+
+	connect(button.MouseLeave, function()
+		hovering = false
+		tweenButtonSize(button, normalSize, 0.055)
+	end)
+
+	connect(button.MouseButton1Down, function()
+		tweenButtonSize(button, pressSize, 0.045)
+	end)
+
+	connect(button.MouseButton1Up, function()
+		tweenButtonSize(button, hovering and hoverSize or normalSize, 0.055)
+	end)
+
+	connect(button.InputEnded, function(input)
+		if input.UserInputType == Enum.UserInputType.Touch then
+			tweenButtonSize(button, hovering and hoverSize or normalSize, 0.055)
+		end
+	end)
+end
+
+local function setupCommandEditors()
+	for _, row in ipairs(Runtime.CommandRows) do
+		if row.EditButton and row.Data then
+			setupScaleClickEffect(row.EditButton)
+			connect(row.EditButton.MouseButton1Click, function()
+				openSettingsPage(row.Data.SettingsPage)
+			end)
+		end
+	end
+end
+
+local function setupSettingsBackButton()
+	local backButton = Runtime.Refs.SettingsBackButton
+	if backButton then
+		setupScaleClickEffect(backButton)
+		connect(backButton.MouseButton1Click, closeSettingsPage)
+	end
+end
+
+local function connectGuiButtonClick(button, callback)
+	if not button or not callback then
+		return
+	end
+
+	if button:IsA("GuiButton") then
+		connect(button.Activated, callback)
+	end
+end
+
+local function setupFullbrightToggles()
+	local refs = Runtime.Refs
+	local function toggleDay()
+		setFullbrightForceDay(not getFullbrightSettings().ForceDay)
+	end
+
+	connectGuiButtonClick(refs.FullbrightEnabledToggleButton, toggleFullbright)
+	connectGuiButtonClick(refs.FullbrightDayToggleButton, toggleDay)
+end
+
+local function setupFullbrightBindButton()
+	local button = Runtime.Refs.FullbrightBindButton
+	if button then
+		connect(button.MouseButton1Click, function()
+			Runtime.CapturingBind = true
+			if Runtime.Refs.FullbrightBindedKey then
+				Runtime.Refs.FullbrightBindedKey.Text = "...."
+			end
+		end)
+	end
+end
+
+local function setupFullbrightSlider()
+	local refs = Runtime.Refs
+	local moving = refs.FullbrightSliderMoving
+	local slider = refs.FullbrightSliderBackground
+
+	if moving then
+		connect(moving.InputBegan, function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				Runtime.DraggingSlider = true
+				updateSliderFromMouse()
+			end
+		end)
+	end
+
+	if slider then
+		connect(slider.InputBegan, function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				Runtime.DraggingSlider = true
+				updateSliderFromMouse()
+			end
+		end)
+	end
+
+	connect(UserInputService.InputChanged, function(input)
+		if not Runtime.DraggingSlider then
+			return
+		end
+
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			updateSliderFromMouse()
+		end
+	end)
+
+	connect(UserInputService.InputEnded, function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			Runtime.DraggingSlider = false
+		end
+	end)
+end
+
+local function setupFullbrightInput()
+	local input = Runtime.Refs.FullbrightInputTextBox
+	if not input then
+		return
+	end
+
+	connect(input:GetPropertyChangedSignal("Text"), function()
+		if Runtime.FullbrightInputUpdating then
+			return
+		end
+
+		local raw = input.Text or ""
+		local cleaned = raw:gsub("%D", "")
+
+		if cleaned ~= raw then
+			Runtime.FullbrightInputUpdating = true
+			input.Text = cleaned
+			Runtime.FullbrightInputUpdating = false
+		end
+
+		if cleaned ~= "" then
+			setFullbrightBrightness(clampNumber(cleaned, 0, 100))
+		end
+	end)
+
+	connect(input.FocusLost, function()
+		refreshFullbrightSettingsUi(true)
+	end)
+end
+
+
+local function setupFullbrightOverrideDropdown()
+	local refs = Runtime.Refs
+
+	connectGuiButtonClick(refs.FullbrightOverrideDropdownButton, function()
+		Runtime.FullbrightDropdownOpen = not Runtime.FullbrightDropdownOpen
+		refreshFullbrightSettingsUi(false)
+	end)
+
+	for _, option in ipairs(FULLBRIGHT_OVERRIDE_OPTIONS) do
+		local rowData = refs.FullbrightOverrideRows and refs.FullbrightOverrideRows[option.Key]
+		if rowData and rowData.Button then
+			connectGuiButtonClick(rowData.Button, function()
+				toggleFullbrightOverrideOption(option.Key)
+			end)
+		end
+	end
+end
+
+local function setupFullbrightGlobalKeys()
+	connect(UserInputService.InputBegan, function(input, processed)
+		if input.UserInputType ~= Enum.UserInputType.Keyboard then
+			return
+		end
+
+		if Runtime.CapturingBind then
+			if input.KeyCode == Enum.KeyCode.Escape then
+				Runtime.CapturingBind = false
+				refreshFullbrightSettingsUi(false)
+				return
+			end
+
+			if input.KeyCode == Enum.KeyCode.Backspace or input.KeyCode == Enum.KeyCode.Delete then
+				Runtime.CapturingBind = false
+				setFullbrightBind("")
+				return
+			end
+
+			if input.KeyCode ~= Enum.KeyCode.Unknown and input.KeyCode ~= Enum.KeyCode.Semicolon then
+				Runtime.CapturingBind = false
+				setFullbrightBind(input.KeyCode.Name)
+				return
+			end
+		end
+
+		if processed or UserInputService:GetFocusedTextBox() then
+			return
+		end
+
+		local bindKey = keyFromName(getFullbrightSettings().BindKey)
+		if bindKey and input.KeyCode == bindKey then
+			toggleFullbright()
+		end
+	end)
+end
+
+local function setupFullbrightMaintainer()
+	connect(RunService.RenderStepped, function()
+		if not getFullbrightSettings().Enabled then
+			return
+		end
+
+		applyFullbrightLighting()
+	end)
+end
+
+local function setupSettingsBuilder()
+	setupCommandEditors()
+	setupSettingsBackButton()
+	setupFullbrightToggles()
+	setupFullbrightBindButton()
+	setupFullbrightSlider()
+	setupFullbrightInput()
+	setupFullbrightOverrideDropdown()
+	setupFullbrightMaintainer()
+	setupFullbrightGlobalKeys()
+	refreshFullbrightSettingsUi(true)
+end
+
+local function resetSettingsPageInstant()
+	local refs = Runtime.Refs
+	Runtime.SettingsOpen = false
+	Runtime.CapturingBind = false
+	Runtime.DraggingSlider = false
+	Runtime.FullbrightDropdownOpen = false
+
+	if refs.SettingsScroll then
+		refs.SettingsScroll.CanvasPosition = Vector2.new(0, 0)
+	end
+
+	if refs.SettingsBuilder then
+		refs.SettingsBuilder.Visible = false
+		refs.SettingsBuilder.Position = UDim2.fromScale(0, 1)
+	end
+end
+
+local function tweenMain(opened)
+	local refs = Runtime.Refs
+	if not refs.Main then
+		return
+	end
+
+	if not opened then
+		resetSettingsPageInstant()
+	end
+
+	local goal = opened and UDim2.new(0.912, 0, 0.889, 0) or UDim2.new(0.912, 0, 1.090, 0)
+	local duration = opened and 0.16 or 0.28
+	local style = opened and Enum.EasingStyle.Quint or Enum.EasingStyle.Quad
+
+	refs.Main.Visible = true
+	playTween(refs.Main, TweenInfo.new(duration, style, Enum.EasingDirection.Out), {
+		Position = goal,
+	})
+end
+
+local function requestCloseMain(delayTime)
+	Runtime.CloseStamp += 1
+	local stamp = Runtime.CloseStamp
+
+	task.delay(delayTime or 0.5, function()
+		if not Runtime.Alive or stamp ~= Runtime.CloseStamp then
+			return
+		end
+
+		if Runtime.HoveringMain or Runtime.InputFocused then
+			return
+		end
+
+		tweenMain(false)
+	end)
+end
+
+local function stripBlockedInputChars(text)
+	return (text or ""):gsub("[;；]", "")
+end
+
+local function openCommandInput()
+	local refs = Runtime.Refs
+	tweenMain(true)
+
+	if refs.CommandInput then
+		refs.CommandInput.Text = stripBlockedInputChars(refs.CommandInput.Text)
+		refs.CommandInput:CaptureFocus()
+		task.defer(function()
+			if Runtime.Alive and refs.CommandInput then
+				refs.CommandInput.Text = stripBlockedInputChars(refs.CommandInput.Text)
+			end
+		end)
+	end
+end
+
+local function getMouseScreenPosition()
+	local mouse = UserInputService:GetMouseLocation()
+	local inset = Vector2.new(0, 0)
+
+	pcall(function()
+		local topLeftInset = GuiService:GetGuiInset()
+		inset = topLeftInset
+	end)
+
+	return Vector2.new(mouse.X - inset.X, mouse.Y - inset.Y)
+end
+
+local function isMouseInsideGui(guiObject)
+	if not guiObject then
+		return false
+	end
+
+	local mouse = getMouseScreenPosition()
+	local pos = guiObject.AbsolutePosition
+	local size = guiObject.AbsoluteSize
+
+	return mouse.X >= pos.X
+		and mouse.X <= pos.X + size.X
+		and mouse.Y >= pos.Y
+		and mouse.Y <= pos.Y + size.Y
+end
+
+local function updateHintContent(data)
+	local refs = Runtime.Refs
+	if not data then
+		return
+	end
+
+	local undoText = data.Undo or ""
+	local hasUndo = undoText ~= ""
+
+	if refs.HintTitle then
+		refs.HintTitle.Text = data.Display or ""
+	end
+
+	if refs.HintDescription then
+		refs.HintDescription.Text = data.Description or ""
+		refs.HintDescription.Size = hasUndo and UDim2.fromScale(0.91, 0.405) or UDim2.fromScale(0.91, 0.63)
+	end
+
+	if refs.HintBottom then
+		refs.HintBottom.Visible = hasUndo
+	end
+
+	if refs.HintTitle2 then
+		refs.HintTitle2.Text = undoText
+		refs.HintTitle2.Visible = hasUndo
+	end
+end
+
+local function getMouseHintPosition()
+	local mouse = getMouseScreenPosition()
+	local offset = HintFollow.Offset
+
+	return UDim2.fromOffset(mouse.X + offset.X, mouse.Y + offset.Y)
+end
+
+local function updateHintPosition()
+	local refs = Runtime.Refs
+	if refs.HintFrame and refs.HintFrame.Visible then
+		refs.HintFrame.Position = getMouseHintPosition()
+	end
+end
+
+local function showHint(data)
+	local refs = Runtime.Refs
+	if not refs.HintFrame then
+		return
+	end
+
+	Runtime.HintVisible = true
+	Runtime.HintTarget = data
+
+	updateHintContent(data)
+
+	refs.HintFrame.AnchorPoint = HintFollow.AnchorPoint
+	refs.HintFrame.Visible = true
+	refs.HintFrame.BackgroundTransparency = 1
+	updateHintPosition()
+
+	fadeFrame(refs.HintFrame, 0.1, 0)
+end
+
+local function hideHint()
+	local refs = Runtime.Refs
+	Runtime.HintVisible = false
+	Runtime.HintTarget = nil
+
+	if refs.HintFrame then
+		refs.HintFrame.Visible = false
+	end
+end
+
+local function beginHintDelay(row)
+	Runtime.HintHoverStamp += 1
+	local stamp = Runtime.HintHoverStamp
+	Runtime.HintHoverRow = row
+
+	task.delay(HINT_HOVER_DELAY, function()
+		if not Runtime.Alive or Runtime.HintHoverStamp ~= stamp then
+			return
+		end
+
+		if Runtime.HintHoverRow ~= row or not row.Frame or not isMouseInsideGui(row.Frame) then
+			return
+		end
+
+		if row.EditButton and isMouseInsideGui(row.EditButton) then
+			return
+		end
+
+		showHint(row.Data)
+	end)
+end
+
+local function cancelHintDelay()
+	Runtime.HintHoverStamp += 1
+	Runtime.HintHoverRow = nil
+end
+
+local function setupHint()
+	for _, row in ipairs(Runtime.CommandRows) do
+		if row.Frame then
+			connect(row.Frame.MouseEnter, function()
+				beginHintDelay(row)
+			end)
+
+			connect(row.Frame.MouseMoved, function()
+				if row.EditButton and isMouseInsideGui(row.EditButton) then
+					cancelHintDelay()
+					hideHint()
+					return
+				end
+
+				if Runtime.HintVisible and Runtime.HintTarget == row.Data then
+					updateHintPosition()
+				end
+			end)
+
+			connect(row.Frame.MouseLeave, function()
+				cancelHintDelay()
+				hideHint()
+			end)
+
+			if row.EditButton then
+				connect(row.EditButton.MouseEnter, function()
+					cancelHintDelay()
+					hideHint()
+				end)
+
+				connect(row.EditButton.MouseLeave, function()
+					if row.Frame and isMouseInsideGui(row.Frame) then
+						beginHintDelay(row)
+					end
+				end)
+			end
+		end
+	end
+
+	connect(RunService.RenderStepped, function()
+		if Runtime.HintVisible then
+			updateHintPosition()
+		end
+	end)
+end
+
+local function setupMainHover()
+	local refs = Runtime.Refs
+	if not refs.Main then
+		return
+	end
+
+	connect(refs.Main.MouseEnter, function()
+		Runtime.HoveringMain = true
+		tweenMain(true)
+	end)
+
+	connect(refs.Main.MouseLeave, function()
+		Runtime.HoveringMain = false
+		requestCloseMain(0.5)
+	end)
+end
+
+local function setupCommandInput()
+	local refs = Runtime.Refs
+	if not refs.CommandInput then
+		return
+	end
+
+	connect(refs.CommandInput.Focused, function()
+		Runtime.InputFocused = true
+		tweenMain(true)
+	end)
+
+	connect(refs.CommandInput.FocusLost, function(enterPressed)
+		Runtime.InputFocused = false
+
+		if enterPressed then
+			refs.CommandInput.Text = stripBlockedInputChars(refs.CommandInput.Text)
+			runCommand(refs.CommandInput.Text)
+			refs.CommandInput.Text = ""
+			filterCommands("")
+		end
+
+		requestCloseMain(0.5)
+	end)
+
+	connect(refs.CommandInput:GetPropertyChangedSignal("Text"), function()
+		if Runtime.SanitizingInput then
+			return
+		end
+
+		local current = refs.CommandInput.Text
+		local cleaned = stripBlockedInputChars(current)
+
+		if cleaned ~= current then
+			Runtime.SanitizingInput = true
+			refs.CommandInput.Text = cleaned
+			pcall(function()
+				refs.CommandInput.CursorPosition = math.min(refs.CommandInput.CursorPosition, #cleaned + 1)
+			end)
+			Runtime.SanitizingInput = false
+		end
+
+		filterCommands(cleaned)
+	end)
+
+	connect(UserInputService.InputBegan, function(input, processed)
+		if input.KeyCode == Enum.KeyCode.Semicolon then
+			if UserInputService:GetFocusedTextBox() == refs.CommandInput then
+				task.defer(function()
+					if Runtime.Alive and refs.CommandInput then
+						refs.CommandInput.Text = stripBlockedInputChars(refs.CommandInput.Text)
+					end
+				end)
+				return
+			end
+
+			if not processed then
+				openCommandInput()
+			end
+			return
+		end
+
+		if processed or UserInputService:GetFocusedTextBox() then
+			return
+		end
+	end)
+end
+
+local function startLoadingSpinner()
+	local refs = Runtime.Refs
+	if not refs.LoadingCircle then
+		return
+	end
+
+	connect(RunService.RenderStepped, function(deltaTime)
+		if refs.LoadingCircle and refs.LoadingCircle.Visible then
+			refs.LoadingCircle.Rotation = (refs.LoadingCircle.Rotation + deltaTime * 420) % 360
+		end
+	end)
+end
+
+local function prepOnBoardingHidden()
+	local refs = Runtime.Refs
+
+	if refs.BackgroundDim then
+		refs.BackgroundDim.Visible = false
+	end
+
+	if refs.OnBoarding then
+		refs.OnBoarding.Visible = false
+	end
+
+	if refs.BoardGradient then
+		refs.BoardGradient.Rotation = -90
+	end
+
+	setTextVisible(refs.BoardTitle, false)
+	setTextVisible(refs.BoardVersion, false)
+	setTextVisible(refs.Creator, false)
+	setTextVisible(refs.LoadingStatus, false)
+	setImageVisible(refs.LoadingCircle, false)
+	setImageVisible(refs.Avatar, false)
+
+	if refs.BoardDivider then
+		refs.BoardDivider.Visible = true
+		refs.BoardDivider.BackgroundTransparency = 1
+	end
+
+	if refs.BoardLoading then
+		refs.BoardLoading.Visible = false
+	end
+
+	if refs.LoadingBar then
+		refs.LoadingBar.Size = UDim2.fromScale(0, 1)
+	end
+end
+
+local function revealIntroItems()
+	local refs = Runtime.Refs
+	task.wait(0.08)
+
+	fadeText(refs.BoardTitle, 0.12, 0)
+	task.wait(0.06)
+
+	fadeFrame(refs.BoardDivider, 0.1, 0)
+	task.wait(0.05)
+
+	fadeText(refs.BoardVersion, 0.11, 0)
+	fadeText(refs.Creator, 0.11, 0)
+	task.wait(0.06)
+
+	fadeImage(refs.Avatar, 0.14, 0)
+end
+
+local function runLoadingSteps()
+	local refs = Runtime.Refs
+	local steps = {
+		"Initializing CFrame Zero and preparing the lightweight client runtime",
+		"Loading command models and validating the required player services",
+		"Fetching command APIs and connecting safe runtime references",
+		"Preparing animation handlers, hover states, and command input focus",
+		"Checking command modules and removing unused settings panels",
+		"Loading visual assets, gradients, strokes, and scaled UI constraints",
+		"Building the commands-only interface with compact command rows",
+		"Connecting input, search filtering, hints, and execution handlers",
+		"Finalizing cleanup hooks and restoring cached lighting safeguards",
+		"Launching CFrame Zero with the scaled command UI ready to use",
+	}
+
+	if refs.BoardLoading then
+		refs.BoardLoading.Visible = true
+	end
+
+	fadeText(refs.LoadingStatus, 0.1, 0)
+	fadeImage(refs.LoadingCircle, 0.1, 0)
+	startLoadingSpinner()
+
+	for index, text in ipairs(steps) do
+		if not Runtime.Alive then
+			return
+		end
+
+		if refs.LoadingStatus then
+			refs.LoadingStatus.Text = text
+		end
+
+		if refs.LoadingBar then
+			playTween(refs.LoadingBar, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Size = UDim2.fromScale(index / #steps, 1),
+			})
+		end
+
+		task.wait(Random.new():NextNumber(0.5, 0.85))
+	end
+
+	if refs.LoadingStatus then
+		refs.LoadingStatus.Text = "Script successfully loaded!"
+	end
+
+	task.wait(0.55)
+end
+
+local function closeOnBoarding()
+	local refs = Runtime.Refs
+	if not refs.OnBoarding then
+		return
+	end
+
+	local original = UDim2.new(0.4999, 0, 0.5, 0)
+	local down = UDim2.new(0.4999, 0, 0.565, 0)
+
+	waitTween(playTween(refs.OnBoarding, TweenInfo.new(0.18, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+		Position = down,
+		Size = UDim2.fromScale(0.238, 0.211),
+	}))
+
+	refs.OnBoarding.Visible = false
+	refs.OnBoarding.Position = original
+	refs.OnBoarding.Size = UDim2.fromScale(0.259, 0.2292)
+
+	if refs.BackgroundDim then
+		refs.BackgroundDim.Visible = false
+	end
+
+	disableOnBoardingBlur()
+end
+
+local function playOnBoarding()
+	local refs = Runtime.Refs
+	if not refs.OnBoarding then
+		return
+	end
+
+	local original = UDim2.new(0.4999, 0, 0.5, 0)
+	local start = UDim2.new(0.4999, 0, 0.56, 0)
+
+	prepOnBoardingHidden()
+	enableOnBoardingBlur()
+
+	if refs.BackgroundDim then
+		refs.BackgroundDim.Visible = true
+	end
+
+	refs.OnBoarding.Position = start
+	refs.OnBoarding.Size = UDim2.fromScale(0.238, 0.211)
+	refs.OnBoarding.Visible = true
+
+	playTween(refs.OnBoarding, TweenInfo.new(0.22, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+		Position = original,
+		Size = UDim2.fromScale(0.259, 0.2292),
+	})
+
+	if refs.BoardGradient then
+		playTween(refs.BoardGradient, TweenInfo.new(0.34, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+			Rotation = 15,
+		})
+	end
+
+	revealIntroItems()
+	task.wait(0.15)
+
+	runLoadingSteps()
+	closeOnBoarding()
+end
+
+local function showMainAfterOnBoarding()
+	local refs = Runtime.Refs
+	if not refs.Main then
+		return
+	end
+
+	refs.Main.Visible = true
+	refs.Main.Position = UDim2.new(0.912, 0, 0.892, 0)
+
+	task.delay(1, function()
+		if Runtime.Alive and not Runtime.HoveringMain and not Runtime.InputFocused then
+			tweenMain(false)
+		end
+	end)
+end
+
+local function startRuntime()
+	cacheRefs()
+	fixCriticalLayout()
+	registerCommands()
+	setupHint()
+	setupMainHover()
+	setupCommandInput()
+	setupSettingsBuilder()
+	applyFullbrightState()
+
+	addThread(task.spawn(function()
+		playOnBoarding()
+		showMainAfterOnBoarding()
+	end))
+end
+
+startRuntime()
